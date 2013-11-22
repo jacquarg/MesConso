@@ -1,0 +1,15 @@
+.col-md-12
+    h2= receipt.timestamp
+    | &nbsp;
+    = receipt.ticketId
+    .thumbnail.row
+        - for(var i1 in receipt.sections) {
+        -   var section = receipt.sections[i1];
+        .col-md-10.col-md-offset-1
+            h3= section.sectionLabel
+            .row
+                - for (var i2 in section.receiptDetails) {
+                -   var receiptDetail = section.receiptDetails[i2];
+                include receiptdetail
+                - }
+        - }
