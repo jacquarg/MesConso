@@ -2,8 +2,7 @@ var IntermarcheView = require('./intermarche');
 var IntermarcheWSubsView = require('./intermarchewsubs');
 var ReceiptDetailCollection = require('collections/receiptdetails');
 var ReceiptCollection = require('collections/receipts');
-
-
+var PersonView = require('./person');
 
 module.exports = AppView = Backbone.View.extend({
 
@@ -48,6 +47,11 @@ module.exports = AppView = Backbone.View.extend({
 
         // fetch the bookmarks from the database
        // this.collection.fetch();
+
+        var personView = new PersonView();
+        personView.render();
+
+        this.$el.find('#fix').append(personView.$el);
     },
 
 });

@@ -29,5 +29,10 @@ module.exports = {
         byTimestamp : byTimestamp
     },
 
+    person: {
+        all: americano.defaultRequests.all
+        
+    }
+
 
 };

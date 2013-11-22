@@ -4,6 +4,7 @@
 
 ReceiptDetails = require('./receiptdetails');
 Receipts = require('./receipts');
+Persons = require('./persons');
 
 module.exports = {
   'receiptdetails': {
@@ -20,7 +21,11 @@ module.exports = {
 
   'receipts/:receiptid/sections': {
     get: ReceiptDetails.sections    
-  }
+  },
+
+  'persons': {
+    get: Persons.one
+  },
 
 };
 

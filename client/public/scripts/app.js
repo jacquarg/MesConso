@@ -101,6 +101,17 @@ module.exports = {
 };
 });
 
+;require.register("collections/persons", function(exports, require, module) {
+Person = require('../models/person');
+module.exports = Persons = Backbone.Collection.extend({
+
+    url: 'persons',
+    model: Person
+
+});
+
+});
+
 ;require.register("collections/receiptdetails", function(exports, require, module) {
 ReceiptDetail = require('../models/receiptdetail');
 module.exports = ReceiptDetails = Backbone.Collection.extend({
@@ -145,6 +156,13 @@ $(document).ready(function() {
 
 });
 
+;require.register("models/person", function(exports, require, module) {
+module.exports = Person = Backbone.Model.extend({
+
+});
+
+});
+
 ;require.register("models/receipt", function(exports, require, module) {
 module.exports = Receipt = Backbone.Model.extend({
 
@@ -162,7 +180,7 @@ module.exports = ReceiptDetail = Backbone.Model.extend({
 ;require.register("models/section", function(exports, require, module) {
 module.exports = Section = Backbone.Model.extend({
 
-})
+});
 
 
 });
@@ -195,7 +213,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="container"><h1 id="test1">Test1</h1><h1 id="test2">Mes caddies !</h1><div id="content"></div></div>');
+buf.push('<div class="container"><div id="fix"></div><h1 id="test1">Test1</h1><h1 id="test2">Mes caddies !</h1><div id="content"></div></div>');
 }
 return buf.join("");
 };
@@ -223,6 +241,48 @@ buf.push('<div id="list" class="row"><p>');
 var __val__ = receipts
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/person", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<h2>MesDonnées «fixes»</h2><div class="row"><div class="col-md-4"><p>');
+var __val__ = person.lastname
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;');
+var __val__ = person.firstname
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.birthdate
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.adress1
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></div><div class="col-md-4"><p>');
+var __val__ = person.phoneNumber
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.email
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.hasChildren
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></div><div class="col-md-4"><p>');
+var __val__ = person.csp
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.maritalStatus
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.drivingLicence
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></div></div>');
 }
 return buf.join("");
 };
@@ -359,8 +419,7 @@ var IntermarcheView = require('./intermarche');
 var IntermarcheWSubsView = require('./intermarchewsubs');
 var ReceiptDetailCollection = require('collections/receiptdetails');
 var ReceiptCollection = require('collections/receipts');
-
-
+var PersonView = require('./person');
 
 module.exports = AppView = Backbone.View.extend({
 
@@ -405,6 +464,11 @@ module.exports = AppView = Backbone.View.extend({
 
         // fetch the bookmarks from the database
        // this.collection.fetch();
+
+        var personView = new PersonView();
+        personView.render();
+
+        this.$el.find('#fix').append(personView.$el);
     },
 
 });
@@ -491,6 +555,47 @@ module.exports = AppView = Backbone.View.extend({
         this.$el.find('#list').append(receiptView.$el);
     }
 
+
+});
+
+});
+
+;require.register("views/person", function(exports, require, module) {
+var PersonCollection = require('../collections/persons');
+
+module.exports = Person = Backbone.View.extend({
+
+    tagName: 'div',
+    template: require('../templates/person'),
+
+    // initialize is automatically called once after the view is constructed
+    initialize: function() {
+        this.collection = new PersonCollection();
+        console.log("Initialize persfs.createReadStreaon")
+        this.listenTo(this.collection, "add", this.onPersonAdded);
+    },
+
+    render: function() {
+
+ //       // we render the template
+ //       this.$el.html(this.template());
+
+        // fetch the bookmarks from the database
+        this.collection.fetch();
+    },
+
+
+    onPersonAdded: function(person) {
+        if (this.oneTime) {
+            return;
+        }
+        this.oneTime = true;
+
+        this.$el.html(this.template({
+            person: person.toJSON()
+        }));
+
+    }
 
 });
 
