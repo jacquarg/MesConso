@@ -234,7 +234,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-12"><h2>');
+buf.push('<div class="col-md-12"><h2 class="receipt">');
 var __val__ = receipt.timestamp
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</h2>');
@@ -504,11 +504,13 @@ module.exports = Receipt = Backbone.View.extend({
 
     tagName: 'div',
     template: require('../templates/receipt'),
-    
+    events: {
+        "click .receipt": "toggleSections"    
+    },
+
     initialize: function() {
         this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
         
-        this.listenTo(this.collection, "add", this.onSectionAdded);
     },
 
     render: function() {
@@ -517,9 +519,27 @@ module.exports = Receipt = Backbone.View.extend({
         }));
 
 
-        // fetch the bookmarks from the database
-        this.collection.fetch();
+    
     },
+
+    toggleSections: function(event) {
+        if (!this.open) {
+            this.open = true;
+            // submit button reload the page, we don't want that
+            event.preventDefault();
+        
+            this.listenTo(this.collection, "add", this.onSectionAdded);
+            // fetch the bookmarks from the database
+            this.collection.fetch();
+
+        } else {
+            this.stopListening(this.collection);
+            this.$el.find('.sections').empty();
+
+            this.open = false;
+        }
+    },
+
     onSectionAdded: function(section) {
         console.log("added section");
         // render the specific element
@@ -529,7 +549,7 @@ module.exports = Receipt = Backbone.View.extend({
         sectionView.render();
         this.$el.find('.sections').append(sectionView.$el);
     }
-
+    
 
 
     /*render: function() {
