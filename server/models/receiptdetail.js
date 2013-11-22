@@ -13,7 +13,7 @@ module.exports = ReceiptDetail = americano.getModel('receiptdetail', {
  'price': Number,
  'type': String,
  'typeLabel': String,
- 'ticketId': String,
+ 'receiptId': String,
  'intermarcheShopId': String,
  'timestamp': Date,
  'isOnlineBuy': Boolean
@@ -23,6 +23,19 @@ ReceiptDetail.all = function(callback) {
     ReceiptDetail.request(
         "all", 
         {},
+        function(err, instances) {
+            callback(null, instances);
+        }
+    );
+};
+
+ReceiptDetail.withReceiptId = function(receiptId, callback) {
+    ReceiptDetail.request(
+        "byReceiptId", 
+        {
+            key: receiptId
+
+            },
         function(err, instances) {
             callback(null, instances);
         }

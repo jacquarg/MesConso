@@ -1,0 +1,7 @@
+.col-md-10.col-md-offset-1
+    h3= section.sectionLabel
+    .row
+        - for (var i2 in section.receiptDetails) {
+        -   var receiptDetail = section.receiptDetails[i2];
+        include receiptdetail
+        - }

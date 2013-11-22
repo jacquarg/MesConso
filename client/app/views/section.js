@@ -1,11 +1,17 @@
-var ReceiptDetailView = require('./receiptdetail');
+//var ReceiptDetailView = require('./receiptdetail');
 
 module.exports = Section = Backbone.View.extend({
 
     tagName: 'div',
     template: require('../templates/section'),
-    
+
     render: function() {
+        this.$el.html(this.template({
+            section: this.model.toJSON()
+        }));
+    },
+
+    /*render: function() {
 
         // we render the template
         this.$el.html(this.template(
@@ -26,7 +32,7 @@ module.exports = Section = Backbone.View.extend({
             receiptDetailView.render();
             this.$el.find('#list').append(receiptDetailView.$el);
         }
-     }
+     }*/
 
 });
 

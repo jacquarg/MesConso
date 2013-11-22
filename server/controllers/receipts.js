@@ -1,4 +1,17 @@
 ReceiptDetail = require('../models/receiptdetail')
+Receipt = require('../models/receipt')
+
+module.exports.newest = function(req, res) {
+    Receipt.newest(function(err, instances) {
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        }
+        else {
+            res.send(200, instances);
+        }
+    });
+};
+
 
 
 module.exports.list = function(req, res) {

@@ -15,7 +15,12 @@ module.exports = {
   },
 
   'receipts': {
-      get: Receipts.list
+      get: Receipts.newest
+  },
+
+  'receipts/:receiptid/sections': {
+    get: ReceiptDetails.sections    
   }
+
 };
 

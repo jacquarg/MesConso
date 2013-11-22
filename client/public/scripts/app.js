@@ -119,6 +119,23 @@ module.exports = ReceiptDetails = Backbone.Collection.extend({
 
 });
 
+;require.register("collections/sections", function(exports, require, module) {
+Receipt = require('../models/section');
+module.exports = Sections = Backbone.Collection.extend({
+
+    initialize: function(models, options) {
+        this.receiptId = options.receiptId;
+    },
+    
+    url: function() {
+        return '/receipts/' + this.receiptId + '/sections';
+    },
+    model: Section,
+
+});
+
+});
+
 ;require.register("initialize", function(exports, require, module) {
 // The function called from index.html
 $(document).ready(function() {
@@ -139,6 +156,14 @@ module.exports = Receipt = Backbone.Model.extend({
 module.exports = ReceiptDetail = Backbone.Model.extend({
 
 });
+
+});
+
+;require.register("models/section", function(exports, require, module) {
+module.exports = Section = Backbone.Model.extend({
+
+})
+
 
 });
 
@@ -212,46 +237,30 @@ var interp;
 buf.push('<div class="col-md-12"><h2>');
 var __val__ = receipt.timestamp
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h2>&nbsp;');
-var __val__ = receipt.ticketId
+buf.push('</h2>');
+ var dt = new Date(receipt.timestamp)
+var __val__ = dt.getDate()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('<div class="thumbnail row">');
- for(var i1 in receipt.sections) {
-   var section = receipt.sections[i1];
-buf.push('<div class="col-md-10 col-md-offset-1"><h3>');
-var __val__ = section.sectionLabel
+buf.push('/');
+var __val__ = dt.getMonth()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h3><div class="row">');
- for (var i2 in section.receiptDetails) {
-   var receiptDetail = section.receiptDetails[i2];
-buf.push('<div class="col-md-6"><div class="thumbnail row"><div class="col-md-2 text-center"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'receiptDetail.barcode':(true), "class": ('img-responsive') }, {"src":true,"receiptDetail.barcode":true}));
-buf.push('/><h4>');
-var __val__ = receiptDetail.price
+buf.push('h');
+var __val__ = dt.getHours()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4>&nbsp;€</div><div class="col-md-10"><h4>');
-var __val__ = receiptDetail.label
+buf.push(':');
+var __val__ = dt.getMinutes()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4><p>');
-var __val__ = receiptDetail.sectionLabel 
+buf.push('&nbsp;');
+var __val__ = receipt.articlesCount
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&gt;');
-var __val__ = receiptDetail.familyLabel
+var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&gt;<small>');
-var __val__ = receiptDetail.barcode
+buf.push('€<a');
+buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + "") }, {"href":true}));
+buf.push('>magasin</a> infos supplémentaires');
+var __val__ = receipt.receiptId
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</small></p><p>');
-var __val__ = receiptDetail.amount 
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('X , Le');
-var __val__ = receiptDetail.timestamp
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div></div></div>');
- }
-buf.push('</div></div>');
- }
-buf.push('</div></div>');
+buf.push('<div class="thumbnail row sections"></div></div>');
 }
 return buf.join("");
 };
@@ -268,8 +277,13 @@ buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/
 buf.push('/><h4>');
 var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4>&nbsp;€</div><div class="col-md-10"><h4>');
-var __val__ = receiptDetail.label
+buf.push('</h4>&nbsp;€</div><div class="col-md-10">');
+ var label = receiptDetail.label.toLowerCase();
+ var parts = label.split(' ');
+ var vol = parts.pop();
+ parts.join(' ');
+buf.push('<h4>');
+var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</h4><p>');
 var __val__ = receiptDetail.sectionLabel 
@@ -283,10 +297,58 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</small></p><p>');
 var __val__ = receiptDetail.amount 
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('X , Le');
-var __val__ = receiptDetail.timestamp
+buf.push('X</p><p>');
+var __val__ = vol
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div></div></div>');
+buf.push('</p><p> \nlibellé nice case\npods / volume\nprix\nimage</p></div></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/section", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="col-md-10 col-md-offset-1"><h3>');
+var __val__ = section.sectionLabel
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h3><div class="row">');
+ for (var i2 in section.receiptDetails) {
+   var receiptDetail = section.receiptDetails[i2];
+buf.push('<div class="col-md-6"><div class="thumbnail row"><div class="col-md-2 text-center"><img');
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'receiptDetail.barcode':(true), "class": ('img-responsive') }, {"src":true,"receiptDetail.barcode":true}));
+buf.push('/><h4>');
+var __val__ = receiptDetail.price
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h4>&nbsp;€</div><div class="col-md-10">');
+ var label = receiptDetail.label.toLowerCase();
+ var parts = label.split(' ');
+ var vol = parts.pop();
+ parts.join(' ');
+buf.push('<h4>');
+var __val__ = label
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h4><p>');
+var __val__ = receiptDetail.sectionLabel 
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&gt;');
+var __val__ = receiptDetail.familyLabel
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&gt;<small>');
+var __val__ = receiptDetail.barcode
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</small></p><p>');
+var __val__ = receiptDetail.amount 
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('X</p><p>');
+var __val__ = vol
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p> \nlibellé nice case\npods / volume\nprix\nimage</p></div></div></div>');
+ }
+buf.push('</div></div>');
 }
 return buf.join("");
 };
@@ -435,18 +497,40 @@ module.exports = AppView = Backbone.View.extend({
 });
 
 ;require.register("views/receipt", function(exports, require, module) {
-//var SectionView = require('./section');
+var SectionView = require('./section');
+var SectionCollection = require('../collections/sections');
 
 module.exports = Receipt = Backbone.View.extend({
 
     tagName: 'div',
     template: require('../templates/receipt'),
     
+    initialize: function() {
+        this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
+        
+        this.listenTo(this.collection, "add", this.onSectionAdded);
+    },
+
     render: function() {
         this.$el.html(this.template({
             receipt: this.model.toJSON()
         }));
+
+
+        // fetch the bookmarks from the database
+        this.collection.fetch();
+    },
+    onSectionAdded: function(section) {
+        console.log("added section");
+        // render the specific element
+        sectionView = new SectionView({
+            model: section
+        });
+        sectionView.render();
+        this.$el.find('.sections').append(sectionView.$el);
     }
+
+
 
     /*render: function() {
 
@@ -500,14 +584,20 @@ module.exports = ReceiptDetail = Backbone.View.extend({
 });
 
 ;require.register("views/section", function(exports, require, module) {
-var ReceiptDetailView = require('./receiptdetail');
+//var ReceiptDetailView = require('./receiptdetail');
 
 module.exports = Section = Backbone.View.extend({
 
     tagName: 'div',
     template: require('../templates/section'),
-    
+
     render: function() {
+        this.$el.html(this.template({
+            section: this.model.toJSON()
+        }));
+    },
+
+    /*render: function() {
 
         // we render the template
         this.$el.html(this.template(
@@ -528,7 +618,7 @@ module.exports = Section = Backbone.View.extend({
             receiptDetailView.render();
             this.$el.find('#list').append(receiptDetailView.$el);
         }
-     }
+     }*/
 
 });
 

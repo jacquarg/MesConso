@@ -8,7 +8,11 @@
 
 
     .col-md-10
-        h4= receiptDetail.label
+        - var label = receiptDetail.label.toLowerCase();
+        - var parts = label.split(' ');
+        - var vol = parts.pop();
+        - parts.join(' ');
+        h4= label
         p= receiptDetail.sectionLabel 
             | &gt;
             = receiptDetail.familyLabel
@@ -16,6 +20,10 @@
             small= receiptDetail.barcode
         
         p= receiptDetail.amount 
-            | X , Le
-            = receiptDetail.timestamp
-
+            | X
+        p= vol
+        p 
+          | libellé nice case
+          | pods / volume
+          | prix
+          | image
