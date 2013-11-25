@@ -1,6 +1,8 @@
-.col-md-10.col-md-offset-1
-    h3= section.sectionLabel
-    .row
+.sectionhead
+    img.sectionlogo(src="/img/Sections/#{section.section}.png")
+
+.sectioninner
+    .row.section
         - for (var i2 in section.receiptDetails) {
         -   var receiptDetail = section.receiptDetails[i2];
         include receiptdetail

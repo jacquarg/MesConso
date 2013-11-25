@@ -54,6 +54,7 @@ module.exports.sections = function(req, res) {
                 } else {
                     section = {
                         sectionLabel: sectionLabel,
+                        section: rdet.section,
                         receiptDetails: []
                     }
                     sections[sectionLabel] = section;

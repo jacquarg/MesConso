@@ -6164,3 +6164,46 @@ td.visible-print {
   vertical-align: center;
   padding: 10px;
 }
+.miframe .sectionhead {
+  text-align: center;
+  margin-bottom: -50px;
+}
+.miframe .sectioninner {
+  padding-top: 50px;
+  background: #ECECEC;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#ececec, #b2b2b2);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#ececec, #b2b2b2);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#ececec, #b2b2b2);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#ececec, #b2b2b2);
+  /* W3C */
+
+}
+.miframe .row.section {
+  margin: 18px;
+}
+.miframe .receiptdetail {
+  margin-bottom: 21px;
+}
+.miframe .receiptdetail .image {
+  width: 75px;
+  height: auto;
+}
+.miframe .receiptdetail .lab {
+  font-size: 14px;
+  font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.miframe .receiptdetail .vol {
+  font-size: 14px;
+}
+.miframe .receiptdetail .price {
+  font-size: 24px;
+  font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

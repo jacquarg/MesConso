@@ -1,29 +1,16 @@
-.col-md-6
-  .thumbnail.row
-    .col-md-2.text-center
-        img.img-responsive(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg'
-        receiptDetail.barcode)
-        h4= receiptDetail.price
-        |&nbsp;€
-
-
-    .col-md-10
-        - var label = receiptDetail.label.toLowerCase();
-        - var parts = label.split(' ');
-        - var vol = parts.pop();
-        - parts.join(' ');
-        h4= label
-        p= receiptDetail.sectionLabel 
-            | &gt;
-            = receiptDetail.familyLabel
-            | &gt;
-            small= receiptDetail.barcode
-        
-        p= receiptDetail.amount 
-            | X
-        p= vol
-        p 
-          | libellé nice case
-          | pods / volume
-          | prix
-          | image
+.col-md-4
+    .row.receiptdetail
+        .col-xs-4
+            img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg')
+            
+        .col-xs-8
+            - var label = receiptDetail.label.toLowerCase();
+            - var parts = label.split(' ');
+            - var vol = parts.pop();
+            - parts.join(' ');
+            p.lab= label
+            - //p.vol= vol
+            - //p= receiptDetail.amount 
+            - //   | X
+            p.price= receiptDetail.price
+                |&nbsp;€ 

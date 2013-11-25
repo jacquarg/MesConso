@@ -309,10 +309,10 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-md-5 box">');
 var __val__ = receipt.articlesCount
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('articles</div><div class="col-md-5 box price">');
+buf.push('&nbsp; articles</div><div class="col-md-5 box price">');
 var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-md-2 box toggle"><img src="/img/plus.png" class="img-responsive"/></div></div></div></div><div class="row sections"></div>');
+buf.push('€</div><div class="col-md-2 box toggle"><img src="/img/plus.png" class="img-responsive"/></div></div></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -324,35 +324,24 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-6"><div class="thumbnail row"><div class="col-md-2 text-center"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'receiptDetail.barcode':(true), "class": ('img-responsive') }, {"src":true,"receiptDetail.barcode":true}));
-buf.push('/><h4>');
-var __val__ = receiptDetail.price
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4>&nbsp;€</div><div class="col-md-10">');
+buf.push('<div class="col-md-4"><div class="row receiptdetail"><div class="col-xs-4"><img');
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), "class": ('image') }, {"src":true}));
+buf.push('/></div><div class="col-xs-8">');
  var label = receiptDetail.label.toLowerCase();
  var parts = label.split(' ');
  var vol = parts.pop();
  parts.join(' ');
-buf.push('<h4>');
+buf.push('<p class="lab">');
 var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4><p>');
-var __val__ = receiptDetail.sectionLabel 
+buf.push('</p>');
+ //p.vol= vol
+ //p= receiptDetail.amount 
+ //   | X
+buf.push('<p class="price">');
+var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&gt;');
-var __val__ = receiptDetail.familyLabel
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&gt;<small>');
-var __val__ = receiptDetail.barcode
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</small></p><p>');
-var __val__ = receiptDetail.amount 
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('X</p><p>');
-var __val__ = vol
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p> \nlibellé nice case\npods / volume\nprix\nimage</p></div></div></div>');
+buf.push('&nbsp;€ </p></div></div></div>');
 }
 return buf.join("");
 };
@@ -364,41 +353,29 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-10 col-md-offset-1"><h3>');
-var __val__ = section.sectionLabel
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h3><div class="row">');
+buf.push('<div class="sectionhead"><img');
+buf.push(attrs({ 'src':("/img/Sections/" + (section.section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
-buf.push('<div class="col-md-6"><div class="thumbnail row"><div class="col-md-2 text-center"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'receiptDetail.barcode':(true), "class": ('img-responsive') }, {"src":true,"receiptDetail.barcode":true}));
-buf.push('/><h4>');
-var __val__ = receiptDetail.price
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4>&nbsp;€</div><div class="col-md-10">');
+buf.push('<div class="col-md-4"><div class="row receiptdetail"><div class="col-xs-4"><img');
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), "class": ('image') }, {"src":true}));
+buf.push('/></div><div class="col-xs-8">');
  var label = receiptDetail.label.toLowerCase();
  var parts = label.split(' ');
  var vol = parts.pop();
  parts.join(' ');
-buf.push('<h4>');
+buf.push('<p class="lab">');
 var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h4><p>');
-var __val__ = receiptDetail.sectionLabel 
+buf.push('</p>');
+ //p.vol= vol
+ //p= receiptDetail.amount 
+ //   | X
+buf.push('<p class="price">');
+var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&gt;');
-var __val__ = receiptDetail.familyLabel
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&gt;<small>');
-var __val__ = receiptDetail.barcode
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</small></p><p>');
-var __val__ = receiptDetail.amount 
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('X</p><p>');
-var __val__ = vol
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p> \nlibellé nice case\npods / volume\nprix\nimage</p></div></div></div>');
+buf.push('&nbsp;€ </p></div></div></div>');
  }
 buf.push('</div></div>');
 }
