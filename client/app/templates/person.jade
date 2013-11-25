@@ -1,18 +1,28 @@
-h2 MesDonnées «fixes»
-.row
-    .col-md-4
-        p= person.lastname
-            | &nbsp;
-            = person.firstname
-        p= person.birthdate
-        p= person.adress1
-    .col-md-4
-        p= person.phoneNumber
-        p= person.email
-        p= person.hasChildren
+.miframe
+    .miframeheader
+       h2 MesInfos
 
-    .col-md-4
-        p= person.csp
-        p= person.maritalStatus
-        p= person.drivingLicence
+    .miframeinner
+      .row.person
+        .col-md-5
+            .row
+                .col-md-3
+                    img.img-responsive(src='/img/Bonhomme.png')
+                .col-md-9
+                    p.nomprenom= person.lastname
+                        | &nbsp;
+                        = person.firstname
+                    p= person.birthdate
+                    p= person.adress1
+        .col-md-7
+            .row
+                .col-md-6
+                    p= person.phoneNumber
+                    p= person.email
+                    p= person.hasChildren
+
+                .col-md-6
+                    p= person.csp
+                    p= person.maritalStatus
+                    p= person.drivingLicence
 

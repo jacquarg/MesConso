@@ -252,7 +252,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<h2>MesDonnées «fixes»</h2><div class="row"><div class="col-md-4"><p>');
+buf.push('<div class="miframe"><div class="miframeheader"><h2>MesInfos</h2></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-md-3"><img src="/img/Bonhomme.png" class="img-responsive"/></div><div class="col-md-9"><p class="nomprenom">');
 var __val__ = person.lastname
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;');
@@ -264,7 +264,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
 var __val__ = person.adress1
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div><div class="col-md-4"><p>');
+buf.push('</p></div></div></div><div class="col-md-7"><div class="row"><div class="col-md-6"><p>');
 var __val__ = person.phoneNumber
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
@@ -273,7 +273,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
 var __val__ = person.hasChildren
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div><div class="col-md-4"><p>');
+buf.push('</p></div><div class="col-md-6"><p>');
 var __val__ = person.csp
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
@@ -282,7 +282,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
 var __val__ = person.drivingLicence
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div></div>');
+buf.push('</p></div></div></div></div></div></div>');
 }
 return buf.join("");
 };

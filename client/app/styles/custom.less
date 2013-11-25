@@ -1,0 +1,66 @@
+@import "bootstrap.less";
+
+.miframe {
+
+
+    h2, h3 {
+        text-align: center;
+        color: white;
+    }
+
+    .miframeheader {
+        background-color: #353A44;
+        line-height: 40px;
+        border-color: #353A44;
+        border-bottom-width: 4px;
+        border-bottom-color: #B2B2B2;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+        height: 40px;
+
+/*        border-width:3px; -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(black), to(rgba(0, 0, 0, 0))) 1 100%; -webkit-border-image: -webkit-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%; -o-border-image: -o-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%; -moz-border-image: -moz-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%; */
+    }
+    
+    .miframeinner {
+        padding: 14px;
+        background-color: #ECECEC;
+
+        border-width:1px; 
+        border-color: #B2B2B2;
+
+        -webkit-border-radius: 0 0 10px 10px;
+        -moz-border-radius: 0 0 10px 10px;
+        border-radius: 0 0 10px 10px;
+
+        .person {
+            p.nomprenom {
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-image: url("/img/NomPrenom.png");
+                background-size: contain;
+
+                height: 45px;
+                margin-left: -12px;
+                size: @font-size-h3;
+                font-family: @headings-font-family;
+                color: white;
+                text-align: center;
+
+            }
+            p {
+                background-color: white;
+                size: @font-size-smaller;
+                //height: 19px;
+                //margin-top: 5px;
+                //margin-left: 5px;
+                padding-left: 5px;
+                //padding: 3px;
+            }    
+        }
+    }
+
+
+
+    
+}
