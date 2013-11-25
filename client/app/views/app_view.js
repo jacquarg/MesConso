@@ -14,11 +14,10 @@ module.exports = AppView = Backbone.View.extend({
         console.log("Initialize")
     },
     events: {
-        "click #test1": "getList",
-        "click #test2": "getTruc"
+        "click #courses": "getCourses"
     },
     
-    getList: function() {
+ /*   getList: function() {
         var receiptDetails = new ReceiptDetailCollection();
         intermarcheView = new IntermarcheView({
             collection: receiptDetails
@@ -27,9 +26,9 @@ module.exports = AppView = Backbone.View.extend({
         intermarcheView.render()
         this.$el.find('#content').append(intermarcheView.$el);
         
-    },
+    }, */
 
-    getTruc: function() {
+    getCourses: function() {
         var receipts = new ReceiptCollection();
         intermarcheView = new IntermarcheWSubsView({
             collection: receipts

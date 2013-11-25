@@ -213,7 +213,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="container"><div id="fix"></div><h1 id="test1">Test1</h1><h1 id="test2">Mes caddies !</h1><div id="content"></div></div>');
+buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consomation</h2></div><div class="miframeinner"><div class="center"><img id="courses" src="/img/Intermarche.png" class="center"/></div><div id="content"></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -225,7 +225,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div id="list" class="row"></div>');
+buf.push('<div class="consocontainer"><div class="consoheader"><h3>Mes courses</h3></div><div id="list" class="consoinner"></div></div>');
 }
 return buf.join("");
 };
@@ -237,10 +237,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div id="list" class="row"><p>');
-var __val__ = receipts
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div>');
+buf.push('<div class="consocontainer"><div class="consoheader"><h3>Mes courses</h3></div><div id="list" class="row"></div></div>');
 }
 return buf.join("");
 };
@@ -294,33 +291,28 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-12"><h2 class="receipt">');
-var __val__ = receipt.timestamp
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h2>');
+buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-md-2 box map"><a');
+buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'about':("_blank") }, {"href":true,"about":true}));
+buf.push('><img src="/img/pin.png" class="img-responsive"/></a></div><div class="col-md-5 box">');
  var dt = new Date(receipt.timestamp)
 var __val__ = dt.getDate()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('/');
 var __val__ = dt.getMonth()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('h');
+buf.push('</div><div class="col-md-5 box">');
 var __val__ = dt.getHours()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push(':');
 var __val__ = dt.getMinutes()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;');
+buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-md-5 box">');
 var __val__ = receipt.articlesCount
 buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('articles</div><div class="col-md-5 box price">');
 var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€<a');
-buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + "") }, {"href":true}));
-buf.push('>magasin</a> infos supplémentaires');
-var __val__ = receipt.receiptId
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('<div class="thumbnail row sections"></div></div>');
+buf.push('€</div><div class="col-md-2 box toggle"><img src="/img/plus.png" class="img-responsive"/></div></div></div></div><div class="row sections"></div>');
 }
 return buf.join("");
 };
@@ -431,11 +423,10 @@ module.exports = AppView = Backbone.View.extend({
         console.log("Initialize")
     },
     events: {
-        "click #test1": "getList",
-        "click #test2": "getTruc"
+        "click #courses": "getCourses"
     },
     
-    getList: function() {
+ /*   getList: function() {
         var receiptDetails = new ReceiptDetailCollection();
         intermarcheView = new IntermarcheView({
             collection: receiptDetails
@@ -444,9 +435,9 @@ module.exports = AppView = Backbone.View.extend({
         intermarcheView.render()
         this.$el.find('#content').append(intermarcheView.$el);
         
-    },
+    }, */
 
-    getTruc: function() {
+    getCourses: function() {
         var receipts = new ReceiptCollection();
         intermarcheView = new IntermarcheWSubsView({
             collection: receipts

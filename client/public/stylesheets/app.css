@@ -6097,3 +6097,70 @@ td.visible-print {
   size: 10px;
   padding-left: 5px;
 }
+.miframe .consocontainer {
+  background: #353A44;
+  /* Old browsers */
+
+  margin: 14px;
+}
+.miframe .consocontainer .consoheader {
+  background-color: #353A44;
+  height: 42px;
+}
+.miframe .consoinner {
+  margin-left: 42px;
+  margin-right: 42px;
+}
+.miframe .receipt .box {
+  height: 50px;
+  line-height: 50px;
+  font-size: 24px;
+  font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  text-align: center;
+  border: 1px solid #353A44;
+  background: #353A44;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#484f5a, #353a44);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#484f5a #353a44);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#484f5a, #353a44);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#484f5a, #353a44);
+  /* W3C */
+
+}
+.miframe .receipt .price {
+  font-size: 30px;
+  background: #F5A03A;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#f5a03a, #f9b233);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#f5a03a, #f9b233);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#f5a03a, #f9b233);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#f5a03a, #f9b233);
+  /* W3C */
+
+}
+.miframe .receipt .map {
+  background: white;
+  text-align: center;
+  vertical-align: center;
+  padding: 10px;
+}
+.miframe .receipt .toggle {
+  text-align: center;
+  vertical-align: center;
+  padding: 10px;
+}
