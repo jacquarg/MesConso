@@ -15,7 +15,20 @@ exports.config = {
                 ]
             }
         },
-
+        "stylesheets": {
+            "defaultExtension": "less",
+            "joinTo": {
+                "stylesheets/app.css": /^app\/styles\/bootsrap.less/
+//                "stylesheets/app.css": /^app\/styles\/bootsrap.less/
+            },
+//            "order": {
+//                "before": [
+//                    "app/styles/bootsrap.less"
+////                    "vendor/styles/bootstrap.css",
+////                    "vendor/styles/bootstrap-responsive.css"
+//                ]
+//            }
+        },
         "templates": {
             "defaultExtension": 'jade',
             "joinTo": 'scripts/app.js'
