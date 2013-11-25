@@ -1,12 +1,21 @@
-## Cozy tutorial
+## MesConso
 
-This is the starting point of the Cozy Tutorial MesInfos part 1. Check the repository branches  to see more advanced steps.
+Application permettant une première visualisation simple de données MesInfos (sur la personnes, tickets de caisses, et journal d'appel).
 
-## About Cozy
+## En développement !
 
-This app is suited to be deployed on the Cozy platform. Cozy is the personal
-server for everyone. It allows you to install your every day web applications
-easily on your server, a single place you control. This means you can manage
-efficiently your data while protecting your privacy without technical skills.
+Pour tester cette application :
+```
+git clone ...
+npm install
 
-More informations and hosting services on: http://cozycloud.cc
+cd client
+npm install
+
+# Brunch n'a pas encore été convenablement configuré pour less sur ce projet.
+lessc app/styles/custom.less > public/stylesheets/app.css && brunch b
+```
+
+## À propos de MesInfos
+
+http://mesinfos.fing.org
