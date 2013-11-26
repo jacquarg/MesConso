@@ -21,17 +21,17 @@ module.exports = Receipt = americano.getModel('receipt', {
     'snippet': String
 });
 
-Receipt.all = function(callback) {
-    Receipt.request(
-        "all", 
-        {},
-        function(err, instances) {
-            callback(null, instances);
-        }
-    );
-};
+// Unused.
+//Receipt.all = function(callback) {
+//    Receipt.request(
+//        "all", 
+//        {},
+//        function(err, instances) {
+//            callback(null, instances);
+//        }
+//    );
+//};
 
-// Useless.
 Receipt.newest = function(callback) {
     Receipt.request(
         "byTimestamp", 

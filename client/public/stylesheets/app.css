@@ -6057,6 +6057,8 @@ td.visible-print {
 .miframe h3 {
   text-align: center;
   color: white;
+  line-height: 40px;
+  font-weight: bold;
 }
 .miframe .miframeheader {
   background-color: #353A44;
@@ -6084,10 +6086,11 @@ td.visible-print {
   background-color: transparent;
   background-repeat: no-repeat;
   background-image: url("/img/NomPrenom.png");
-  background-size: contain;
-  height: 45px;
+  background-size: 100% auto;
+  height: 40px;
+  line-height: 40px;
   margin-left: -12px;
-  size: 24px;
+  font-size: 24px;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
   text-align: center;
@@ -6112,8 +6115,8 @@ td.visible-print {
   margin-right: 42px;
 }
 .miframe .receipt .box {
-  height: 50px;
-  line-height: 50px;
+  height: 46px;
+  line-height: 46px;
   font-size: 24px;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
@@ -6155,14 +6158,10 @@ td.visible-print {
 }
 .miframe .receipt .map {
   background: white;
-  text-align: center;
-  vertical-align: center;
-  padding: 10px;
 }
-.miframe .receipt .toggle {
-  text-align: center;
-  vertical-align: center;
-  padding: 10px;
+.miframe .receipt .toggle img {
+  width: 20px;
+  height: 20px;
 }
 .miframe .sectionhead {
   text-align: center;
@@ -6191,19 +6190,24 @@ td.visible-print {
 }
 .miframe .receiptdetail {
   margin-bottom: 21px;
+  line-height: 1.1;
 }
 .miframe .receiptdetail .image {
   width: 75px;
   height: auto;
 }
 .miframe .receiptdetail .lab {
-  font-size: 14px;
+  font-size: 18px;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.1;
 }
 .miframe .receiptdetail .vol {
   font-size: 14px;
+  line-height: 1.1;
 }
 .miframe .receiptdetail .price {
   font-size: 24px;
+  font-weight: bold;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.2;
 }

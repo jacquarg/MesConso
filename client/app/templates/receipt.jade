@@ -2,30 +2,30 @@
     
     .col-md-6
       .row
-        .col-md-2.box.map
-            a(href="http://fc1.1bis.com/intermarche/map.asp?id=IMARC#{receipt.intermarcheShopId}", about="_blank")
-                img.img-responsive(src="/img/pin.png")
-        .col-md-5.box
+        .col-xs-2.box.map
+            a(href="http://fc1.1bis.com/intermarche/map.asp?id=IMARC#{receipt.intermarcheShopId}", target="_blank")
+                img(src="/img/pin.png")
+        .col-xs-5.box
           - var dt = new Date(receipt.timestamp)
           = dt.getDate()
           | /
           = dt.getMonth()
 
-        .col-md-5.box
+        .col-xs-5.box
             = dt.getHours()
             | :
             = dt.getMinutes()
     .col-md-6
       .row
-        .col-md-5.box
+        .col-xs-5.box
             = receipt.articlesCount
             |&nbsp; articles
-        .col-md-5.box.price
+        .col-xs-5.box.price
             = receipt.total
             | €
             
-        .col-md-2.box.toggle
-            img.img-responsive(src="/img/plus.png")
+        .col-xs-2.box.toggle
+            img(src="/img/plus.png")
     
 .sections
             

@@ -112,15 +112,6 @@ module.exports = Persons = Backbone.Collection.extend({
 
 });
 
-;require.register("collections/receiptdetails", function(exports, require, module) {
-ReceiptDetail = require('../models/receiptdetail');
-module.exports = ReceiptDetails = Backbone.Collection.extend({
-    model: ReceiptDetail,
-    url: 'receiptdetails'
-});
-
-});
-
 ;require.register("collections/receipts", function(exports, require, module) {
 Receipt = require('../models/receipt');
 module.exports = ReceiptDetails = Backbone.Collection.extend({
@@ -170,13 +161,6 @@ module.exports = Receipt = Backbone.Model.extend({
 
 });
 
-;require.register("models/receiptdetail", function(exports, require, module) {
-module.exports = ReceiptDetail = Backbone.Model.extend({
-
-});
-
-});
-
 ;require.register("models/section", function(exports, require, module) {
 module.exports = Section = Backbone.Model.extend({
 
@@ -213,7 +197,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consomation</h2></div><div class="miframeinner"><div class="center"><img id="courses" src="/img/Intermarche.png" class="center"/></div><div id="content"></div></div></div></div>');
+buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="text-center"><img id="courses" src="/img/Intermarche.png"/></div><div id="content"></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -231,46 +215,75 @@ return buf.join("");
 };
 });
 
-;require.register("templates/intermarchewsubs", function(exports, require, module) {
-module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
-attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
-var buf = [];
-with (locals || {}) {
-var interp;
-buf.push('<div class="consocontainer"><div class="consoheader"><h3>Mes courses</h3></div><div id="list" class="row"></div></div>');
-}
-return buf.join("");
-};
-});
-
 ;require.register("templates/person", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="miframe"><div class="miframeheader"><h2>MesInfos</h2></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-md-3"><img src="/img/Bonhomme.png" class="img-responsive"/></div><div class="col-md-9"><p class="nomprenom">');
-var __val__ = person.lastname
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;');
+buf.push('<div class="miframe"><div class="miframeheader"><h2>MesInfos</h2></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="/img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
 var __val__ = person.firstname
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
-var __val__ = person.birthdate
+buf.push('&nbsp;');
+var __val__ = person.lastname
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p>');
+ var bDate = new Date(person.birthdate)
+ //p= person.birthdate
+buf.push('<p>');
+var __val__ = bDate.toDateString()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
-var __val__ = person.adress1
+var __val__ = person.address1
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div></div></div><div class="col-md-7"><div class="row"><div class="col-md-6"><p>');
+buf.push('<br/>');
+var __val__ = person.postcode
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;');
+var __val__ = person.city
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('<br/>');
+var __val__ = person.countryCode
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></div></div></div><div class="col-md-7"><div class="row"><div class="col-sm-6"><p>0');
 var __val__ = person.phoneNumber
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
 var __val__ = person.email
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
-var __val__ = person.hasChildren
+ if (person.childrenCount == 0)
+{
+buf.push('Aucun enfant');
+}
+ else
+{
+var __val__ = person.childrenCount
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div><div class="col-md-6"><p>');
+ if (person.childrenCount == 1)
+{
+buf.push('&nbsp; enfant');
+}
+ else
+{
+buf.push('&nbsp; enfant ');
+}
+}
+ if (person.birthdateChild1)
+ var c1BD = new Date(person.birthdateChild1)
+{
+buf.push('<br/>');
+var __val__ = c1BD.toDateString()
+buf.push(escape(null == __val__ ? "" : __val__));
+}
+ if (person.birthdateChild2)
+ var c2BD = new Date(person.birthdateChild2)
+{
+buf.push('<br/>');
+var __val__ = c2BD
+buf.push(escape(null == __val__ ? "" : __val__));
+}
+buf.push('</p></div><div class="col-sm-6"><p>');
 var __val__ = person.csp
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
@@ -291,28 +304,28 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-md-2 box map"><a');
-buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'about':("_blank") }, {"href":true,"about":true}));
-buf.push('><img src="/img/pin.png" class="img-responsive"/></a></div><div class="col-md-5 box">');
+buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-xs-2 box map"><a');
+buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'target':("_blank") }, {"href":true,"target":true}));
+buf.push('><img src="/img/pin.png"/></a></div><div class="col-xs-5 box">');
  var dt = new Date(receipt.timestamp)
 var __val__ = dt.getDate()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('/');
 var __val__ = dt.getMonth()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="col-md-5 box">');
+buf.push('</div><div class="col-xs-5 box">');
 var __val__ = dt.getHours()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push(':');
 var __val__ = dt.getMinutes()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-md-5 box">');
+buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
 var __val__ = receipt.articlesCount
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp; articles</div><div class="col-md-5 box price">');
+buf.push('&nbsp; articles</div><div class="col-xs-5 box price">');
 var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-md-2 box toggle"><img src="/img/plus.png" class="img-responsive"/></div></div></div></div><div class="sections"></div>');
+buf.push('€</div><div class="col-xs-2 box toggle"><img src="/img/plus.png"/></div></div></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -331,17 +344,17 @@ buf.push('/></div><div class="col-xs-8">');
  var parts = label.split(' ');
  var vol = parts.pop();
  parts.join(' ');
-buf.push('<p class="lab">');
+buf.push('<div class="lab">');
 var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
+buf.push('</div>');
  //p.vol= vol
  //p= receiptDetail.amount 
  //   | X
-buf.push('<p class="price">');
+buf.push('<div class="price">');
 var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€ </p></div></div></div>');
+buf.push('&nbsp;€ </div></div></div></div>');
 }
 return buf.join("");
 };
@@ -365,17 +378,17 @@ buf.push('/></div><div class="col-xs-8">');
  var parts = label.split(' ');
  var vol = parts.pop();
  parts.join(' ');
-buf.push('<p class="lab">');
+buf.push('<div class="lab">');
 var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
+buf.push('</div>');
  //p.vol= vol
  //p= receiptDetail.amount 
  //   | X
-buf.push('<p class="price">');
+buf.push('<div class="price">');
 var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€ </p></div></div></div>');
+buf.push('&nbsp;€ </div></div></div></div>');
  }
 buf.push('</div></div>');
 }
@@ -385,8 +398,6 @@ return buf.join("");
 
 ;require.register("views/app_view", function(exports, require, module) {
 var IntermarcheView = require('./intermarche');
-var IntermarcheWSubsView = require('./intermarchewsubs');
-var ReceiptDetailCollection = require('collections/receiptdetails');
 var ReceiptCollection = require('collections/receipts');
 var PersonView = require('./person');
 
@@ -403,20 +414,9 @@ module.exports = AppView = Backbone.View.extend({
         "click #courses": "getCourses"
     },
     
- /*   getList: function() {
-        var receiptDetails = new ReceiptDetailCollection();
-        intermarcheView = new IntermarcheView({
-            collection: receiptDetails
-        });
-
-        intermarcheView.render()
-        this.$el.find('#content').append(intermarcheView.$el);
-        
-    }, */
-
     getCourses: function() {
         var receipts = new ReceiptCollection();
-        intermarcheView = new IntermarcheWSubsView({
+        intermarcheView = new IntermarcheView({
             collection: receipts
         });
 
@@ -430,9 +430,6 @@ module.exports = AppView = Backbone.View.extend({
         // we render the template
         this.$el.html(this.template());
 
-        // fetch the bookmarks from the database
-       // this.collection.fetch();
-
         var personView = new PersonView();
         personView.render();
 
@@ -444,44 +441,6 @@ module.exports = AppView = Backbone.View.extend({
 });
 
 ;require.register("views/intermarche", function(exports, require, module) {
-var ReceiptDetailView = require('./receiptdetail');
-
-module.exports = IntermarcheView = Backbone.View.extend({
-
-    el: '#content',
-    template: require('../templates/intermarche'),
-
-    // initialize is automatically called once after the view is constructed
-    initialize: function() {
-        console.log("Initialize intermarche")
-        this.listenTo(this.collection, "add", this.onReceiptDetailAdded);
-    },
-
-    render: function() {
-
-        // we render the template
-        this.$el.html(this.template());
-
-        // fetch the bookmarks from the database
-        this.collection.fetch();
-    },
-
-
-    onReceiptDetailAdded: function(receiptDetail) {
-        // render the specific element
-        receiptDetailView = new ReceiptDetailView({
-            model: receiptDetail
-        });
-        receiptDetailView.render();
-        this.$el.find('#list').append(receiptDetailView.$el);
-    }
-
-});
-
-
-});
-
-;require.register("views/intermarchewsubs", function(exports, require, module) {
 var ReceiptView = require('./receipt');
 
 module.exports = AppView = Backbone.View.extend({
@@ -489,18 +448,8 @@ module.exports = AppView = Backbone.View.extend({
     el: '#content',
     template: require('../templates/intermarche'),
 
-    /*render: function() {
-        this.$el.html(this.template({
-            receipts: this.collection.toJSON()
-        }));
-
-        return this;
-    }*/
-
-
     // initialize is automatically called once after the view is constructed
     initialize: function() {
-        console.log("Initialize intermarcheWSUBS")
         this.listenTo(this.collection, "add", this.onReceiptAdded);
     },
 
@@ -539,14 +488,12 @@ module.exports = Person = Backbone.View.extend({
     // initialize is automatically called once after the view is constructed
     initialize: function() {
         this.collection = new PersonCollection();
-        console.log("Initialize persfs.createReadStreaon")
         this.listenTo(this.collection, "add", this.onPersonAdded);
     },
 
     render: function() {
 
  //       // we render the template
- //       this.$el.html(this.template());
 
         // fetch the bookmarks from the database
         this.collection.fetch();
@@ -599,7 +546,7 @@ module.exports = Receipt = Backbone.View.extend({
         if (!this.open) {
             this.open = true;
             // submit button reload the page, we don't want that
-            event.preventDefault();
+            //event.preventDefault();
         
             this.listenTo(this.collection, "add", this.onSectionAdded);
             // fetch the bookmarks from the database
@@ -623,62 +570,12 @@ module.exports = Receipt = Backbone.View.extend({
         this.$el.find('.sections').append(sectionView.$el);
     }
     
-
-
-    /*render: function() {
-
-        // we render the template
-        this.$el.html(this.template(
-            {
-                receipt: JSON.dumps(this.receipt)
-            }
-            )
-        );
-
-        for (var idx=0; idx<this.receipt.sections.length; idx++) {
-            receiptDetail = this.receipt.sections[idx];
-
-            // render the specific element
-            sectionView = new SectionView({
-                section: section
-            });
-
-            sectionView.render();
-            this.$el.find('#list').append(receiptDetailView.$el);
-        }
-     }*/
-
 });
 
-
-});
-
-;require.register("views/receiptdetail", function(exports, require, module) {
-module.exports = ReceiptDetail = Backbone.View.extend({
-
-    tagName: 'div',
-    template: require('../templates/receiptdetail'),
-//    events: {
-//        'click a.delete': 'deleteBookmark'
-//    },
-
-    render: function() {
-        this.$el.html(this.template({
-            receiptDetail: this.model.toJSON()
-        }));
-    },
-
-//    deleteBookmark: function() {
-//        this.model.destroy();
-//        this.remove();
-//    }
-});
 
 });
 
 ;require.register("views/section", function(exports, require, module) {
-//var ReceiptDetailView = require('./receiptdetail');
-
 module.exports = Section = Backbone.View.extend({
 
     tagName: 'div',
@@ -689,29 +586,6 @@ module.exports = Section = Backbone.View.extend({
             section: this.model.toJSON()
         }));
     },
-
-    /*render: function() {
-
-        // we render the template
-        this.$el.html(this.template(
-            {
-                section: JSON.dumps(this.section)
-            }
-            )
-        );
-
-        for (var idx=0; idx<this.section.receiptDetails.length; idx++) {
-            receiptDetail = this.section.receiptDetails[idx];
-
-            // render the specific element
-            receiptDetailView = new ReceiptDetailView({
-                model: receiptDetail
-            });
-
-            receiptDetailView.render();
-            this.$el.find('#list').append(receiptDetailView.$el);
-        }
-     }*/
 
 });
 

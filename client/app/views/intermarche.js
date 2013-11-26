@@ -1,14 +1,13 @@
-var ReceiptDetailView = require('./receiptdetail');
+var ReceiptView = require('./receipt');
 
-module.exports = IntermarcheView = Backbone.View.extend({
+module.exports = AppView = Backbone.View.extend({
 
     el: '#content',
     template: require('../templates/intermarche'),
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
-        console.log("Initialize intermarche")
-        this.listenTo(this.collection, "add", this.onReceiptDetailAdded);
+        this.listenTo(this.collection, "add", this.onReceiptAdded);
     },
 
     render: function() {
@@ -21,14 +20,14 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
 
-    onReceiptDetailAdded: function(receiptDetail) {
+    onReceiptAdded: function(receipt) {
         // render the specific element
-        receiptDetailView = new ReceiptDetailView({
-            model: receiptDetail
+        receiptView = new ReceiptView({
+            model: receipt
         });
-        receiptDetailView.render();
-        this.$el.find('#list').append(receiptDetailView.$el);
+        receiptView.render();
+        this.$el.find('#list').append(receiptView.$el);
     }
 
-});
 
+});

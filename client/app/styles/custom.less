@@ -6,6 +6,8 @@
     h2, h3 {
         text-align: center;
         color: white;
+        line-height: 40px;
+        font-weight: bold;
     }
 
     .miframeheader {
@@ -18,6 +20,7 @@
         -moz-border-radius: 10px 10px 0 0;
         border-radius: 10px 10px 0 0;
         height: 40px;
+
 
 /*        border-width:3px; -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(black), to(rgba(0, 0, 0, 0))) 1 100%; -webkit-border-image: -webkit-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%; -o-border-image: -o-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%; -moz-border-image: -moz-linear-gradient(black, rgba(0, 0, 0, 0)) 1 100%; */
     }
@@ -38,11 +41,12 @@
                 background-color: transparent;
                 background-repeat: no-repeat;
                 background-image: url("/img/NomPrenom.png");
-                background-size: contain;
+                background-size: 100% auto;
 
-                height: 45px;
+                height: 40px;
+                line-height: 40px;
                 margin-left: -12px;
-                size: @font-size-h3;
+                font-size: @font-size-h3;
                 font-family: @headings-font-family;
                 color: white;
                 text-align: center;
@@ -83,8 +87,8 @@
     .receipt {
 
         .box {
-            height: 50px;
-            line-height: 50px;
+            height: 46px;
+            line-height: 46px;
             font-size: @font-size-h3;
             font-family: @headings-font-family;
             color: white;
@@ -114,14 +118,13 @@
         
         .map {
             background: white;
-            text-align: center;
-            vertical-align: center;
-            padding: 10px;
         }
         .toggle {
-            text-align: center;
-            vertical-align: center;
-            padding: 10px;
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
         }
     }
 
@@ -143,23 +146,27 @@
 
     .receiptdetail {
         margin-bottom: 21px;
-
+        line-height: 1.1;
         .image {
             //width: 53px;
             width: 75px;
             height: auto;
         }
         .lab {
-            font-size: @font-size-base;
+            font-size: @font-size-large;
             font-family: @headings-font-family;
+            line-height: 1.1;
         }
         .vol {
             font-size: @font-size-base;
+            line-height: 1.1;            
  //           font-family: @headings-font-family;
         }
         .price {
             font-size: @font-size-h3;
+            font-weight: bold;
             font-family: @headings-font-family;
+            line-height: 1.2;            
         }
     }
 

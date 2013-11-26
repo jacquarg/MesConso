@@ -10,13 +10,11 @@ byTimestamp = function(doc) {
 
 module.exports = {
     receiptdetail: {
-        all: americano.defaultRequests.all,
+        // Unused.
+        //all: americano.defaultRequests.all,
         
-        // useless.
-   //     byTimestamp : function(doc) {
-   //             emit(doc.timestamp, doc);
-   //     }
-        byTimestamp : byTimestamp,
+        // Unused.
+        //byTimestamp : byTimestamp,
 
         byReceiptId : function(doc) {
             emit(doc.receiptId, doc);
@@ -24,7 +22,8 @@ module.exports = {
     },
 
     receipt: {
-        all: americano.defaultRequests.all,
+        //unused.
+        //all: americano.defaultRequests.all,
         
         byTimestamp : byTimestamp
     },

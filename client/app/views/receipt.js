@@ -27,7 +27,7 @@ module.exports = Receipt = Backbone.View.extend({
         if (!this.open) {
             this.open = true;
             // submit button reload the page, we don't want that
-            event.preventDefault();
+            //event.preventDefault();
         
             this.listenTo(this.collection, "add", this.onSectionAdded);
             // fetch the bookmarks from the database
@@ -51,30 +51,5 @@ module.exports = Receipt = Backbone.View.extend({
         this.$el.find('.sections').append(sectionView.$el);
     }
     
-
-
-    /*render: function() {
-
-        // we render the template
-        this.$el.html(this.template(
-            {
-                receipt: JSON.dumps(this.receipt)
-            }
-            )
-        );
-
-        for (var idx=0; idx<this.receipt.sections.length; idx++) {
-            receiptDetail = this.receipt.sections[idx];
-
-            // render the specific element
-            sectionView = new SectionView({
-                section: section
-            });
-
-            sectionView.render();
-            this.$el.find('#list').append(receiptDetailView.$el);
-        }
-     }*/
-
 });
 

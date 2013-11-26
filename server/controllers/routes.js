@@ -7,13 +7,14 @@ Receipts = require('./receipts');
 Persons = require('./persons');
 
 module.exports = {
-  'receiptdetails': {
-      get: ReceiptDetails.list
-  },
-  'receiptdetailsbyts': {
-      get: ReceiptDetails.byTimestamp
-
-  },
+    // unused :
+//  'receiptdetails': {
+//      get: ReceiptDetails.list
+// },
+//  'receiptdetailsbyts': {
+//      get: ReceiptDetails.byTimestamp
+//
+//  },
 
   'receipts': {
       get: Receipts.newest

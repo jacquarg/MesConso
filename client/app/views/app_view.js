@@ -1,6 +1,4 @@
 var IntermarcheView = require('./intermarche');
-var IntermarcheWSubsView = require('./intermarchewsubs');
-var ReceiptDetailCollection = require('collections/receiptdetails');
 var ReceiptCollection = require('collections/receipts');
 var PersonView = require('./person');
 
@@ -17,20 +15,9 @@ module.exports = AppView = Backbone.View.extend({
         "click #courses": "getCourses"
     },
     
- /*   getList: function() {
-        var receiptDetails = new ReceiptDetailCollection();
-        intermarcheView = new IntermarcheView({
-            collection: receiptDetails
-        });
-
-        intermarcheView.render()
-        this.$el.find('#content').append(intermarcheView.$el);
-        
-    }, */
-
     getCourses: function() {
         var receipts = new ReceiptCollection();
-        intermarcheView = new IntermarcheWSubsView({
+        intermarcheView = new IntermarcheView({
             collection: receipts
         });
 
@@ -43,9 +30,6 @@ module.exports = AppView = Backbone.View.extend({
 
         // we render the template
         this.$el.html(this.template());
-
-        // fetch the bookmarks from the database
-       // this.collection.fetch();
 
         var personView = new PersonView();
         personView.render();
