@@ -197,7 +197,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="text-center"><img id="courses" src="/img/Intermarche.png"/></div><div id="content"></div></div></div></div>');
+buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="text-center"><img id="courses" src="img/Intermarche.png"/></div><div id="content"></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -221,7 +221,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="miframe"><div class="miframeheader"><h2>MesInfos</h2></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="/img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
+buf.push('<div class="miframe"><div class="miframeheader"><h2>MesInfos</h2></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
 var __val__ = person.firstname
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;');
@@ -306,7 +306,7 @@ with (locals || {}) {
 var interp;
 buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-xs-2 box map"><a');
 buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'target':("_blank") }, {"href":true,"target":true}));
-buf.push('><img src="/img/pin.png"/></a></div><div class="col-xs-5 box">');
+buf.push('><img src="img/pin.png"/></a></div><div class="col-xs-5 box">');
  var dt = new Date(receipt.timestamp)
 var __val__ = dt.getDate()
 buf.push(escape(null == __val__ ? "" : __val__));
@@ -325,7 +325,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp; articles</div><div class="col-xs-5 box price">');
 var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-xs-2 box toggle"><img src="/img/plus.png"/></div></div></div></div><div class="sections"></div>');
+buf.push('€</div><div class="col-xs-2 box toggle"><img src="img/plus.png"/></div></div></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -367,7 +367,7 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="sectionhead"><img');
-buf.push(attrs({ 'src':("/img/Sections/" + (section.section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push(attrs({ 'src':("img/Sections/" + (section.section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
 buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
