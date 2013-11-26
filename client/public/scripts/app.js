@@ -130,7 +130,7 @@ module.exports = Sections = Backbone.Collection.extend({
     },
     
     url: function() {
-        return '/receipts/' + this.receiptId + '/sections';
+        return 'receipts/' + this.receiptId + '/sections';
     },
     model: Section,
 
@@ -325,7 +325,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp; articles</div><div class="col-xs-5 box price">');
 var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-xs-2 box toggle"><img src="img/plus.png"/></div></div></div></div><div class="sections"></div>');
+buf.push('€</div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -525,7 +525,8 @@ module.exports = Receipt = Backbone.View.extend({
     tagName: 'div',
     template: require('../templates/receipt'),
     events: {
-        "click .receipt": "toggleSections"    
+        "click .receipt": "toggleSections",    
+        //"click .toggle": "toggleSectionsNoDefault"    
     },
 
     initialize: function() {
@@ -541,6 +542,7 @@ module.exports = Receipt = Backbone.View.extend({
 
     
     },
+    
 
     toggleSections: function(event) {
         if (!this.open) {

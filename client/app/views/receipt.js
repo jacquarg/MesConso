@@ -6,7 +6,8 @@ module.exports = Receipt = Backbone.View.extend({
     tagName: 'div',
     template: require('../templates/receipt'),
     events: {
-        "click .receipt": "toggleSections"    
+        "click .receipt": "toggleSections",    
+        //"click .toggle": "toggleSectionsNoDefault"    
     },
 
     initialize: function() {
@@ -22,6 +23,7 @@ module.exports = Receipt = Backbone.View.extend({
 
     
     },
+    
 
     toggleSections: function(event) {
         if (!this.open) {
