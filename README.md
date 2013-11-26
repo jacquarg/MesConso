@@ -1,6 +1,6 @@
 ## MesConso
 
-Application permettant une première visualisation simple de données MesInfos (sur la personnes, tickets de caisses, et journal d'appel).
+Application permettant une première visualisation simple de données MesInfos (sur la personnes, tickets de caisses, et journal d'appel (bientôt)).
 
 ## En développement !
 
