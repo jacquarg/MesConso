@@ -37,13 +37,46 @@ module.exports.sections = function(req, res) {
                 }*/
 
                 var sectionLabel = rdet.sectionLabel;
+                var sectionNumber = rdet.section;
+
+                // Aggregate somme values
+                // 24,2,20,22 (Boucherie)
+                // 12, 32 (pain)
+                // 26,4 (charcuterie)
+                var aggSectionLabelMap = {
+                    "VOLAILLE LS": "BOUCHERIE",
+                    "BOUCHERIE LS": "BOUCHERIE",
+                    "BOUCHERIE FRAIS EMB.": "BOUCHERIE",
+                    "BOUCHERIE / VOLAILLE TRAD": "BOUCHERIE",
+
+                    "BOUL PAT TRAD": "BOULANGERIE",
+                    "PAIN PAT LS INDUS": "BOULANGERIE",
+
+                    "CHARCUTERIE TRAITEUR LS": "CHARCUTERIE",
+                    "CHARCUTERIE TRAD": "CHARCUTERIE"
+                };
+
+                var aggSectionNumberMap = {
+                    "BOUCHERIE": 20,
+                    "BOULANGERIE": 12,
+                    "CHARCUTERIE": 26
+                };
+
+
+                if (sectionLabel in aggSectionLabelMap) {
+                    sectionLabel = aggSectionLabelMap[sectionLabel];
+                    sectionNumber = aggSectionNumberMap[sectionLabel];
+                }
+                //
+              
+
                 var section = undefined;
                 if (sectionLabel in sections) {
                     section = sections[sectionLabel];
                 } else {
                     section = {
                         sectionLabel: sectionLabel,
-                        section: rdet.section,
+                        section: sectionNumber,
                         receiptDetails: []
                     }
                     sections[sectionLabel] = section;
@@ -52,9 +85,9 @@ module.exports.sections = function(req, res) {
 
             }
 
-
             sectionLabels = [
-'BOUL PAT TRAD',
+//'BOUL PAT TRAD',
+'BOULANGERIE',
 'FROMAGE TRAD',
 'NON COMMERCIALE',
 'SURGELES',
@@ -65,16 +98,18 @@ module.exports.sections = function(req, res) {
 'D.P.H.',
 'BAZAR LEGER',
 'CREMERIE LS',
-'BOUCHERIE FRAIS EMB.',
-'PAIN PAT LS INDUS',
-'BOUCHERIE LS',
+//'BOUCHERIE FRAIS EMB.',
+'BOUCHERIE',
+//'PAIN PAT LS INDUS',
+//'BOUCHERIE LS',
 'FRUITS ET LEGUMES',
-'CHARCUTERIE TRAITEUR LS',
+//'CHARCUTERIE TRAITEUR LS',
+'CHARCUTERIE',
 'FLEURS ET PLANTES',
-'VOLAILLE LS',
-'BOUCHERIE / VOLAILLE TRAD',
+//'VOLAILLE LS',
+//'BOUCHERIE / VOLAILLE TRAD',
 'LIQUIDES',
-'CHARCUTERIE TRAD',
+//'CHARCUTERIE TRAD',
 'TRAITEUR TRAD',
 'BOUTIQUE SERVICES',
 'PRODUITS DE LA MER TRAD',
@@ -85,7 +120,6 @@ module.exports.sections = function(req, res) {
 'BOUTIQUE PRESSE',
 'BAZAR TECHNIQUE'
 ] ;
-            
             
             sectionList = []
             for (var i=0; i< sectionLabels.length; i++) {
