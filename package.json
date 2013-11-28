@@ -11,6 +11,7 @@
     "jade": "0.35.0",
     "americano": "0.2.11",
     "americano-cozy": "0.1.9"
+    "request-json": "0.4.4"
   },
   "engines": [
     "node = 0.8.x"
@@ -21,13 +22,13 @@
   "cozy-displayName": "Mes Consos",
   "cozy-permissions": {
     "Person": {
-        "description": "Visualiser les informations relatives à votre personne."
+      "description": "Visualiser les informations relatives à votre personne."
     },
     "Receipt": {
-        "description": "Visualiser la liste de vos tickets de caisse."
+      "description": "Visualiser la liste de vos tickets de caisse."
     },
     "ReceiptDetail": {
-        "description": "Visualiser les lignes de vos tickets de caisse."
+      "description": "Visualiser les lignes de vos tickets de caisse."
     }
   }
 }
