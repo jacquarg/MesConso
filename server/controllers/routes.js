@@ -5,6 +5,7 @@
 ReceiptDetails = require('./receiptdetails');
 Receipts = require('./receipts');
 Persons = require('./persons');
+PhoneCommunicationLogs = require('./phonecommunicationlogs');
 
 module.exports = {
     // unused :
@@ -26,6 +27,13 @@ module.exports = {
 
   'persons': {
     get: Persons.one
+  },
+
+  'pcls/:date': {
+    get: PhoneCommunicationLogs.withDate    
+  },
+  'pcabstracts': {
+    get: PhoneCommunicationLogs.dayAbstract    
   },
 
 };
