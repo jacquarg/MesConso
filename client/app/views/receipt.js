@@ -44,7 +44,6 @@ module.exports = Receipt = Backbone.View.extend({
     },
 
     onSectionAdded: function(section) {
-        console.log("added section");
         // render the specific element
         sectionView = new SectionView({
             model: section
