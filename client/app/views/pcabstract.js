@@ -2,7 +2,7 @@ var ItemView = require('./phonecommunicationlog');
 var Collection = require('../collections/phonecommunicationlogs');
 
 
-module.exports = Receipt = Backbone.View.extend({
+module.exports = PCAbstractView = Backbone.View.extend({
 
     tagName: 'div',
     template: require('../templates/pcabstract'),
@@ -12,7 +12,7 @@ module.exports = Receipt = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.collection = new Collection([], { date: this.model.attributes.key });
+//        this.collection = new Collection([], { date: this.model.attributes.key });
         
     },
 
@@ -20,18 +20,16 @@ module.exports = Receipt = Backbone.View.extend({
         this.$el.html(this.template({
             pcabstract: this.model.toJSON()
         }));
-
-
-    
     },
-    
 
     toggleList: function(event) {
         if (!this.open) {
             this.open = true;
             // submit button reload the page, we don't want that
             //event.preventDefault();
-        
+            //Seems dirty..
+            this.collection = new Collection([], { date: this.model.attributes.key });
+            
             this.listenTo(this.collection, "add", this.onItemAdded);
             // fetch the bookmarks from the database
             this.collection.fetch();
