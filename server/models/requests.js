@@ -34,7 +34,11 @@ module.exports = {
     },
 
     phonecommunicationlog: {
-        byTimestamp: byTimestamp,
+        byTimestamp: function(doc) {
+            if (doc.type == 'VOICE' || doc.type == 'SMS-C') {
+                emit(doc.timestamp, doc);
+            }
+        },
 
         dayAbstract: {
             map: function(doc) {
@@ -44,6 +48,7 @@ module.exports = {
             reduce: function(key, values, rereduce) {
                 var sums = {
                        calls: 0,
+                       callsDuration: 0,
                        sms : 0,
                        data : 0
                     }
@@ -53,8 +58,9 @@ module.exports = {
                         
                         if (v.type == 'VOICE') {
                             sums.calls += 1;
+                            sums.callsDuration += v.chipCount;
 
-                        } else if (v.type == 'SMS-MSC') {
+                        } else if (v.type == 'SMS-C') {
                             sums.sms += 1;
                         } else if (v.type == 'DATA') {
                             sums.data += v.chipCount;
@@ -67,6 +73,7 @@ module.exports = {
                     for (var j=0; j<values.length; j++) {
                         v = values[j];
                         sums.calls += v.calls;
+                        sums.callsDuration += v.callsDuration;
                         sums.sms += v.sms;
                         sums.data += v.data;
 
