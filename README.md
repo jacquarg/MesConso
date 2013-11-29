@@ -9,6 +9,10 @@ Pour tester cette application :
 git clone ...
 npm install
 
+# Ajout des données de tests
+npm install -g cozy-fixtures
+cozy-fixtures load tests/fixtures/
+
 cd client
 npm install
 
