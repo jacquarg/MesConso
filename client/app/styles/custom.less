@@ -84,6 +84,57 @@
     //        left: -10px;
     //        vertical-align: center;
     //    }
+    .item_a {
+
+        .box {
+            height: 46px;
+            line-height: 46px;
+            font-size: @font-size-h3;
+            font-family: @headings-font-family;
+            color: white;
+
+            background: #353A44; /* Old browsers */
+            background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
+            background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
+            background: linear-gradient(#484f5a,#353a44); /* W3C */
+
+        }
+
+        .toggle {
+            text-align: center;
+            img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+    .pcabstract {
+
+        img {
+            width: 26px;
+            height: 26px;
+        }
+        .box {
+            text-align: right;
+        }
+
+        .box.callsduration {
+            padding-left: 0px;
+            color: #46B3E1;
+            text-align: left;
+        }
+        .unity {
+            font-size: @font-size-small;
+
+        }
+        .box.date {
+            text-align: left;
+        }
+    }
+
+    // TODO : factor with item_a.
     .receipt {
 
         .box {
@@ -171,6 +222,33 @@
     }
 
 
-
+}
     
+
+.pcls {
+    background: -webkit-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 140px);
+    background: -moz-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 140px);
+    background: -o-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 140px);
+    background: repeating-linear-gradient(180deg, #ECECEC,#B2B2B2 140px);  
+}
+    
+
+.pcl {
+    img {
+        width: 46px;
+        height: 46px;
+        margin-right: 5px;
+    }
+    .time {
+        font-size: @font-size-large;
+    }
+    .correspondantNumber {
+        font-size: @font-size-large;
+    }
+    .quantity {
+        font-size: @font-size-h3;
+    }
+    padding-top: 5px;
+    height: 140px;
+    font-family: @font-family-base;
 }

@@ -234,6 +234,21 @@ module.exports = Router = Backbone.Router.extend({
 
 });
 
+;require.register("templates/brandpanel", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="consocontainer"><div class="consoheader"><h3>');
+var __val__ = title
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h3></div><div id="list" class="consoinner"></div></div>');
+}
+return buf.join("");
+};
+});
+
 ;require.register("templates/home", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
@@ -246,34 +261,22 @@ return buf.join("");
 };
 });
 
-;require.register("templates/intermarche", function(exports, require, module) {
-module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
-attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
-var buf = [];
-with (locals || {}) {
-var interp;
-buf.push('<div class="consocontainer"><div class="consoheader"><h3>Mes courses</h3></div><div id="list" class="consoinner"></div></div>');
-}
-return buf.join("");
-};
-});
-
 ;require.register("templates/pcabstract", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-xs-1 box"></div><div class="col-xs-5 box">');
+buf.push('<div class="row item_a pcabstract"><div class="col-md-6"><div class="row"><div class="col-xs-5 box date">');
 var __val__ = pcabstract.key.substring(8,10)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('/');
 var __val__ = pcabstract.key.substring(5,7)
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="col-xs-5 box">');
+buf.push('</div><div class="col-xs-3 box">');
 var __val__ = pcabstract.value.calls
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;');
+buf.push('&nbsp;<img src="img/Tel.png"/></div><div class="col-xs-4 box callsduration">');
  var min = Math.floor(pcabstract.value.callsDuration / 60)
  var sec = pcabstract.value.callsDuration % 60
 var __val__ = min
@@ -281,32 +284,31 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('’');
 var __val__ = sec
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('”</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
+buf.push('”</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-3 box">');
 var __val__ = pcabstract.value.sms
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="col-xs-5 box">');
+buf.push('&nbsp;<img src="img/SMS.png"/></div><div class="col-xs-6 box">');
  var total = pcabstract.value.data ;
+ var unity = 'o';
+ var totalStr = total;
  if (total > 1000000)
 {
  total = total / 1000000 ;
-var __val__ = total.toFixed(2)
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;Mo');
+ totalStr = total.toFixed(2);
+ unity = 'Mo';
 }
  else if (total > 1000)
 {
  total = pcabstract.value.data/1000;
-var __val__ = total.toFixed(2)
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;ko');
+ totalStr = total.toFixed(2);
+ unity = 'ko';
 }
- else
-{
-var __val__ = total
+var __val__ = totalStr
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;o');
-}
-buf.push('</div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="row list_b"></div>');
+buf.push('<span class="unity">');
+var __val__ = unity
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</span>&nbsp;<img src="img/Data.png"/></div><div class="col-xs-1 box"></div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="row list_b pcls"></div>');
 }
 return buf.join("");
 };
@@ -445,15 +447,15 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-3 receiptdetail">');
+buf.push('<div class="col-md-3 pcl">');
  var dt = new Date(pcl.timestamp)
-buf.push('<p>');
+buf.push('<div class="time">');
 var __val__ = dt.getHours()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push(':');
 var __val__ = dt.getMinutes()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
+buf.push('</div><div>');
  if (pcl.longitude)
 {
 buf.push('<a');
@@ -464,10 +466,10 @@ buf.push('<img');
 buf.push(attrs({ 'src':("img/" + (pcl.type) + ".png") }, {"src":true}));
 buf.push('/><img');
 buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png") }, {"src":true}));
-buf.push('/><p>');
+buf.push('/></div><div class="correspondantNumber">');
 var __val__ = pcl.correspondantNumber
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
+buf.push('</div><div class="quantity">');
  if (pcl.type == 'VOICE')
 {
  var min = Math.floor(pcl.chipCount / 60)
@@ -487,7 +489,7 @@ buf.push('&nbsp;');
 var __val__ = pcl.chipType
 buf.push(escape(null == __val__ ? "" : __val__));
 }
-buf.push('</div>');
+buf.push('</div></div>');
 }
 return buf.join("");
 };
@@ -655,7 +657,7 @@ var ReceiptView = require('./receipt');
 module.exports = IntermarcheView = Backbone.View.extend({
 
     el: '#content',
-    template: require('../templates/intermarche'),
+    template: require('../templates/brandpanel'),
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
@@ -665,7 +667,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     render: function() {
 
         // we render the template
-        this.$el.html(this.template());
+        this.$el.html(this.template({'title': "Mes Courses"}));
 
         // fetch the bookmarks from the database
         this.collection.fetch();
@@ -692,7 +694,7 @@ var PCAbstractView = require('./pcabstract');
 module.exports = OrangeView = Backbone.View.extend({
 
     el: '#content',
-    template: require('../templates/intermarche'),
+    template: require('../templates/brandpanel'),
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
@@ -702,7 +704,7 @@ module.exports = OrangeView = Backbone.View.extend({
     render: function() {
 
         // we render the template
-        this.$el.html(this.template());
+        this.$el.html(this.template({'title': "Mes Communications"}));
 
         // fetch the bookmarks from the database
         this.collection.fetch();
@@ -733,7 +735,7 @@ module.exports = Receipt = Backbone.View.extend({
     tagName: 'div',
     template: require('../templates/pcabstract'),
     events: {
-        "click .receipt": "toggleList",    
+        "click .item_a": "toggleList",    
         //"click .toggle": "toggleSectionsNoDefault"    
     },
 

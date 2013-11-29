@@ -6114,6 +6114,53 @@ td.visible-print {
   margin-left: 42px;
   margin-right: 42px;
 }
+.miframe .item_a .box {
+  height: 46px;
+  line-height: 46px;
+  font-size: 24px;
+  font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: white;
+  background: #353A44;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#484f5a, #353a44);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#484f5a #353a44);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#484f5a, #353a44);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#484f5a, #353a44);
+  /* W3C */
+
+}
+.miframe .item_a .toggle {
+  text-align: center;
+}
+.miframe .item_a .toggle img {
+  width: 20px;
+  height: 20px;
+}
+.miframe .pcabstract img {
+  width: 26px;
+  height: 26px;
+}
+.miframe .pcabstract .box {
+  text-align: right;
+}
+.miframe .pcabstract .box.callsduration {
+  padding-left: 0px;
+  color: #46B3E1;
+  text-align: left;
+}
+.miframe .pcabstract .unity {
+  font-size: 12px;
+}
+.miframe .pcabstract .box.date {
+  text-align: left;
+}
 .miframe .receipt .box {
   height: 46px;
   line-height: 46px;
@@ -6210,4 +6257,29 @@ td.visible-print {
   font-weight: bold;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.1;
+}
+.pcls {
+  background: -webkit-repeating-linear-gradient(-90deg, #ececec, #b2b2b2 140px);
+  background: -moz-repeating-linear-gradient(-90deg, #ececec, #b2b2b2 140px);
+  background: -o-repeating-linear-gradient(-90deg, #ececec, #b2b2b2 140px);
+  background: repeating-linear-gradient(180deg, #ececec, #b2b2b2 140px);
+}
+.pcl {
+  padding-top: 5px;
+  height: 140px;
+  font-family: "Signika Semibold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.pcl img {
+  width: 46px;
+  height: 46px;
+  margin-right: 5px;
+}
+.pcl .time {
+  font-size: 18px;
+}
+.pcl .correspondantNumber {
+  font-size: 18px;
+}
+.pcl .quantity {
+  font-size: 24px;
 }
