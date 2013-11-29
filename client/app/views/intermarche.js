@@ -1,6 +1,6 @@
 var ReceiptView = require('./receipt');
 
-module.exports = AppView = Backbone.View.extend({
+module.exports = IntermarcheView = Backbone.View.extend({
 
     el: '#content',
     template: require('../templates/intermarche'),
