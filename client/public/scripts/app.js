@@ -101,12 +101,40 @@ module.exports = {
 };
 });
 
+;require.register("collections/pcabstracts", function(exports, require, module) {
+PCAbstract = require('../models/pcabstract');
+module.exports = PCAbstracts = Backbone.Collection.extend({
+
+    url: 'pcabstracts',
+    model: PCAbstract,
+
+});
+
+});
+
 ;require.register("collections/persons", function(exports, require, module) {
 Person = require('../models/person');
 module.exports = Persons = Backbone.Collection.extend({
 
     url: 'persons',
     model: Person
+
+});
+
+});
+
+;require.register("collections/phonecommunicationlogs", function(exports, require, module) {
+Receipt = require('../models/phonecommunicationlog');
+module.exports = PhoneCommunicationLogs = Backbone.Collection.extend({
+
+    initialize: function(models, options) {
+        this.date = options.date;
+    },
+    
+    url: function() {
+        return 'pcls/' + this.date ;
+    },
+    model: PhoneCommunicationLog,
 
 });
 
@@ -147,10 +175,25 @@ $(document).ready(function() {
 
 });
 
+;require.register("models/pcabstract", function(exports, require, module) {
+module.exports = PCAbstract = Backbone.Model.extend({
+
+})
+
+});
+
 ;require.register("models/person", function(exports, require, module) {
 module.exports = Person = Backbone.Model.extend({
 
 });
+
+});
+
+;require.register("models/phonecommunicationlog", function(exports, require, module) {
+module.exports = PhoneCommunicationLog = Backbone.Model.extend({
+
+});
+
 
 });
 
@@ -197,7 +240,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="text-center"><img id="courses" src="img/Intermarche.png"/></div><div id="content"></div></div></div></div>');
+buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="row"><div class="col-xs-6"><div class="text-center"><img id="courses" src="img/Intermarche.png"/></div></div><div class="col-xs-6"><div class="text-center"><img id="cra" src="img/Orange.png"/></div></div></div><div id="content"></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -210,6 +253,30 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="consocontainer"><div class="consoheader"><h3>Mes courses</h3></div><div id="list" class="consoinner"></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/pcabstract", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-xs-1 box"></div><div class="col-xs-5 box">');
+var __val__ = pcabstract.key
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="col-xs-5 box">');
+var __val__ = pcabstract.value.calls
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
+var __val__ = pcabstract.value.sms
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="col-xs-5 box">');
+var __val__ = pcabstract.value.data
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="row list_b"></div>');
 }
 return buf.join("");
 };
@@ -293,6 +360,41 @@ buf.push('</p><p>');
 var __val__ = person.drivingLicence
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p></div></div></div></div></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/phonecommunicationlog", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="col-md-3"><p>');
+var __val__ = pcl.timestamp
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.latitude
+buf.push(escape(null == __val__ ? "" : __val__));
+var __val__ = pcl.longitude
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.type
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.direction
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.correspondantNumber
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.chipCount
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('<p>');
+var __val__ = pcl.chipType
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></p></div>');
 }
 return buf.join("");
 };
@@ -399,6 +501,8 @@ return buf.join("");
 ;require.register("views/app_view", function(exports, require, module) {
 var IntermarcheView = require('./intermarche');
 var ReceiptCollection = require('collections/receipts');
+var OrangeView = require('./orange');
+var PCAbstractCollection = require('collections/pcabstracts');
 var PersonView = require('./person');
 
 module.exports = AppView = Backbone.View.extend({
@@ -411,7 +515,8 @@ module.exports = AppView = Backbone.View.extend({
         console.log("Initialize")
     },
     events: {
-        "click #courses": "getCourses"
+        "click #courses": "getCourses",
+        "click #cra": "getCRA"
     },
     
     getCourses: function() {
@@ -422,6 +527,17 @@ module.exports = AppView = Backbone.View.extend({
 
         intermarcheView.render()
         this.$el.find('#content').append(intermarcheView.$el);
+
+    },
+
+    getCRA: function() {
+        var pcAbstracts = new PCAbstractCollection();
+        var orangeView = new OrangeView({
+            collection: pcAbstracts
+        });
+
+        orangeView.render()
+        this.$el.find('#content').append(orangeView.$el);
 
     },
 
@@ -443,7 +559,7 @@ module.exports = AppView = Backbone.View.extend({
 ;require.register("views/intermarche", function(exports, require, module) {
 var ReceiptView = require('./receipt');
 
-module.exports = AppView = Backbone.View.extend({
+module.exports = IntermarcheView = Backbone.View.extend({
 
     el: '#content',
     template: require('../templates/intermarche'),
@@ -474,6 +590,105 @@ module.exports = AppView = Backbone.View.extend({
 
 
 });
+
+});
+
+;require.register("views/orange", function(exports, require, module) {
+var PCAbstractView = require('./pcabstract');
+
+module.exports = OrangeView = Backbone.View.extend({
+
+    el: '#content',
+    template: require('../templates/intermarche'),
+
+    // initialize is automatically called once after the view is constructed
+    initialize: function() {
+        this.listenTo(this.collection, "add", this.onPCAbstractAdded);
+    },
+
+    render: function() {
+
+        // we render the template
+        this.$el.html(this.template());
+
+        // fetch the bookmarks from the database
+        this.collection.fetch();
+    },
+
+
+    onPCAbstractAdded: function(item) {
+        // render the specific element
+        itemView = new PCAbstractView({
+            model: item
+        });
+        itemView.render();
+        this.$el.find('#list').append(itemView.$el);
+    }
+
+
+})
+
+});
+
+;require.register("views/pcabstract", function(exports, require, module) {
+var ItemView = require('./phonecommunicationlog');
+var Collection = require('../collections/phonecommunicationlogs');
+
+
+module.exports = Receipt = Backbone.View.extend({
+
+    tagName: 'div',
+    template: require('../templates/pcabstract'),
+    events: {
+        "click .receipt": "toggleList",    
+        //"click .toggle": "toggleSectionsNoDefault"    
+    },
+
+    initialize: function() {
+        this.collection = new Collection([], { date: this.model.attributes.key });
+        
+    },
+
+    render: function() {
+        this.$el.html(this.template({
+            pcabstract: this.model.toJSON()
+        }));
+
+
+    
+    },
+    
+
+    toggleList: function(event) {
+        if (!this.open) {
+            this.open = true;
+            // submit button reload the page, we don't want that
+            //event.preventDefault();
+        
+            this.listenTo(this.collection, "add", this.onItemAdded);
+            // fetch the bookmarks from the database
+            this.collection.fetch();
+
+        } else {
+            this.stopListening(this.collection);
+            this.$el.find('.list_b').empty();
+
+            this.open = false;
+        }
+    },
+
+    onItemAdded: function(item) {
+        // render the specific element
+        var itemView = new ItemView({
+            model: item
+        });
+        itemView.render();
+        this.$el.find('.list_b').append(itemView.$el);
+    }
+    
+    
+});
+
 
 });
 
@@ -513,6 +728,23 @@ module.exports = Person = Backbone.View.extend({
     }
 
 });
+
+});
+
+;require.register("views/phonecommunicationlog", function(exports, require, module) {
+module.exports = PhoneCommunicationLog = Backbone.View.extend({
+
+    tagName: 'div',
+    template: require('../templates/phonecommunicationlog'),
+
+    render: function() {
+        this.$el.html(this.template({
+            pcl: this.model.toJSON()
+        }));
+    },
+
+});
+
 
 });
 
