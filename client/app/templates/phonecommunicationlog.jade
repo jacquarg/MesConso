@@ -1,21 +1,19 @@
-.col-md-3.receiptdetail
-
+.col-md-3.pcl
     - var dt = new Date(pcl.timestamp)
-    p= dt.getHours()
+    .time= dt.getHours()
         | :
         = dt.getMinutes()
+    div
+        - if (pcl.longitude)
+                a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}")
+                    img(src="img/Geoloc.png")
 
-    - if (pcl.longitude)
-        a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}")
-            img(src="img/Geoloc.png")
-    
-    img(src="img/#{pcl.type}.png")
+        img(src="img/#{pcl.type}.png")
+        img(src="img/#{pcl.direction}.png")
 
-    img(src="img/#{pcl.direction}.png")
-
-    p= pcl.correspondantNumber
-    
-    - if (pcl.type == 'VOICE')
+    .correspondantNumber= pcl.correspondantNumber
+    .quantity
+      - if (pcl.type == 'VOICE')
         - var min = Math.floor(pcl.chipCount / 60)
         - var sec = pcl.chipCount % 60
         
@@ -24,7 +22,7 @@
         = sec
         |”
 
-    - else
+      - else
         = pcl.chipCount
         | &nbsp;
         = pcl.chipType

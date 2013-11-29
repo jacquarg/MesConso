@@ -7,7 +7,7 @@ module.exports = Receipt = Backbone.View.extend({
     tagName: 'div',
     template: require('../templates/pcabstract'),
     events: {
-        "click .receipt": "toggleList",    
+        "click .item_a": "toggleList",    
         //"click .toggle": "toggleSectionsNoDefault"    
     },
 
