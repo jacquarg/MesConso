@@ -265,18 +265,92 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-xs-1 box"></div><div class="col-xs-5 box">');
-var __val__ = pcabstract.key
+var __val__ = pcabstract.key.substring(8,10)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('/');
+var __val__ = pcabstract.key.substring(5,7)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="col-xs-5 box">');
 var __val__ = pcabstract.value.calls
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
+buf.push('&nbsp;');
+ var min = Math.floor(pcabstract.value.callsDuration / 60)
+ var sec = pcabstract.value.callsDuration % 60
+var __val__ = min
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('’');
+var __val__ = sec
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('”</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
 var __val__ = pcabstract.value.sms
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="col-xs-5 box">');
-var __val__ = pcabstract.value.data
+ var total = pcabstract.value.data ;
+ if (total > 1000000)
+{
+ total = total / 1000000 ;
+var __val__ = total.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;Mo');
+}
+ else if (total > 1000)
+{
+ total = pcabstract.value.data/1000;
+var __val__ = total.toFixed(2)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;ko');
+}
+ else
+{
+var __val__ = total
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;o');
+}
 buf.push('</div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="row list_b"></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/pcldata", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="col-md-3">');
+ var dt = new Date(pcl.timestamp)
+buf.push('<p>');
+var __val__ = dt.getHours()
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push(':');
+var __val__ = dt.getMinutes()
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.timestamp
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.latitude
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push(',');
+var __val__ = pcl.longitude
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.type
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.direction
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.correspondantNumber
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = pcl.chipCount
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('<p>');
+var __val__ = pcl.chipType
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></p></div>');
 }
 return buf.join("");
 };
@@ -371,30 +445,49 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-3"><p>');
-var __val__ = pcl.timestamp
+buf.push('<div class="col-md-3 receiptdetail">');
+ var dt = new Date(pcl.timestamp)
+buf.push('<p>');
+var __val__ = dt.getHours()
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
-var __val__ = pcl.latitude
+buf.push(':');
+var __val__ = dt.getMinutes()
 buf.push(escape(null == __val__ ? "" : __val__));
-var __val__ = pcl.longitude
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
-var __val__ = pcl.type
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
-var __val__ = pcl.direction
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
+buf.push('</p>');
+ if (pcl.longitude)
+{
+buf.push('<a');
+buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + "") }, {"href":true}));
+buf.push('><img src="img/Geoloc.png"/></a>');
+}
+buf.push('<img');
+buf.push(attrs({ 'src':("img/" + (pcl.type) + ".png") }, {"src":true}));
+buf.push('/><img');
+buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png") }, {"src":true}));
+buf.push('/><p>');
 var __val__ = pcl.correspondantNumber
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
+buf.push('</p>');
+ if (pcl.type == 'VOICE')
+{
+ var min = Math.floor(pcl.chipCount / 60)
+ var sec = pcl.chipCount % 60
+var __val__ = min
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('’');
+var __val__ = sec
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('”');
+}
+ else
+{
 var __val__ = pcl.chipCount
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('<p>');
+buf.push('&nbsp;');
 var __val__ = pcl.chipType
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></p></div>');
+}
+buf.push('</div>');
 }
 return buf.join("");
 };

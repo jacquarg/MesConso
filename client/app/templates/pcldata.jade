@@ -1,0 +1,19 @@
+.col-md-3
+
+    - var dt = new Date(pcl.timestamp)
+    p= dt.getHours()
+        | :
+        = dt.getMinutes()
+    
+
+    p= pcl.timestamp
+    p= pcl.latitude
+        | ,
+        = pcl.longitude
+    p= pcl.type
+    p= pcl.direction
+    p= pcl.correspondantNumber
+    p= pcl.chipCount
+        p= pcl.chipType
+
+

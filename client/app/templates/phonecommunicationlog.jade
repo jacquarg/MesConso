@@ -1,0 +1,31 @@
+.col-md-3.receiptdetail
+
+    - var dt = new Date(pcl.timestamp)
+    p= dt.getHours()
+        | :
+        = dt.getMinutes()
+
+    - if (pcl.longitude)
+        a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}")
+            img(src="img/Geoloc.png")
+    
+    img(src="img/#{pcl.type}.png")
+
+    img(src="img/#{pcl.direction}.png")
+
+    p= pcl.correspondantNumber
+    
+    - if (pcl.type == 'VOICE')
+        - var min = Math.floor(pcl.chipCount / 60)
+        - var sec = pcl.chipCount % 60
+        
+        = min
+        |’
+        = sec
+        |”
+
+    - else
+        = pcl.chipCount
+        | &nbsp;
+        = pcl.chipType
+

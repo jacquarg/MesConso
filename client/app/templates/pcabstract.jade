@@ -1,0 +1,44 @@
+.row.receipt
+    
+    .col-md-6
+      .row
+        .col-xs-1.box
+        .col-xs-5.box
+          = pcabstract.key.substring(8,10)
+          | /
+          = pcabstract.key.substring(5,7)
+
+        .col-xs-5.box
+          = pcabstract.value.calls
+          | &nbsp;
+          - var min = Math.floor(pcabstract.value.callsDuration / 60)
+          - var sec = pcabstract.value.callsDuration % 60
+          = min
+          |’
+          = sec
+          | ”
+
+    .col-md-6
+      .row
+        .col-xs-5.box
+           = pcabstract.value.sms
+        .col-xs-5.box
+            - var total = pcabstract.value.data ;
+            - if (total > 1000000)
+                - total = total / 1000000 ;
+                = total.toFixed(2)
+                |&nbsp;Mo
+            - else if (total > 1000)
+                - total = pcabstract.value.data/1000;
+                = total.toFixed(2)
+                |&nbsp;ko
+            - else
+                = total
+                |&nbsp;o
+            
+        .col-xs-2.box.toggle
+            a
+                img(src="img/plus.png")
+    
+.row.list_b
+            
