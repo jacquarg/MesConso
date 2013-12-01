@@ -17,7 +17,13 @@ module.exports = {
         //byTimestamp : byTimestamp,
 
         byReceiptId : function(doc) {
-            emit(doc.receiptId, doc);
+            if (!doc.receiptId) {
+                // Old receiptDetail format.
+                //doc.receiptId = doc.ticketId;
+                emit(doc.ticketId, doc);
+            } else {
+                emit(doc.receiptId, doc);
+            }
         }
     },
 

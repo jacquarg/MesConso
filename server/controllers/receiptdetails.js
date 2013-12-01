@@ -20,6 +20,8 @@ module.exports.sections = function(req, res) {
             
             for (idx in instances) {
                 rdet = instances[idx];
+                // fix receiptId / ticketId. switch ?
+
                 //var dateStr = rdet.timestamp.toISOString();
                 //var ticketId = rdet.ticketId;
                 // TODO

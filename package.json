@@ -1,5 +1,5 @@
 {
-  "name": "mesinfos-mesconso",
+  "name": "mesinfos-mesconsos",
   "version": "0.0.1",
   "description": "Une application permettant une première visualisation simple de données MesInfos (sur la personne, les tickets de caisses).",
   "repository": {
@@ -18,7 +18,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "cozy-displayName": "Mes Conso",
+  "cozy-displayName": "Mes Consos",
   "cozy-permissions": {
     "Person": {
         "description": "Visualiser les informations relatives à votre personne."
