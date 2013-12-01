@@ -459,7 +459,7 @@ buf.push('</div><div>');
  if (pcl.longitude)
 {
 buf.push('<a');
-buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + "") }, {"href":true}));
+buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + ""), 'target':("_blank") }, {"href":true,"target":true}));
 buf.push('><img src="img/Geoloc.png"/></a>');
 }
 buf.push('<img');
