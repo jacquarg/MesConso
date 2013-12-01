@@ -10,7 +10,7 @@
   "dependencies": {
     "jade": "0.35.0",
     "americano": "0.2.11",
-    "americano-cozy": "0.1.9"
+    "americano-cozy": "0.1.9",
     "request-json": "0.4.4"
   },
   "engines": [
@@ -31,7 +31,7 @@
       "description": "Visualiser les lignes de vos tickets de caisse."
     },
     "PhoneCommunicationLog": {
-      "description": "Visualiser le détail de vos appels, sms et utilisationdes données mobile."
+      "description": "Visualiser le détail de vos appels, sms et utilisation des données mobile."
     }
   }
 }
