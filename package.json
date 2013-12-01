@@ -29,6 +29,9 @@
     },
     "ReceiptDetail": {
       "description": "Visualiser les lignes de vos tickets de caisse."
+    },
+    "PhoneCommunicationLog": {
+      "description": "Visualiser le détail de vos appels, sms et utilisationdes données mobile."
     }
   }
 }
