@@ -306,7 +306,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('<span class="unity">');
 var __val__ = unity
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</span>&nbsp;<img src="img/Data.png"/></div><div class="col-xs-1 box"></div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="row list_b pcls"></div>');
+buf.push('</span>&nbsp;<img src="img/Data.png"/></div><div class="col-xs-1 box"></div><div class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="row list_b pcls"></div>');
 }
 return buf.join("");
 };
@@ -362,7 +362,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="miframe"><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
+buf.push('<div class="miframe"><div class="miframeheaderhid"></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
 var __val__ = person.firstname.toLowerCase()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;');
@@ -452,7 +452,9 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
 var __val__ = person.drivingLicence
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div></div></div></div></div></div>');
+buf.push('</p></div></div></div></div><div class="origin"><img');
+buf.push(attrs({ 'src':("img/" + (person.origin.toLowerCase()) + "nb.png"), "class": ('img-responsive') }, {"src":true}));
+buf.push('/></div></div></div>');
 }
 return buf.join("");
 };
@@ -520,11 +522,11 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div class="col-xs-2 box map"><a');
+buf.push('<div class="row item_a receipt"><div class="col-md-6"><div class="row"><div class="col-xs-2 box map"><a');
 buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'target':("_blank") }, {"href":true,"target":true}));
 buf.push('><img src="img/pin.png"/></a></div><div class="col-xs-5 box">');
  var dt = new Date(receipt.timestamp)
-var __val__ = dt.format('H/mm')
+var __val__ = dt.toString('H/mm')
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="col-xs-5 box">');
 var __val__ = dt.getHours()
@@ -538,7 +540,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp; articles</div><div class="col-xs-5 box price">');
 var __val__ = receipt.total
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-xs-2 box toggle"><a><img src="img/plus.png"/></a></div></div></div></div><div class="sections"></div>');
+buf.push('€</div><div class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -777,10 +779,12 @@ module.exports = PCAbstractView = Backbone.View.extend({
             this.listenTo(this.collection, "add", this.onItemAdded);
             // fetch the bookmarks from the database
             this.collection.fetch();
+            this.$el.find('.toggle-btn').attr('src', "img/moins.png");
 
         } else {
             this.stopListening(this.collection);
             this.$el.find('.list_b').empty();
+            this.$el.find('.toggle-btn').attr('src', "img/plus.png");
 
             this.open = false;
         }
@@ -895,9 +899,12 @@ module.exports = Receipt = Backbone.View.extend({
             // fetch the bookmarks from the database
             this.collection.fetch();
 
+            this.$el.find('.toggle-btn').attr('src', "img/moins.png");
+
         } else {
             this.stopListening(this.collection);
             this.$el.find('.sections').empty();
+            this.$el.find('.toggle-btn').attr('src', "img/plus.png");
 
             this.open = false;
         }

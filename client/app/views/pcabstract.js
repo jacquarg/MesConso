@@ -33,10 +33,12 @@ module.exports = PCAbstractView = Backbone.View.extend({
             this.listenTo(this.collection, "add", this.onItemAdded);
             // fetch the bookmarks from the database
             this.collection.fetch();
+            this.$el.find('.toggle-btn').attr('src', "img/moins.png");
 
         } else {
             this.stopListening(this.collection);
             this.$el.find('.list_b').empty();
+            this.$el.find('.toggle-btn').attr('src', "img/plus.png");
 
             this.open = false;
         }

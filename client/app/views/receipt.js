@@ -35,9 +35,12 @@ module.exports = Receipt = Backbone.View.extend({
             // fetch the bookmarks from the database
             this.collection.fetch();
 
+            this.$el.find('.toggle-btn').attr('src', "img/moins.png");
+
         } else {
             this.stopListening(this.collection);
             this.$el.find('.sections').empty();
+            this.$el.find('.toggle-btn').attr('src', "img/plus.png");
 
             this.open = false;
         }

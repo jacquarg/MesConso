@@ -11,7 +11,16 @@
         line-height: 40px;
         font-weight: bold;
     }
-
+    
+    .miframeheaderhid {
+        background-color: #ECECEC;
+        border-width:1px; 
+        border-color: #B2B2B2;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+        height: 10px;
+    }
     .miframeheader {
         background-color: #353A44;
         line-height: 40px;
@@ -28,19 +37,21 @@
     }
     
     .miframeinner {
+        position: relative;
+
         padding: 14px;
         background-color: #ECECEC;
 
         border-width:1px; 
         border-color: #B2B2B2;
 
-        /*-webkit-border-radius: 0 0 10px 10px;
+        -webkit-border-radius: 0 0 10px 10px;
         -moz-border-radius: 0 0 10px 10px;
-        border-radius: 0 0 10px 10px; */
+        border-radius: 0 0 10px 10px; 
 
-        -webkit-border-radius: 10px 10px 10px 10px;
+        /*-webkit-border-radius: 10px 10px 10px 10px;
         -moz-border-radius: 10px 10px 10px 10px;
-        border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;*/
 
         .person {
             p.nomprenom {
@@ -72,7 +83,16 @@
             p.address {
                 text-transform: capitalize;
             }
+
+            
         }
+        .origin {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                right: 15px;
+                bottom: 15px;
+            }
     }
     
     .consocontainer {
@@ -111,12 +131,14 @@
             background: linear-gradient(#484f5a,#353a44); /* W3C */
 
         }
+       .toggle {
 
-        .toggle {
-            text-align: center;
             img {
                 width: 20px;
                 height: 20px;
+            }
+            img:hover {
+                opacity: 0.5;
             }
         }
     }
@@ -149,22 +171,22 @@
     .receipt {
 
         .box {
-            height: 46px;
-            line-height: 46px;
-            font-size: @font-size-h3;
+            //height: 46px;
+            //line-height: 46px;
+            //font-size: @font-size-h3;
             font-family: @headings-font-family;
-            color: white;
+            //color: white;
             text-align: center;
 
             border: 1px solid #353A44;
             
             //gradient todo
 
-            background: #353A44; /* Old browsers */
-            background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
-            background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
-            background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
-            background: linear-gradient(#484f5a,#353a44); /* W3C */
+            //background: #353A44; /* Old browsers */
+            //background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
+            //background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
+            //background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
+            //background: linear-gradient(#484f5a,#353a44); /* W3C */
 
         }
 
@@ -181,13 +203,7 @@
         .map {
             background: white;
         }
-        .toggle {
-
-            img {
-                width: 20px;
-                height: 20px;
-            }
-        }
+     
     }
 
         .sectionhead {

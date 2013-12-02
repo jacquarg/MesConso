@@ -1,4 +1,4 @@
-.row.receipt
+.row.item_a.receipt
     
     .col-md-6
       .row
@@ -7,7 +7,7 @@
                 img(src="img/pin.png")
         .col-xs-5.box
           - var dt = new Date(receipt.timestamp)
-          = dt.format('H/mm')
+          = dt.toString('H/mm')
 
         .col-xs-5.box
             = dt.getHours()
@@ -23,8 +23,7 @@
             | €
             
         .col-xs-2.box.toggle
-            a
-                img(src="img/plus.png")
+            img.toggle-btn(src="img/plus.png")
     
 .sections
             

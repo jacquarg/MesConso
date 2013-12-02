@@ -1,5 +1,5 @@
 .miframe
-    //-.miframeheader
+    .miframeheaderhid
     //-   h2 MesInfos
 
     .miframeinner
@@ -57,4 +57,7 @@
                                 = cBD.toString('dddd d MMMM yyyy')
                         
                     p= person.drivingLicence
+
+      .origin
+            img.img-responsive(src="img/#{person.origin.toLowerCase()}nb.png")
 
