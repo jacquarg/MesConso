@@ -2,9 +2,8 @@
     .col-md-6
       .row
         .col-xs-5.box.date
-          = pcabstract.key.substring(8,10)
-          | /
-          = pcabstract.key.substring(5,7)
+            - var d = new Date(pcabstract.key)
+            = d.toString('dd/MM')
 
         .col-xs-3.box
           = pcabstract.value.calls

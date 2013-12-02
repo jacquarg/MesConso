@@ -1,7 +1,9 @@
 @import "bootstrap.less";
 
 .miframe {
-
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
 
     h2, h3 {
         text-align: center;
@@ -32,12 +34,17 @@
         border-width:1px; 
         border-color: #B2B2B2;
 
-        -webkit-border-radius: 0 0 10px 10px;
+        /*-webkit-border-radius: 0 0 10px 10px;
         -moz-border-radius: 0 0 10px 10px;
-        border-radius: 0 0 10px 10px;
+        border-radius: 0 0 10px 10px; */
+
+        -webkit-border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;
 
         .person {
             p.nomprenom {
+                text-transform: capitalize;
                 background-color: transparent;
                 background-repeat: no-repeat;
                 background-image: url("../img/NomPrenom.png");
@@ -52,6 +59,7 @@
                 text-align: center;
         
             }
+            
             p {
                 background-color: white;
                 size: @font-size-smaller;
@@ -61,6 +69,9 @@
                 padding-left: 5px;
                 //padding: 3px;
             }    
+            p.address {
+                text-transform: capitalize;
+            }
         }
     }
     

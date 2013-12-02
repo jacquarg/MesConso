@@ -6053,6 +6053,10 @@ td.visible-print {
     display: none !important;
   }
 }
+.miframe {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .miframe h2,
 .miframe h3 {
   text-align: center;
@@ -6078,11 +6082,16 @@ td.visible-print {
   background-color: #ECECEC;
   border-width: 1px;
   border-color: #B2B2B2;
-  -webkit-border-radius: 0 0 10px 10px;
-  -moz-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
+  /*-webkit-border-radius: 0 0 10px 10px;
+        -moz-border-radius: 0 0 10px 10px;
+        border-radius: 0 0 10px 10px; */
+
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
 }
 .miframe .miframeinner .person p.nomprenom {
+  text-transform: capitalize;
   background-color: transparent;
   background-repeat: no-repeat;
   background-image: url("../img/NomPrenom.png");
@@ -6099,6 +6108,9 @@ td.visible-print {
   background-color: white;
   size: 10px;
   padding-left: 5px;
+}
+.miframe .miframeinner .person p.address {
+  text-transform: capitalize;
 }
 .miframe .consocontainer {
   background: #353A44;

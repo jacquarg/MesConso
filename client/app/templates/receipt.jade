@@ -7,9 +7,7 @@
                 img(src="img/pin.png")
         .col-xs-5.box
           - var dt = new Date(receipt.timestamp)
-          = dt.getDate()
-          | /
-          = dt.getMonth()
+          = dt.format('H/mm')
 
         .col-xs-5.box
             = dt.getHours()

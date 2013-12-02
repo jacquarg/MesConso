@@ -268,10 +268,8 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="row item_a pcabstract"><div class="col-md-6"><div class="row"><div class="col-xs-5 box date">');
-var __val__ = pcabstract.key.substring(8,10)
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('/');
-var __val__ = pcabstract.key.substring(5,7)
+ var d = new Date(pcabstract.key)
+var __val__ = d.toString('dd/MM')
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="col-xs-3 box">');
 var __val__ = pcabstract.value.calls
@@ -364,37 +362,63 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="miframe"><div class="miframeheader"><h2>MesInfos</h2></div><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
-var __val__ = person.firstname
+buf.push('<div class="miframe"><div class="miframeinner"><div class="row person"><div class="col-md-5"><div class="row"><div class="col-xs-3"><img src="img/Bonhomme.png" class="img-responsive"/></div><div class="col-xs-9"><p class="nomprenom">');
+var __val__ = person.firstname.toLowerCase()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;');
-var __val__ = person.lastname
+var __val__ = person.lastname.toLowerCase()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p>');
  var bDate = new Date(person.birthdate)
  //p= person.birthdate
 buf.push('<p>');
-var __val__ = bDate.toDateString()
+var __val__ = bDate.toString('dddd d MMMM yyyy')
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
-var __val__ = person.address1
+buf.push('</p><p class="address">');
+var __val__ = person.address1.toLowerCase()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('<br/>');
 var __val__ = person.postcode
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;');
-var __val__ = person.city
+var __val__ = person.city.toLowerCase()
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('<br/>');
+ if (person.countryCode = 'FR')
+{
+buf.push('France');
+}
+ else
+{
 var __val__ = person.countryCode
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p></div></div></div><div class="col-md-7"><div class="row"><div class="col-sm-6"><p>0');
+}
+buf.push('</p></div></div></div><div class="col-md-7"><div class="row"><div class="col-sm-6">');
+ if (person.phoneNumber && person.phoneNumber.length == 9)
+{
+ var numStr = '0' + person.phoneNumber.substring(0, 1) +'&thinsp;' + person.phoneNumber.substring(1, 3) + '&thinsp;' + person.phoneNumber.substring(3, 5) + '&thinsp;' + person.phoneNumber.substring(5, 7) + '&thinsp;'+ person.phoneNumber.substring(7, 9)
+buf.push('<p>');
+var __val__ = numStr
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p>');
+}
+else
+{
+buf.push('<p>');
 var __val__ = person.phoneNumber
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
+buf.push('</p>');
+}
+buf.push('<p>');
 var __val__ = person.email
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</p><p>');
+var __val__ = person.csp
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p><p>');
+var __val__ = person.maritalStatus
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p></div><div class="col-sm-6"><p>');
  if (person.childrenCount == 0)
 {
 buf.push('Aucun enfant');
@@ -405,33 +429,26 @@ var __val__ = person.childrenCount
 buf.push(escape(null == __val__ ? "" : __val__));
  if (person.childrenCount == 1)
 {
-buf.push('&nbsp; enfant');
+buf.push('&nbsp; enfant :');
 }
  else
 {
-buf.push('&nbsp; enfant ');
+buf.push('&nbsp; enfants :');
 }
 }
- if (person.birthdateChild1)
- var c1BD = new Date(person.birthdateChild1)
+ for (var i=1; i<6; i++)
 {
-buf.push('<br/>');
-var __val__ = c1BD.toDateString()
-buf.push(escape(null == __val__ ? "" : __val__));
-}
- if (person.birthdateChild2)
- var c2BD = new Date(person.birthdateChild2)
+ if (person['birthdateChild' + i])
 {
+ var cBD = new Date(person['birthdateChild' + i])
 buf.push('<br/>');
-var __val__ = c2BD
+var __val__ = i
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('° enfant né le ');
+var __val__ = cBD.toString('dddd d MMMM yyyy')
 buf.push(escape(null == __val__ ? "" : __val__));
 }
-buf.push('</p></div><div class="col-sm-6"><p>');
-var __val__ = person.csp
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p><p>');
-var __val__ = person.maritalStatus
-buf.push(escape(null == __val__ ? "" : __val__));
+}
 buf.push('</p><p>');
 var __val__ = person.drivingLicence
 buf.push(escape(null == __val__ ? "" : __val__));
@@ -450,10 +467,7 @@ var interp;
 buf.push('<div class="col-md-3 pcl">');
  var dt = new Date(pcl.timestamp)
 buf.push('<div class="time">');
-var __val__ = dt.getHours()
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push(':');
-var __val__ = dt.getMinutes()
+var __val__ = dt.toString('H:mm')
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div>');
  if (pcl.longitude)
@@ -466,9 +480,22 @@ buf.push('<img');
 buf.push(attrs({ 'src':("img/" + (pcl.type) + ".png") }, {"src":true}));
 buf.push('/><img');
 buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png") }, {"src":true}));
-buf.push('/></div><div class="correspondantNumber">');
+buf.push('/>');
+ if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.startsWith('33'))    
+{
+ var numStr = '+33' + '&thinsp;' + pcl.correspondantNumber.substring(2, 3) + '&thinsp;' + pcl.correspondantNumber.substring(3, 5) + '&thinsp;' + pcl.correspondantNumber.substring(5, 7) + '&thinsp;'+ pcl.correspondantNumber.substring(7, 9) + '&thinsp;' + pcl.correspondantNumber.substring(9, 11)
+buf.push('<div class="correspondantNumber">');
+var __val__ = numStr
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+ else
+{
+buf.push('<div class="correspondantNumber">');
 var __val__ = pcl.correspondantNumber
 buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
 buf.push('</div><div class="quantity">');
  if (pcl.type == 'VOICE')
 {
@@ -480,14 +507,6 @@ buf.push('’');
 var __val__ = sec
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('”');
-}
- else
-{
-var __val__ = pcl.chipCount
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;');
-var __val__ = pcl.chipType
-buf.push(escape(null == __val__ ? "" : __val__));
 }
 buf.push('</div></div>');
 }
@@ -505,10 +524,7 @@ buf.push('<div class="row receipt"><div class="col-md-6"><div class="row"><div c
 buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'target':("_blank") }, {"href":true,"target":true}));
 buf.push('><img src="img/pin.png"/></a></div><div class="col-xs-5 box">');
  var dt = new Date(receipt.timestamp)
-var __val__ = dt.getDate()
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('/');
-var __val__ = dt.getMonth()
+var __val__ = dt.format('H/mm')
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="col-xs-5 box">');
 var __val__ = dt.getHours()

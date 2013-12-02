@@ -1,8 +1,10 @@
 .col-md-3.pcl
     - var dt = new Date(pcl.timestamp)
-    .time= dt.getHours()
-        | :
-        = dt.getMinutes()
+    .time= dt.toString('H:mm')
+    //-.time= dt.getHours()
+    //-    | :
+    //-    = dt.getMinutes()
+
     div
         - if (pcl.longitude)
                 a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}", target="_blank")
@@ -10,8 +12,15 @@
 
         img(src="img/#{pcl.type}.png")
         img(src="img/#{pcl.direction}.png")
+    
+        - if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.startsWith('33'))    
+            - var numStr = '+33' + '&thinsp;' + pcl.correspondantNumber.substring(2, 3) + '&thinsp;' + pcl.correspondantNumber.substring(3, 5) + '&thinsp;' + pcl.correspondantNumber.substring(5, 7) + '&thinsp;'+ pcl.correspondantNumber.substring(7, 9) + '&thinsp;' + pcl.correspondantNumber.substring(9, 11)
 
-    .correspondantNumber= pcl.correspondantNumber
+            .correspondantNumber= numStr
+
+        - else
+            .correspondantNumber= pcl.correspondantNumber
+
     .quantity
       - if (pcl.type == 'VOICE')
         - var min = Math.floor(pcl.chipCount / 60)
@@ -22,8 +31,8 @@
         = sec
         |”
 
-      - else
-        = pcl.chipCount
-        | &nbsp;
-        = pcl.chipType
+//-      - else
+//-        = pcl.chipCount
+//-        | &nbsp;
+//-        = pcl.chipType
 
