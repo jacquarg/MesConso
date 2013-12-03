@@ -6129,11 +6129,21 @@ td.visible-print {
   right: 15px;
   bottom: 15px;
 }
+.miframe .brand-selected {
+  opacity: 1;
+}
+.miframe .brand {
+  opacity: 0.5;
+}
+.miframe .brand:hover {
+  opacity: 1;
+}
 .miframe .consocontainer {
   background: #353A44;
   /* Old browsers */
 
   margin: 14px;
+  padding-bottom: 30px;
 }
 .miframe .consocontainer .consoheader {
   background-color: #353A44;
@@ -6242,14 +6252,32 @@ td.visible-print {
   margin: 18px;
 }
 .miframe .receiptdetail {
+  position: relative;
+  background: white;
+  height: 90px;
+  margin-left: 15px;
+  margin-right: 15px;
   margin-bottom: 21px;
   line-height: 1.1;
 }
 .miframe .receiptdetail .image {
+  position: absolute;
   width: 75px;
-  height: auto;
+  height: 75px;
+  left: 3px;
+  top: 7px;
+  background: url("../img/sac.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 60px;
+  background-color: transparent;
+}
+.miframe .receiptdetail .detail {
+  vertical-align: center-vertical;
+  margin-left: 80px;
 }
 .miframe .receiptdetail .lab {
+  text-transform: capitalize;
   font-size: 18px;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.1;
@@ -6259,6 +6287,9 @@ td.visible-print {
   line-height: 1.1;
 }
 .miframe .receiptdetail .price {
+  position: absolute;
+  left: 80px;
+  bottom: 0px;
   font-size: 24px;
   font-weight: bold;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;

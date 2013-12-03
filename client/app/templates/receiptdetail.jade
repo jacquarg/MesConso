@@ -1,10 +1,13 @@
 .col-md-4
-    .row.receiptdetail
-        .col-xs-4
-            img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg')
+    .row
+      .receiptdetail
+        img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg')
             
-        .col-xs-8
+        .detail
             - var label = receiptDetail.label.toLowerCase();
+            - if (label == "nr")
+            -    label = receiptDetail.familyLabel.toLowerCase();
+            
             - var parts = label.split(' ');
             - var vol = parts.pop();
             - parts.join(' ');

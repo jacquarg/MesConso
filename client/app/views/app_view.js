@@ -18,6 +18,16 @@ module.exports = AppView = Backbone.View.extend({
         "click #cra": "getCRA"
     },
     
+    toggleSelection: function(brand) {
+        var other_map = {
+            '#courses': '#cra',
+            '#cra': '#courses'
+        };
+
+        this.$el.find(brand).attr('class', 'brand-selected');
+        this.$el.find(other_map[brand]).attr('class', 'brand');
+
+    },
     getCourses: function() {
         var receipts = new ReceiptCollection();
         intermarcheView = new IntermarcheView({
@@ -26,7 +36,7 @@ module.exports = AppView = Backbone.View.extend({
 
         intermarcheView.render()
         this.$el.find('#content').append(intermarcheView.$el);
-
+        this.toggleSelection('#courses');
     },
 
     getCRA: function() {
@@ -37,6 +47,7 @@ module.exports = AppView = Backbone.View.extend({
 
         orangeView.render()
         this.$el.find('#content').append(orangeView.$el);
+        this.toggleSelection('#cra');
 
     },
 

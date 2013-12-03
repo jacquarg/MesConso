@@ -94,10 +94,21 @@
                 bottom: 15px;
             }
     }
+
+    .brand-selected {
+            opacity: 1;
+    }
+    .brand {
+        opacity: 0.5;
+    }
+    .brand:hover {
+        opacity: 1;
+    }
     
     .consocontainer {
         background: #353A44; /* Old browsers */
         margin: 14px;
+        padding-bottom: 30px;
 
         .consoheader {
             background-color: #353A44;
@@ -223,14 +234,33 @@
         }
 
     .receiptdetail {
+        position: relative;
+        background: white;
+        height: 90px;
+        margin-left: 15px;
+        margin-right: 15px;
         margin-bottom: 21px;
         line-height: 1.1;
         .image {
+            position: absolute;
             //width: 53px;
             width: 75px;
-            height: auto;
+            height: 75px;
+            left: 3px;
+            top: 7px;
+            background: url("../img/sac.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: auto 60px;
+            background-color: transparent;
+        }
+        .detail {
+            vertical-align: center-vertical;
+            margin-left: 80px;
+
         }
         .lab {
+            text-transform: capitalize;
             font-size: @font-size-large;
             font-family: @headings-font-family;
             line-height: 1.1;
@@ -241,6 +271,9 @@
  //           font-family: @headings-font-family;
         }
         .price {
+            position: absolute;
+            left: 80px;
+            bottom: 0px;
             font-size: @font-size-h3;
             font-weight: bold;
             font-family: @headings-font-family;

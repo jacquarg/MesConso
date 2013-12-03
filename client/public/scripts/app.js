@@ -255,7 +255,7 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="row"><div class="col-xs-6"><div class="text-center"><img id="courses" src="img/Intermarche.png"/></div></div><div class="col-xs-6"><div class="text-center"><img id="cra" src="img/Orange.png"/></div></div></div><div id="content"></div></div></div></div>');
+buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="row"><div class="col-xs-6 text-center"><img id="courses" src="img/Intermarche.png" class="brand"/></div><div class="col-xs-6 text-center"><img id="cra" src="img/Orange.png" class="brand"/></div></div><div id="content"></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -526,13 +526,10 @@ buf.push('<div class="row item_a receipt"><div class="col-md-6"><div class="row"
 buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'target':("_blank") }, {"href":true,"target":true}));
 buf.push('><img src="img/pin.png"/></a></div><div class="col-xs-5 box">');
  var dt = new Date(receipt.timestamp)
-var __val__ = dt.toString('H/mm')
+var __val__ = dt.toString('d/MM')
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><div class="col-xs-5 box">');
-var __val__ = dt.getHours()
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push(':');
-var __val__ = dt.getMinutes()
+var __val__ = dt.toString('H:mm')
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
 var __val__ = receipt.articlesCount
@@ -552,10 +549,12 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="col-md-4"><div class="row receiptdetail"><div class="col-xs-4"><img');
+buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
 buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), "class": ('image') }, {"src":true}));
-buf.push('/></div><div class="col-xs-8">');
+buf.push('/><div class="detail">');
  var label = receiptDetail.label.toLowerCase();
+ if (label == "nr")
+    label = receiptDetail.familyLabel.toLowerCase();
  var parts = label.split(' ');
  var vol = parts.pop();
  parts.join(' ');
@@ -569,7 +568,7 @@ buf.push('</div>');
 buf.push('<div class="price">');
 var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€ </div></div></div></div>');
+buf.push('&nbsp;€ </div></div></div></div></div>');
 }
 return buf.join("");
 };
@@ -586,10 +585,12 @@ buf.push(attrs({ 'src':("img/Sections/" + (section.section) + ".png"), "class": 
 buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
-buf.push('<div class="col-md-4"><div class="row receiptdetail"><div class="col-xs-4"><img');
+buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
 buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), "class": ('image') }, {"src":true}));
-buf.push('/></div><div class="col-xs-8">');
+buf.push('/><div class="detail">');
  var label = receiptDetail.label.toLowerCase();
+ if (label == "nr")
+    label = receiptDetail.familyLabel.toLowerCase();
  var parts = label.split(' ');
  var vol = parts.pop();
  parts.join(' ');
@@ -603,7 +604,7 @@ buf.push('</div>');
 buf.push('<div class="price">');
 var __val__ = receiptDetail.price
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€ </div></div></div></div>');
+buf.push('&nbsp;€ </div></div></div></div></div>');
  }
 buf.push('</div></div>');
 }
@@ -632,6 +633,16 @@ module.exports = AppView = Backbone.View.extend({
         "click #cra": "getCRA"
     },
     
+    toggleSelection: function(brand) {
+        var other_map = {
+            '#courses': '#cra',
+            '#cra': '#courses'
+        };
+
+        this.$el.find(brand).attr('class', 'brand-selected');
+        this.$el.find(other_map[brand]).attr('class', 'brand');
+
+    },
     getCourses: function() {
         var receipts = new ReceiptCollection();
         intermarcheView = new IntermarcheView({
@@ -640,7 +651,7 @@ module.exports = AppView = Backbone.View.extend({
 
         intermarcheView.render()
         this.$el.find('#content').append(intermarcheView.$el);
-
+        this.toggleSelection('#courses');
     },
 
     getCRA: function() {
@@ -651,6 +662,7 @@ module.exports = AppView = Backbone.View.extend({
 
         orangeView.render()
         this.$el.find('#content').append(orangeView.$el);
+        this.toggleSelection('#cra');
 
     },
 

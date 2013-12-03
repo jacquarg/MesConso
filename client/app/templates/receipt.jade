@@ -7,12 +7,10 @@
                 img(src="img/pin.png")
         .col-xs-5.box
           - var dt = new Date(receipt.timestamp)
-          = dt.toString('H/mm')
+          = dt.toString('d/MM')
 
         .col-xs-5.box
-            = dt.getHours()
-            | :
-            = dt.getMinutes()
+          = dt.toString('H:mm')
     .col-md-6
       .row
         .col-xs-5.box
