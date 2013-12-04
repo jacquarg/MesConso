@@ -535,7 +535,7 @@ buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="c
 var __val__ = receipt.articlesCount
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp; articles</div><div class="col-xs-5 box price">');
-var __val__ = receipt.total
+var __val__ = receipt.total.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('€</div><div class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="sections"></div>');
 }
@@ -566,7 +566,7 @@ buf.push('</div>');
  //p= receiptDetail.amount 
  //   | X
 buf.push('<div class="price">');
-var __val__ = receiptDetail.price
+var __val__ = receiptDetail.price.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€ </div></div></div></div></div>');
 }
@@ -602,7 +602,7 @@ buf.push('</div>');
  //p= receiptDetail.amount 
  //   | X
 buf.push('<div class="price">');
-var __val__ = receiptDetail.price
+var __val__ = receiptDetail.price.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€ </div></div></div></div></div>');
  }

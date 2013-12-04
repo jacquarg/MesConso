@@ -43,17 +43,17 @@ PhoneCommunicationLog.dayAbstract = function(callback) {
 
 
     // The data system listens to localhost:9101
-    dataSystem = new Client('http://localhost:9101');
+    dataSystem = new Client('http://localhost:9101/');
 
     // In production we must authentificate the application
-    if(process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production') {
         user = process.env.USER;
         password = process.env.PASSWORD;
         dataSystem.setBasicAuth(user, password);
     }
 
     // The request must be created first, let's say it is
-    dataSystem.post('/request/phonecommunicationlog/dayabstract/', 
+    dataSystem.post('request/phonecommunicationlog/dayabstract/', 
             {  
                 descending: true,
                 'group': true
