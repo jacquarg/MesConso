@@ -1,7 +1,7 @@
 americano = require('americano');
 //require('date');
 
-module.exports = PhoneCommunicationLog = americano.getModel('phonecommunicationlog', {
+module.exports = PhoneCommunicationLog = americano.getModel('PhoneCommunicationLog', {
     'origin': String,
     'idMesInfos': String,
     'direction': String,
