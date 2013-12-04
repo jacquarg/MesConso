@@ -1,4 +1,4 @@
-.row.receipt
+.row.item_a.receipt
     
     .col-md-6
       .row
@@ -7,26 +7,21 @@
                 img(src="img/pin.png")
         .col-xs-5.box
           - var dt = new Date(receipt.timestamp)
-          = dt.getDate()
-          | /
-          = dt.getMonth()
+          = dt.toString('d/MM')
 
         .col-xs-5.box
-            = dt.getHours()
-            | :
-            = dt.getMinutes()
+          = dt.toString('H:mm')
     .col-md-6
       .row
         .col-xs-5.box
             = receipt.articlesCount
             |&nbsp; articles
         .col-xs-5.box.price
-            = receipt.total
+            = receipt.total.toFixed(2)
             | €
             
         .col-xs-2.box.toggle
-            a
-                img(src="img/plus.png")
+            img.toggle-btn(src="img/plus.png")
     
 .sections
             

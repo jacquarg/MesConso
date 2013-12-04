@@ -1,6 +1,6 @@
 americano = require('americano');
 
-module.exports = Receipt = americano.getModel('receipt', {
+module.exports = Receipt = americano.getModel('Receipt', {
     'receiptId': String,
     'transactionCode': String,
     'transaction': String,

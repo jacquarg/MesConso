@@ -1,6 +1,6 @@
 .miframe
-    .miframeheader
-       h2 MesInfos
+    .miframeheaderhid
+    //-   h2 MesInfos
 
     .miframeinner
       .row.person
@@ -9,47 +9,55 @@
                 .col-xs-3
                     img.img-responsive(src='img/Bonhomme.png')
                 .col-xs-9
-                    p.nomprenom= person.firstname
+                    p.nomprenom= person.firstname.toLowerCase()
                         | &nbsp;
-                        = person.lastname
+                        = person.lastname.toLowerCase()
                     - var bDate = new Date(person.birthdate)
                     - //p= person.birthdate
-                    p= bDate.toDateString()
-                    p= person.address1
+                    p= bDate.toString('dddd d MMMM yyyy')
+                    p.address= person.address1.toLowerCase()
                         br
                         = person.postcode
                         | &nbsp;
-                        = person.city
+                        = person.city.toLowerCase()
                         br
-                        = person.countryCode
+                        - if (person.countryCode = 'FR')
+                            | France
+                        - else
+                            = person.countryCode
         .col-md-7
             .row
                 .col-sm-6
-                    p 0
-                        = person.phoneNumber
-                    p= person.email
+                    - if (person.phoneNumber && person.phoneNumber.length == 9)
+                        - var numStr = '0' + person.phoneNumber.substring(0, 1) +'&thinsp;' + person.phoneNumber.substring(1, 3) + '&thinsp;' + person.phoneNumber.substring(3, 5) + '&thinsp;' + person.phoneNumber.substring(5, 7) + '&thinsp;'+ person.phoneNumber.substring(7, 9)
+                        p= numStr
+                    -else
+                        p= person.phoneNumber
 
+                    p= person.email
+                    p= person.csp
+                    p= person.maritalStatus
+
+                .col-sm-6
                     p
                         - if (person.childrenCount == 0)
                             | Aucun enfant
                         - else
                             = person.childrenCount
                             - if (person.childrenCount == 1)
-                                | &nbsp; enfant
+                                | &nbsp; enfant :
                             - else
-                                | &nbsp; enfant 
-                        - if (person.birthdateChild1)
-                        - var c1BD = new Date(person.birthdateChild1)
-                            br
-                            = c1BD.toDateString()
+                                | &nbsp; enfants :
+                        - for (var i=1; i<6; i++)
+                            - if (person['birthdateChild' + i])
+                                - var cBD = new Date(person['birthdateChild' + i])
+                                br
+                                = i
+                                | ° enfant né le 
+                                = cBD.toString('dddd d MMMM yyyy')
                         
-                        - if (person.birthdateChild2)
-                        - var c2BD = new Date(person.birthdateChild2)
-                            br
-                            = c2BD
-
-                .col-sm-6
-                    p= person.csp
-                    p= person.maritalStatus
                     p= person.drivingLicence
+
+      .origin
+            img.img-responsive(src="img/#{person.origin.toLowerCase()}nb.png")
 

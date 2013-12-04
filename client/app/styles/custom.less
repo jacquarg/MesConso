@@ -1,7 +1,9 @@
 @import "bootstrap.less";
 
 .miframe {
-
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
 
     h2, h3 {
         text-align: center;
@@ -9,7 +11,16 @@
         line-height: 40px;
         font-weight: bold;
     }
-
+    
+    .miframeheaderhid {
+        background-color: #ECECEC;
+        border-width:1px; 
+        border-color: #B2B2B2;
+        -webkit-border-radius: 10px 10px 0 0;
+        -moz-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+        height: 10px;
+    }
     .miframeheader {
         background-color: #353A44;
         line-height: 40px;
@@ -26,6 +37,8 @@
     }
     
     .miframeinner {
+        position: relative;
+
         padding: 14px;
         background-color: #ECECEC;
 
@@ -34,10 +47,15 @@
 
         -webkit-border-radius: 0 0 10px 10px;
         -moz-border-radius: 0 0 10px 10px;
-        border-radius: 0 0 10px 10px;
+        border-radius: 0 0 10px 10px; 
+
+        /*-webkit-border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;*/
 
         .person {
             p.nomprenom {
+                text-transform: capitalize;
                 background-color: transparent;
                 background-repeat: no-repeat;
                 background-image: url("../img/NomPrenom.png");
@@ -52,6 +70,7 @@
                 text-align: center;
         
             }
+            
             p {
                 background-color: white;
                 size: @font-size-smaller;
@@ -61,12 +80,35 @@
                 padding-left: 5px;
                 //padding: 3px;
             }    
+            p.address {
+                text-transform: capitalize;
+            }
+
+            
         }
+        .origin {
+                position: absolute;
+                width: 25px;
+                height: 25px;
+                right: 15px;
+                bottom: 15px;
+            }
+    }
+
+    .brand-selected {
+            opacity: 1;
+    }
+    .brand {
+        opacity: 0.5;
+    }
+    .brand:hover {
+        opacity: 1;
     }
     
     .consocontainer {
         background: #353A44; /* Old browsers */
         margin: 14px;
+        padding-bottom: 30px;
 
         .consoheader {
             background-color: #353A44;
@@ -84,7 +126,7 @@
     //        left: -10px;
     //        vertical-align: center;
     //    }
-    .receipt {
+    .item_a {
 
         .box {
             height: 46px;
@@ -92,17 +134,70 @@
             font-size: @font-size-h3;
             font-family: @headings-font-family;
             color: white;
-            text-align: center;
-
-            border: 1px solid #353A44;
-            
-            //gradient todo
 
             background: #353A44; /* Old browsers */
             background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
             background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
             background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
             background: linear-gradient(#484f5a,#353a44); /* W3C */
+
+        }
+       .toggle {
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
+            img:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .pcabstract {
+
+        img {
+            width: 26px;
+            height: 26px;
+        }
+        .box {
+            text-align: right;
+        }
+
+        .box.callsduration {
+            padding-left: 0px;
+            color: #46B3E1;
+            text-align: left;
+        }
+        .unity {
+            font-size: @font-size-small;
+
+        }
+        .box.date {
+            text-align: left;
+        }
+    }
+
+    // TODO : factor with item_a.
+    .receipt {
+
+        .box {
+            //height: 46px;
+            //line-height: 46px;
+            //font-size: @font-size-h3;
+            font-family: @headings-font-family;
+            //color: white;
+            text-align: center;
+
+            border: 1px solid #353A44;
+            
+            //gradient todo
+
+            //background: #353A44; /* Old browsers */
+            //background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
+            //background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
+            //background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
+            //background: linear-gradient(#484f5a,#353a44); /* W3C */
 
         }
 
@@ -119,13 +214,7 @@
         .map {
             background: white;
         }
-        .toggle {
-
-            img {
-                width: 20px;
-                height: 20px;
-            }
-        }
+     
     }
 
         .sectionhead {
@@ -145,14 +234,33 @@
         }
 
     .receiptdetail {
+        position: relative;
+        background: white;
+        height: 90px;
+        margin-left: 15px;
+        margin-right: 15px;
         margin-bottom: 21px;
         line-height: 1.1;
         .image {
+            position: absolute;
             //width: 53px;
             width: 75px;
-            height: auto;
+            height: 75px;
+            left: 3px;
+            top: 7px;
+            background: url("../img/sac.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: auto 60px;
+            background-color: transparent;
+        }
+        .detail {
+            vertical-align: center-vertical;
+            margin-left: 80px;
+
         }
         .lab {
+            text-transform: capitalize;
             font-size: @font-size-large;
             font-family: @headings-font-family;
             line-height: 1.1;
@@ -163,6 +271,9 @@
  //           font-family: @headings-font-family;
         }
         .price {
+            position: absolute;
+            left: 80px;
+            bottom: 0px;
             font-size: @font-size-h3;
             font-weight: bold;
             font-family: @headings-font-family;
@@ -171,6 +282,33 @@
     }
 
 
-
+}
     
+
+.pcls {
+    background: -webkit-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 140px);
+    background: -moz-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 140px);
+    background: -o-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 140px);
+    background: repeating-linear-gradient(180deg, #ECECEC,#B2B2B2 140px);  
+}
+    
+
+.pcl {
+    img {
+        width: 46px;
+        height: 46px;
+        margin-right: 5px;
+    }
+    .time {
+        font-size: @font-size-large;
+    }
+    .correspondantNumber {
+        font-size: @font-size-large;
+    }
+    .quantity {
+        font-size: @font-size-h3;
+    }
+    padding-top: 5px;
+    height: 140px;
+    font-family: @font-family-base;
 }

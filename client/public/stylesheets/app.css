@@ -6053,12 +6053,25 @@ td.visible-print {
     display: none !important;
   }
 }
+.miframe {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .miframe h2,
 .miframe h3 {
   text-align: center;
   color: white;
   line-height: 40px;
   font-weight: bold;
+}
+.miframe .miframeheaderhid {
+  background-color: #ECECEC;
+  border-width: 1px;
+  border-color: #B2B2B2;
+  -webkit-border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
+  height: 10px;
 }
 .miframe .miframeheader {
   background-color: #353A44;
@@ -6074,6 +6087,7 @@ td.visible-print {
 
 }
 .miframe .miframeinner {
+  position: relative;
   padding: 14px;
   background-color: #ECECEC;
   border-width: 1px;
@@ -6081,8 +6095,13 @@ td.visible-print {
   -webkit-border-radius: 0 0 10px 10px;
   -moz-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
+  /*-webkit-border-radius: 10px 10px 10px 10px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;*/
+
 }
 .miframe .miframeinner .person p.nomprenom {
+  text-transform: capitalize;
   background-color: transparent;
   background-repeat: no-repeat;
   background-image: url("../img/NomPrenom.png");
@@ -6100,11 +6119,31 @@ td.visible-print {
   size: 10px;
   padding-left: 5px;
 }
+.miframe .miframeinner .person p.address {
+  text-transform: capitalize;
+}
+.miframe .miframeinner .origin {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 15px;
+  bottom: 15px;
+}
+.miframe .brand-selected {
+  opacity: 1;
+}
+.miframe .brand {
+  opacity: 0.5;
+}
+.miframe .brand:hover {
+  opacity: 1;
+}
 .miframe .consocontainer {
   background: #353A44;
   /* Old browsers */
 
   margin: 14px;
+  padding-bottom: 30px;
 }
 .miframe .consocontainer .consoheader {
   background-color: #353A44;
@@ -6114,14 +6153,12 @@ td.visible-print {
   margin-left: 42px;
   margin-right: 42px;
 }
-.miframe .receipt .box {
+.miframe .item_a .box {
   height: 46px;
   line-height: 46px;
   font-size: 24px;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
-  text-align: center;
-  border: 1px solid #353A44;
   background: #353A44;
   /* Old browsers */
 
@@ -6137,6 +6174,36 @@ td.visible-print {
   background: linear-gradient(#484f5a, #353a44);
   /* W3C */
 
+}
+.miframe .item_a .toggle img {
+  width: 20px;
+  height: 20px;
+}
+.miframe .item_a .toggle img:hover {
+  opacity: 0.5;
+}
+.miframe .pcabstract img {
+  width: 26px;
+  height: 26px;
+}
+.miframe .pcabstract .box {
+  text-align: right;
+}
+.miframe .pcabstract .box.callsduration {
+  padding-left: 0px;
+  color: #46B3E1;
+  text-align: left;
+}
+.miframe .pcabstract .unity {
+  font-size: 12px;
+}
+.miframe .pcabstract .box.date {
+  text-align: left;
+}
+.miframe .receipt .box {
+  font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  border: 1px solid #353A44;
 }
 .miframe .receipt .price {
   font-size: 30px;
@@ -6158,10 +6225,6 @@ td.visible-print {
 }
 .miframe .receipt .map {
   background: white;
-}
-.miframe .receipt .toggle img {
-  width: 20px;
-  height: 20px;
 }
 .miframe .sectionhead {
   text-align: center;
@@ -6189,14 +6252,32 @@ td.visible-print {
   margin: 18px;
 }
 .miframe .receiptdetail {
+  position: relative;
+  background: white;
+  height: 90px;
+  margin-left: 15px;
+  margin-right: 15px;
   margin-bottom: 21px;
   line-height: 1.1;
 }
 .miframe .receiptdetail .image {
+  position: absolute;
   width: 75px;
-  height: auto;
+  height: 75px;
+  left: 3px;
+  top: 7px;
+  background: url("../img/sac.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 60px;
+  background-color: transparent;
+}
+.miframe .receiptdetail .detail {
+  vertical-align: center-vertical;
+  margin-left: 80px;
 }
 .miframe .receiptdetail .lab {
+  text-transform: capitalize;
   font-size: 18px;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.1;
@@ -6206,8 +6287,36 @@ td.visible-print {
   line-height: 1.1;
 }
 .miframe .receiptdetail .price {
+  position: absolute;
+  left: 80px;
+  bottom: 0px;
   font-size: 24px;
   font-weight: bold;
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.1;
+}
+.pcls {
+  background: -webkit-repeating-linear-gradient(-90deg, #ececec, #b2b2b2 140px);
+  background: -moz-repeating-linear-gradient(-90deg, #ececec, #b2b2b2 140px);
+  background: -o-repeating-linear-gradient(-90deg, #ececec, #b2b2b2 140px);
+  background: repeating-linear-gradient(180deg, #ececec, #b2b2b2 140px);
+}
+.pcl {
+  padding-top: 5px;
+  height: 140px;
+  font-family: "Signika Semibold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.pcl img {
+  width: 46px;
+  height: 46px;
+  margin-right: 5px;
+}
+.pcl .time {
+  font-size: 18px;
+}
+.pcl .correspondantNumber {
+  font-size: 18px;
+}
+.pcl .quantity {
+  font-size: 24px;
 }

@@ -45,6 +45,8 @@ module.exports.sections = function(req, res) {
                 // 24,2,20,22 (Boucherie)
                 // 12, 32 (pain)
                 // 26,4 (charcuterie)
+                // 28, 8 : poisson / sauricerie.
+                
                 var aggSectionLabelMap = {
                     "VOLAILLE LS": "BOUCHERIE",
                     "BOUCHERIE LS": "BOUCHERIE",
@@ -55,13 +57,18 @@ module.exports.sections = function(req, res) {
                     "PAIN PAT LS INDUS": "BOULANGERIE",
 
                     "CHARCUTERIE TRAITEUR LS": "CHARCUTERIE",
-                    "CHARCUTERIE TRAD": "CHARCUTERIE"
+                    "CHARCUTERIE TRAD": "CHARCUTERIE",
+
+                    "PRODUITS DE LA MER TRAD": "POISSONERIE",
+                    "SAURISSERIE": "POISSONERIE"
+
                 };
 
                 var aggSectionNumberMap = {
                     "BOUCHERIE": 20,
                     "BOULANGERIE": 12,
-                    "CHARCUTERIE": 26
+                    "CHARCUTERIE": 26,
+                    "POISSONERIE": 8
                 };
 
 
@@ -95,7 +102,7 @@ module.exports.sections = function(req, res) {
 'SURGELES',
 'PRESTATION DE SERVICE',
 'TEXTILE',
-'SAURISSERIE',
+//'SAURISSERIE',
 'ALIMENTATION POUR ANIMAUX',
 'D.P.H.',
 'BAZAR LEGER',
@@ -114,7 +121,8 @@ module.exports.sections = function(req, res) {
 //'CHARCUTERIE TRAD',
 'TRAITEUR TRAD',
 'BOUTIQUE SERVICES',
-'PRODUITS DE LA MER TRAD',
+//'PRODUITS DE LA MER TRAD',
+'POISSONERIE',
 'EPICERIE SUCREE',
 'EPICERIE SALEE',
 'PRODUITS CULTURELS',
