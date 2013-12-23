@@ -1,8 +1,8 @@
 .col-md-4
     .row
       .receiptdetail
-        img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg')
-            
+        img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
+            ../img/sac.png"
         .detail
             - var label = receiptDetail.label.toLowerCase();
             - if (label == "nr")

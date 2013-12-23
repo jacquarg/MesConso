@@ -18,9 +18,13 @@ module.exports = IntermarcheView = Backbone.View.extend({
         // fetch the bookmarks from the database
         this.collection.fetch();
     },
-
+    
+    stopLoader: function() {
+        this.$el.find('#loader').hide()
+    },
 
     onReceiptAdded: function(receipt) {
+        this.stopLoader();
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt

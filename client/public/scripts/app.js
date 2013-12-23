@@ -240,8 +240,8 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="consocontainer"><div class="consoheader"><h3>');
-var __val__ = title
+buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
+var __val__ = title 
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</h3></div><div id="list" class="consoinner"></div></div>');
 }
@@ -269,12 +269,12 @@ with (locals || {}) {
 var interp;
 buf.push('<div class="row item_a pcabstract"><div class="col-md-6"><div class="row"><div class="col-xs-5 box date">');
  var d = new Date(pcabstract.key)
-var __val__ = d.toString('dd/MM')
+var __val__ = d.toString('ddd d MMM')
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="col-xs-3 box">');
+buf.push('</div><div title="Nombres d\'appels ce jour" class="col-xs-3 box">');
 var __val__ = pcabstract.value.calls
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;<img src="img/Tel.png"/></div><div class="col-xs-4 box callsduration">');
+buf.push('&nbsp;<img src="img/Tel.png"/></div><div title="Durée totale d\'appels ce jour" class="col-xs-4 box callsduration">');
  var min = Math.floor(pcabstract.value.callsDuration / 60)
  var sec = pcabstract.value.callsDuration % 60
 var __val__ = min
@@ -282,10 +282,10 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('’');
 var __val__ = sec
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('”</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-3 box">');
+buf.push('”</div></div></div><div class="col-md-6"><div class="row"><div title="Nombres de SMS échangés ce jour" class="col-xs-3 box">');
 var __val__ = pcabstract.value.sms
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;<img src="img/SMS.png"/></div><div class="col-xs-6 box">');
+buf.push('&nbsp;<img src="img/SMS.png"/></div><div title="Data échangées ce jour" class="col-xs-6 box">');
  var total = pcabstract.value.data ;
  var unity = 'o';
  var totalStr = total;
@@ -475,30 +475,41 @@ buf.push('</div><div>');
  if (pcl.longitude)
 {
 buf.push('<a');
-buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + ""), 'target':("_blank") }, {"href":true,"target":true}));
+buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + ""), 'target':("_blank"), 'title':("Géolocalisation") }, {"href":true,"target":true,"title":true}));
 buf.push('><img src="img/Geoloc.png"/></a>');
 }
+ if (pcl.type == "VOICE")
+   var typeStr = "Appel";
+ else
+   var typeStr = "SMS"
 buf.push('<img');
-buf.push(attrs({ 'src':("img/" + (pcl.type) + ".png") }, {"src":true}));
-buf.push('/><img');
-buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png") }, {"src":true}));
+buf.push(attrs({ 'src':("img/" + (pcl.type) + ".png"), 'title':(typeStr) }, {"src":true,"title":true}));
 buf.push('/>');
- if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.startsWith('33'))    
+ if (pcl.direction == "INCOMING")
+   var directionStr = "Entrant";
+ else if (pcl.direction == "OUTGOING")
+   var directionStr = "Sortant";
+ else
+   var directionStr = '';
+buf.push('<img');
+buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png"), 'title':(directionStr) }, {"src":true,"title":true}));
+buf.push('/>');
+ if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.substring(0, 2) == '33')
 {
  var numStr = '+33' + '&thinsp;' + pcl.correspondantNumber.substring(2, 3) + '&thinsp;' + pcl.correspondantNumber.substring(3, 5) + '&thinsp;' + pcl.correspondantNumber.substring(5, 7) + '&thinsp;'+ pcl.correspondantNumber.substring(7, 9) + '&thinsp;' + pcl.correspondantNumber.substring(9, 11)
-buf.push('<div class="correspondantNumber">');
+buf.push('<div title="Numéro du correspondant" class="correspondantNumber">');
 var __val__ = numStr
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div>');
 }
  else
 {
-buf.push('<div class="correspondantNumber">');
+buf.push('<div title="Numéro du correspondant" class="correspondantNumber">');
 var __val__ = pcl.correspondantNumber
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div>');
 }
-buf.push('</div><div class="quantity">');
+buf.push('</div><div title="Durée de l\'appel" class="quantity">');
  if (pcl.type == 'VOICE')
 {
  var min = Math.floor(pcl.chipCount / 60)
@@ -550,7 +561,7 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), "class": ('image') }, {"src":true}));
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
 buf.push('/><div class="detail">');
  var label = receiptDetail.label.toLowerCase();
  if (label == "nr")
@@ -586,7 +597,7 @@ buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
 buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), "class": ('image') }, {"src":true}));
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
 buf.push('/><div class="detail">');
  var label = receiptDetail.label.toLowerCase();
  if (label == "nr")
@@ -702,9 +713,13 @@ module.exports = IntermarcheView = Backbone.View.extend({
         // fetch the bookmarks from the database
         this.collection.fetch();
     },
-
+    
+    stopLoader: function() {
+        this.$el.find('#loader').hide()
+    },
 
     onReceiptAdded: function(receipt) {
+        this.stopLoader();
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -740,8 +755,12 @@ module.exports = OrangeView = Backbone.View.extend({
         this.collection.fetch();
     },
 
+    stopLoader: function() {
+        this.$el.find('#loader').hide()
+    },
 
     onPCAbstractAdded: function(item) {
+        this.stopLoader();
         // render the specific element
         itemView = new PCAbstractView({
             model: item

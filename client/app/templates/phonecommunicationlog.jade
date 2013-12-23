@@ -7,21 +7,35 @@
 
     div
         - if (pcl.longitude)
-                a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}", target="_blank")
+                a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}", target="_blank", title="Géolocalisation")
                     img(src="img/Geoloc.png")
 
-        img(src="img/#{pcl.type}.png")
-        img(src="img/#{pcl.direction}.png")
+        - if (pcl.type == "VOICE")
+        -   var typeStr = "Appel";
+        - else
+        -   var typeStr = "SMS"
+        img(src="img/#{pcl.type}.png", title=typeStr)
+
+        - if (pcl.direction == "INCOMING")
+        -   var directionStr = "Entrant";
+        - else if (pcl.direction == "OUTGOING")
+        -   var directionStr = "Sortant";
+        - else
+        -   var directionStr = '';
+        img(src="img/#{pcl.direction}.png", title=directionStr)
     
-        - if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.startsWith('33'))    
+        - if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.substring(0, 2) == '33')
+            //- pcl.correspondantNumber.startsWith('33'))    
             - var numStr = '+33' + '&thinsp;' + pcl.correspondantNumber.substring(2, 3) + '&thinsp;' + pcl.correspondantNumber.substring(3, 5) + '&thinsp;' + pcl.correspondantNumber.substring(5, 7) + '&thinsp;'+ pcl.correspondantNumber.substring(7, 9) + '&thinsp;' + pcl.correspondantNumber.substring(9, 11)
 
-            .correspondantNumber= numStr
+            .correspondantNumber(title="Numéro du correspondant")
+                = numStr
 
         - else
-            .correspondantNumber= pcl.correspondantNumber
+            .correspondantNumber(title="Numéro du correspondant")
+                = pcl.correspondantNumber
 
-    .quantity
+    .quantity(title="Durée de l'appel")
       - if (pcl.type == 'VOICE')
         - var min = Math.floor(pcl.chipCount / 60)
         - var sec = pcl.chipCount % 60

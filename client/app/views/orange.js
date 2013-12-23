@@ -19,8 +19,12 @@ module.exports = OrangeView = Backbone.View.extend({
         this.collection.fetch();
     },
 
+    stopLoader: function() {
+        this.$el.find('#loader').hide()
+    },
 
     onPCAbstractAdded: function(item) {
+        this.stopLoader();
         // render the specific element
         itemView = new PCAbstractView({
             model: item

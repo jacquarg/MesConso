@@ -6266,11 +6266,6 @@ td.visible-print {
   height: 75px;
   left: 3px;
   top: 7px;
-  background: url("../img/sac.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: auto 60px;
-  background-color: transparent;
 }
 .miframe .receiptdetail .detail {
   vertical-align: center-vertical;
