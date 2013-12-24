@@ -6,7 +6,12 @@ americano = require('americano');
 
 byTimestamp = function(doc) {
     emit(doc.timestamp, doc);
-}
+};
+
+byMonth = function(doc) {
+    // group by month
+    emit(doc.timestamp.substring(0,7), doc);
+};
 
 module.exports = {
     receiptdetail: {
@@ -24,7 +29,52 @@ module.exports = {
             } else {
                 emit(doc.receiptId, doc);
             }
+        },
+
+        totalsBySectionsByMonth : {
+            map: byMonth,
+
+            reduce: function(key, values, rereduce) {
+                var sections = {};
+                if (!rereduce) {
+                    for (var idx=0; idx<values.length; idx++) {
+                        rdet = values[idx];
+                        //TODO aggregate hook.
+                        if (!(rdet.section in sections)) {
+                            sections[rdet.section] = {
+                                count: 0,
+                                total: 0
+                            };
+                        }
+
+                        sections[rdet.section].count += 1;
+                        sections[rdet.section].total += rdet.price;
+                     }
+                } else {
+
+                    for (var idx=0; idx<values.length; idx++) {
+                        v = values[idx]
+                        for (sn in v) {
+                            if (!(sn in sections)) {
+                                sections[sn] = {
+                                    count: 0,
+                                    total: 0
+                                };
+                            }
+
+                            sections[sn].count += v[sn].count;
+                            sections[sn].total += v[sn].total;
+                        }
+
+
+                    }
+                }
+                return sections;
+            }
+            
         }
+
+
     },
 
     receipt: {
@@ -34,10 +84,7 @@ module.exports = {
         byTimestamp : byTimestamp,
 
         monthTotal : {
-            map: function(doc) {
-                // group by month
-                emit(doc.timestamp.substring(0,7), doc);
-            },
+            map: byMonth,
             
             reduce : function(key, values, rereduce) {
                 var sums = {

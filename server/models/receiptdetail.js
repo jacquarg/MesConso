@@ -65,3 +65,16 @@ ReceiptDetail.withReceiptId = function(receiptId, callback) {
 //        }
 //    );
 //};
+
+
+ReceiptDetails.totalsByMonthBySections = function(callback) {
+   ReceiptDetails.rawRequest(
+        "totalsByMonthBySections", 
+        {
+             'descending': true,
+             'group': true
+
+            },
+        callback
+    );
+}

@@ -180,6 +180,17 @@ module.exports.sections = function(req, res) {
 };
 
 
+module.exports.totalsByMonthBySection = function(req, res) {
+    ReceiptDetail.totalsByMonthBySection(function(err, instances) {
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        }
+        else {
+            res.send(200, instances);
+        }
+    }); 
+
+
 // Unused.
 //module.exports.list = function(req, res) {
 //    ReceiptDetail.all(function(err, instances) {
