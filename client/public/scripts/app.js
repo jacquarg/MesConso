@@ -572,8 +572,10 @@ buf.push('/><div class="detail">');
 buf.push('<div class="lab">');
 var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div>');
- //p.vol= vol
+buf.push('</div><p class="vol">');
+var __val__ = receiptDetail.quantityLabel
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p>');
  //p= receiptDetail.amount 
  //   | X
 buf.push('<div class="price">');
@@ -608,8 +610,10 @@ buf.push('/><div class="detail">');
 buf.push('<div class="lab">');
 var __val__ = label
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div>');
- //p.vol= vol
+buf.push('</div><p class="vol">');
+var __val__ = receiptDetail.quantityLabel
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p>');
  //p= receiptDetail.amount 
  //   | X
 buf.push('<div class="price">');

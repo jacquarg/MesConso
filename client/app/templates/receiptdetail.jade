@@ -2,7 +2,6 @@
     .row
       .receiptdetail
         img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
-            ../img/sac.png"
         .detail
             - var label = receiptDetail.label.toLowerCase();
             - if (label == "nr")
@@ -12,7 +11,7 @@
             - var vol = parts.pop();
             - parts.join(' ');
             .lab= label
-            - //p.vol= vol
+            p.vol= receiptDetail.quantityLabel
             - //p= receiptDetail.amount 
             - //   | X
             .price= receiptDetail.price.toFixed(2)

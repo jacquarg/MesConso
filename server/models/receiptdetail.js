@@ -16,7 +16,16 @@ module.exports = ReceiptDetail = americano.getModel('ReceiptDetail', {
  'receiptId': String,
  'intermarcheShopId': String,
  'timestamp': Date,
- 'isOnlineBuy': Boolean
+ 'isOnlineBuy': Boolean,
+
+//
+ 'quantityUnity': String,
+ 'quantityAmount': Number,
+ 'quantityWeight': String,
+ 'quantityLabel': String,
+ 'name': String
+
+
  });
 
 // Unused

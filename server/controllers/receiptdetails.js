@@ -20,7 +20,43 @@ module.exports.sections = function(req, res) {
             
             for (idx in instances) {
                 rdet = instances[idx];
-                // fix receiptId / ticketId. switch ?
+
+                // Parse quantity
+                // Match parterns : 3x20cl ; 8x1l ; 70cl ; 6x50 cl ; 180gx3
+                
+                // 3x : (\d+)x
+                // 3x or not : (?:(\d+)x|())
+                // 
+                // units : (cl|g|l|ml|m)
+                //
+                // x3 : (?:x(\d+)|())
+                
+                // g1 : mult
+                // g2 : quantity
+                // g3 : unit
+                // g4 : mult
+                reg = /(?:(\d+)x|)(\d+)(cl|g|l|ml|m|kg)(?:x(\d+)|)/i ;
+
+                grs = reg.exec(rdet.label);
+                console.log(grs);
+                if (grs) {
+                rdet.quantityUnity = (grs[3] == 'm') ? 'ml' : grs[3] ;
+                rdet.quantityAmount = parseInt(grs[1]?grs[1]:grs[4]);
+                rdet.quantityWeight = parseInt(grs[2]);
+                rdet.quantityLabel = grs[0];
+
+                if (rdet.quantityAmount) {
+                    rdet.quantityTotalWeight = rdet.quantityWeight * rdet.quantityAmount;
+                } else {
+                    rdet.quantityTotalWeight = rdet.quantityWeight;   
+                }
+                console.log(rdet.quantityLabel);
+                console.log(rdet);
+                // remove from label 
+                rdet.name = rdet.label.substring(grs['index'], grs[0].length);
+                rdet.label = rdet.name;
+                }
+
 
                 //var dateStr = rdet.timestamp.toISOString();
                 //var ticketId = rdet.ticketId;
