@@ -25,6 +25,12 @@ module.exports = {
     get: ReceiptDetails.sections    
   },
 
+  'receipts/totalsbymonth': {
+    get: Receipts.totalsByMonth
+  },
+
+
+
   'persons': {
     get: Persons.one
   },

@@ -31,7 +31,26 @@ module.exports = {
         //unused.
         //all: americano.defaultRequests.all,
         
-        byTimestamp : byTimestamp
+        byTimestamp : byTimestamp,
+
+        monthTotal : {
+            map: function(doc) {
+                // group by month
+                emit(doc.timestamp.substring(0,7), doc);
+            },
+            
+            reduce : function(key, values, rereduce) {
+                var sums = {
+                    total: 0
+                };
+
+                for (var idx=0; idx<values.length; idx++) {
+                    sums.total += values[idx].total ;
+                }
+                return sums;
+
+            }
+        }
     },
 
     person: {

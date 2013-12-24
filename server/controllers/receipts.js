@@ -13,6 +13,17 @@ module.exports.newest = function(req, res) {
 };
 
 
+module.exports.totalsByMonth = function(req, res) {
+    Receipt.totalsByMonth(function(err, instances) {
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        }
+        else {
+            res.send(200, instances);
+        }
+    }); 
+}
+
 // Deprecated.
 //module.exports.list = function(req, res) {
 //    ReceiptDetail.all(function(err, instances) {

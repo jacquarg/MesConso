@@ -45,3 +45,15 @@ Receipt.newest = function(callback) {
     );
 };
 
+Receipt.totalsByMonth = function(callback) {
+   Receipt.rawRequest(
+        "monthTotal", 
+        {
+             'descending': true,
+             'group': true
+
+            },
+        callback
+    );
+};
+
