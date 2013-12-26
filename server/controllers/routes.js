@@ -33,6 +33,13 @@ module.exports = {
     get: ReceiptDetails.totalsByMonthBySection
   },
 
+  'receiptdetails/totalsbymonthbyproduct': {
+    get: ReceiptDetails.totalsByMonthByProduct
+  },
+
+  'receipts/:month/totals' : {
+    get: Receipts.totalsOfMonth
+  },
 
   'persons': {
     get: Persons.one

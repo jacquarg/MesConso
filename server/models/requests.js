@@ -4,6 +4,7 @@
 
 americano = require('americano');
 
+
 byTimestamp = function(doc) {
     emit(doc.timestamp, doc);
 };
@@ -20,6 +21,9 @@ module.exports = {
         
         // Unused.
         //byTimestamp : byTimestamp,
+        byBarcode : function(doc) {
+            emit(doc.barcode, doc);
+        },
 
         byReceiptId : function(doc) {
             if (!doc.receiptId) {
@@ -31,7 +35,7 @@ module.exports = {
             }
         },
 
-        totalsBySectionsByMonth : {
+        /*totalsByMonthBySection : {
             map: byMonth,
 
             reduce: function(key, values, rereduce) {
@@ -72,10 +76,97 @@ module.exports = {
                 return sections;
             }
             
+        }, */
+        totalsByMonthBySection : {
+            map: function(doc) {
+                // group by month and section
+                aggregateSections = function(sectionId) {
+
+    var aggSectionMap = {
+
+        //"VOLAILLE LS": "BOUCHERIE",
+        '24': '200',
+        //"BOUCHERIE LS": "BOUCHERIE",
+        '20': '200',
+        //"BOUCHERIE FRAIS EMB.": "BOUCHERIE",
+        '22': '200', 
+        //"BOUCHERIE / VOLAILLE TRAD": "BOUCHERIE",
+        '2': '200',
+
+        //"BOUL PAT TRAD": "BOULANGERIE",
+        '12': '120',
+        //"PAIN PAT LS INDUS": "BOULANGERIE",
+        '32': '200',
+
+        //"CHARCUTERIE TRAITEUR LS": "CHARCUTERIE",
+        '26': '260',
+        //"CHARCUTERIE TRAD": "CHARCUTERIE",
+        '4': '260',
+
+        //"PRODUITS DE LA MER TRAD": "POISSONERIE",
+        '8': '280',
+        //"SAURISSERIE": "POISSONERIE"
+        '28': '280',
+
+    };
+    if (sectionId in aggSectionMap) {
+        return aggSectionMap[sectionId];
+    } else {
+        return sectionId;
+    }
+            };
+
+
+                emit([doc.timestamp.substring(0,7), aggregateSections(doc.section)], 
+                    { count: 1, total: doc.price }
+                );
+            },
+            
+            reduce: function(key, values, rereduce) {
+                var sums = {
+                    count: 0,
+                    total: 0
+                };
+
+                for (var idx=0; idx<values.length; idx++) {
+                    sums.count += values[idx].count ;
+                    sums.total += values[idx].total ;
+                }
+                return sums;
+
+            }
+            
+        },
+
+        totalsByMonthByProduct : {
+            map: function(doc) {
+                emit([doc.timestamp.substring(0,7), doc.barcode], 
+                     {
+                        count: 1,
+                        total: doc.price
+                    });   
+            },
+
+            reduce: function(key, values, rereduce) {
+                var sums = {
+                    count: 0,
+                    total: 0
+                };
+                
+                for (var idx=0; idx<values.length; idx++) {
+                    sums.count += values[idx].count ;
+                    sums.total += values[idx].total ;
+                }
+                return sums;
+
+            }
+
         }
 
 
     },
+    
+    
 
     receipt: {
         //unused.

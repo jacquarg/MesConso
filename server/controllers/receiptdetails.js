@@ -188,7 +188,19 @@ module.exports.totalsByMonthBySection = function(req, res) {
         else {
             res.send(200, instances);
         }
-    }); 
+    });
+};
+
+module.exports.totalsByMonthByProduct = function(req, res) {
+    ReceiptDetail.totalsByMonthByProduct(function(err, instances) {
+        if(err != null) {
+            res.send(500, "An error has occurred -- " + err);
+        }
+        else {
+            res.send(200, instances);
+        }
+    });
+};
 
 
 // Unused.
