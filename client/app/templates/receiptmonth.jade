@@ -1,0 +1,15 @@
+.row.item_a.receipt
+    
+    .col-xs-8.box
+      - var d = new Date(kv.key)
+      = d.toString('MMMM yyyy')
+
+    .col-xs-3.box.price
+        = kv.value.total.toFixed(2)
+        | €
+            
+    .col-xs-1.box.toggle
+        img.toggle-btn(src="img/plus.png")
+    
+.sections
+            

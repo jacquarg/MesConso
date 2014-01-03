@@ -1,5 +1,13 @@
 @import "bootstrap.less";
 
+.grey_background {
+    background: #ECECEC; /* Old browsers */
+    background: -moz-linear-gradient(#ECECEC, #B2B2B2); /* FF3.6+ */
+    background: -webkit-linear-gradient(#ECECEC, #B2B2B2); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(#ECECEC,#B2B2B2); /* Opera 11.10+ */
+    background: linear-gradient(#ECECEC,#B2B2B2); /* W3C */
+}
+
 .miframe {
     
     margin-top: 20px;
@@ -126,6 +134,34 @@
     //        left: -10px;
     //        vertical-align: center;
     //    }
+    .period_button {
+        height: 25px;
+        line-height: 25px;
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: @font-size-large;
+        font-family: @headings-font-family;
+        color: white;
+        text-align: center;
+
+        background: #353A44; /* Old browsers */
+        background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
+        background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
+        background: linear-gradient(#484f5a,#353a44); /* W3C */ 
+
+
+
+    }
+    .period_button-selected {
+        .period_button;
+        background: #48AFDF;
+    
+    }
+    .period_button:hover{
+        .period_button-selected;
+    }
     .item_a {
 
         .box {
@@ -153,6 +189,8 @@
             }
         }
     }
+    
+    
 
     .pcabstract {
 
@@ -280,6 +318,100 @@
             line-height: 1.1;            
         }
     }
+
+.receiptaggregate {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.foodproportion {
+    .grey_background;
+    padding: 10px;
+    text-align: center;   
+    color: white;
+    
+    font-weight: bold;
+    font-family: @headings-font-family;
+    
+    margin-bottom: 20px;
+    .food {
+        background: #2281AD;
+        padding: 15px;
+        float: left;
+    }
+    .notfood {
+        background: #4F4E4E;
+        padding: 15px;
+        float: left;
+    }
+    .label {
+        font-size: @font-size-large;
+    }
+
+    .total {
+        font-size: @font-size-h3;
+    }
+
+}
+.aggregate {
+
+    h3 {
+        height: 46px;
+        line-height: 46px;
+        color: white;
+        background: #48AFDF; // TODO
+
+        margin: 0;
+
+
+    }
+    h3.top3 {
+            line-height: 28px;
+        }
+        .subtitle {
+            font-size: @font-size-small;
+            line-height: 15px;
+        }
+    .inner{
+        background: #ECECEC; /* Old browsers */
+    background: -moz-linear-gradient(#ECECEC, #B2B2B2); /* FF3.6+ */
+    background: -webkit-linear-gradient(#ECECEC, #B2B2B2); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(#ECECEC,#B2B2B2); /* Opera 11.10+ */
+    background: linear-gradient(#ECECEC,#B2B2B2); /* W3C */
+    
+    }
+
+    .toptotalsections {
+        .inner{
+            background: #ECECEC; /* Old browsers */
+
+      background: -webkit-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 180px);
+    background: -moz-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 180px);
+    background: -o-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 180px);
+    background: repeating-linear-gradient(180deg, #ECECEC,#B2B2B2 180px);   
+    }
+
+        .section {
+            float: left;
+            margin-left: 15px;
+            height: 180px;
+            position: relative;
+        }
+        .sectionlogo {
+            position: absolute;
+            width: auto;
+            bottom: 20px;
+        }
+        .price {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            text-align: center;
+        }
+    
+    }
+
+}
 
 
 }

@@ -37,7 +37,7 @@ module.exports = {
     get: ReceiptDetails.totalsByMonthByProduct
   },
 
-  'receipts/:month/totals' : {
+  'receipts/aggregates/:month' : {
     get: Receipts.totalsOfMonth
   },
 

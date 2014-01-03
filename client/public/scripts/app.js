@@ -142,9 +142,18 @@ module.exports = PhoneCommunicationLogs = Backbone.Collection.extend({
 
 ;require.register("collections/receipts", function(exports, require, module) {
 Receipt = require('../models/receipt');
-module.exports = ReceiptDetails = Backbone.Collection.extend({
+module.exports = Receipts = Backbone.Collection.extend({
     model: Receipt,
     url: 'receipts'
+})
+
+});
+
+;require.register("collections/receipttotals", function(exports, require, module) {
+Receipt = require('../models/receipttotal');
+module.exports = ReceiptTotals = Backbone.Collection.extend({
+    model: ReceiptTotal,
+    url: 'receipts/totalsbymonth'
 })
 
 });
@@ -204,6 +213,20 @@ module.exports = Receipt = Backbone.Model.extend({
 
 });
 
+;require.register("models/receiptaggregate", function(exports, require, module) {
+module.exports = ReceiptAggregate = Backbone.Model.extend({
+
+})
+
+});
+
+;require.register("models/receipttotal", function(exports, require, module) {
+module.exports = ReceiptTotal = Backbone.Model.extend({
+
+})
+
+});
+
 ;require.register("models/section", function(exports, require, module) {
 module.exports = Section = Backbone.Model.extend({
 
@@ -256,6 +279,21 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="container"><div id="fix"></div><div class="miframe"><div class="miframeheader"><h2>MesInfos de consommation</h2></div><div class="miframeinner"><div class="row"><div class="col-xs-6 text-center"><img id="courses" src="img/Intermarche.png" class="brand"/></div><div class="col-xs-6 text-center"><img id="cra" src="img/Orange.png" class="brand"/></div></div><div id="content"></div></div></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/intermarche", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
+var __val__ = title 
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h3></div><div class="consoinner"><div class="row"><div id="day" class="col-xs-6 period_button-selected">Jour</div><div id="month" class="col-xs-6 period_button">Mois        </div></div><div id="list"></div></div></div>');
 }
 return buf.join("");
 };
@@ -554,6 +592,78 @@ return buf.join("");
 };
 });
 
+;require.register("templates/receiptaggregate", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="receiptaggregate"><div class="foodproportion">');
+ var foodWidth = kv.foodTotal/kv.total * 100;
+buf.push('<div');
+buf.push(attrs({ 'style':("width: " + (foodWidth) + "%"), "class": ('food') }, {"style":true}));
+buf.push('> <div class="label">Alimentaires</div><div class="total">');
+var __val__ = kv.foodTotal.toFixed(2)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;€</div></div>');
+ var notFoodWidth = kv.notFoodTotal/kv.total * 100;
+buf.push('<div');
+buf.push(attrs({ 'style':("width: " + (notFoodWidth) + "%"), "class": ('notfood') }, {"style":true}));
+buf.push('><div class="label">Autres &nbsp;</div><div class="total">');
+var __val__ = kv.notFoodTotal.toFixed(2)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;€</div></div><div class="clearfix"></div></div><div class="row aggregate"><div class="col-sm-6 topsections"> <h3 class="top3">Top 3<div class="subtitle">de vos rayons les plus fréquentés</div></h3><div class="inner"><img');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[0].section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push('/><img');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[1].section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push('/><img');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push('/></div></div><div class="col-sm-6 topproduct"><h3>Votre produit phare du mois</h3><div class="inner">');
+ var receiptDetail = kv.topProduct.receiptDetail;
+buf.push('<img');
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
+buf.push('/><div class="detail">');
+ var label = receiptDetail.label.toLowerCase();
+ if (label == "nr")
+    label = receiptDetail.familyLabel.toLowerCase();
+buf.push('<p><div class="prodcount">');
+var __val__ = kv.topProduct.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="lab">');
+var __val__ = label
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div></p><p class="vol">');
+var __val__ = receiptDetail.quantityLabel
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</p>');
+ //p= receiptDetail.amount 
+ //   | X
+buf.push('<p class="price">');
+var __val__ = kv.topProduct.total.toFixed(2)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;€</p></div></div></div></div><div class="row aggregate"><div class="col-sm-12 toptotalsections"><h3>Vos dépenses par rayon</h3><div class="inner">');
+ var max = kv.sectionsTotal[0].total
+ for (var idx in kv.sectionsTotal)
+{
+ var item = kv.sectionsTotal[idx]
+ var height = item.total / max * 150;
+ var width = Math.max(height, 50);
+ var left = (width - height) / 2;
+buf.push('<div');
+buf.push(attrs({ 'style':('width: ' + (width) + 'px'), "class": ('section') }, {"style":true}));
+buf.push('><img');
+buf.push(attrs({ 'src':("img/Sections/" + (item.section) + ".png"), 'title':("" + (item.sectionLabel) + ""), 'style':('width: ' + (height) + 'px; left: ' + (left) + 'px'), "class": ('sectionlogo') }, {"src":true,"title":true,"style":true}));
+buf.push('/><div class="price">');
+var __val__ = item.total.toFixed(2)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;€</div></div>');
+}
+buf.push('<div class="clearfix"></div></div></div></div></div>');
+}
+return buf.join("");
+};
+});
+
 ;require.register("templates/receiptdetail", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
@@ -582,6 +692,25 @@ buf.push('<div class="price">');
 var __val__ = receiptDetail.price.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€ </div></div></div></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/receiptmonth", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="row item_a receipt"><div class="col-xs-8 box">');
+ var d = new Date(kv.key)
+var __val__ = d.toString('MMMM yyyy')
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div><div class="col-xs-3 box price">');
+var __val__ = kv.value.total.toFixed(2)
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('€</div><div class="col-xs-1 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -696,7 +825,153 @@ module.exports = AppView = Backbone.View.extend({
 
 });
 
+;require.register("views/intdays", function(exports, require, module) {
+var ReceiptView = require('./receipt');
+
+module.exports = IntermarcheView = Backbone.View.extend({
+
+    el: '#content',
+    template: require('../templates/brandpanel'),
+
+    // initialize is automatically called once after the view is constructed
+    initialize: function() {
+        this.listenTo(this.collection, "add", this.onReceiptAdded);
+    },
+
+    render: function() {
+
+        // we render the template
+        this.$el.html(this.template({'title': "Mes Courses"}));
+
+        // fetch the bookmarks from the database
+        this.collection.fetch();
+    },
+    
+    stopLoader: function() {
+        this.$el.find('#loader').hide()
+    },
+
+    onReceiptAdded: function(receipt) {
+        this.stopLoader();
+        // render the specific element
+        receiptView = new ReceiptView({
+            model: receipt
+        });
+        receiptView.render();
+        this.$el.find('#list').append(receiptView.$el);
+    }
+
+
+});
+
+});
+
 ;require.register("views/intermarche", function(exports, require, module) {
+var ReceiptView = require('./receipt');
+var ReceiptCollection = require('collections/receipts');
+var ReceiptTotalView = require('./receiptmonth');
+var ReceiptTotalsCollection = require('collections/receipttotals');
+
+module.exports = IntermarcheView = Backbone.View.extend({
+
+    el: '#content',
+    template: require('../templates/intermarche'),
+
+    // initialize is automatically called once after the view is constructed
+    initialize: function() {
+        this.getDays();
+    },
+
+    events: {
+        "click #day": "getDays",
+        "click #month": "getMonths"
+    },
+    render: function() {
+
+        // we render the template
+        this.$el.html(this.template({'title': "Mes Courses"}));
+
+        // fetch the bookmarks from the database
+//        this.collection.fetch();
+    },
+    
+    stopLoader: function() {
+        this.$el.find('#loader').hide()
+    },
+    
+    toggleList: function(period) {
+        
+        var other_map = {
+            '#month': '#day',
+            '#day': '#month'
+        };
+        this.$el.find(period).toggleClass("period_button period_button-selected");
+        this.$el.find(other_map[period]).toggleClass("period_button-selected period_button");
+        
+        //this.$el.find(period).removeClass("period_button").addClass("period_button-selected"); 
+
+
+        //this.$el.find(other_map[period]).removeClass("period_button-selected").addClass("period_button"); 
+
+        this.stopListening(this.collection);
+        this.$el.find('#list').empty();
+        
+    },
+
+
+    getDays : function() {
+        this.toggleList('#day');
+
+        this.collection = new ReceiptCollection();
+        this.listenTo(this.collection, "add", this.onReceiptAdded);
+        this.collection.fetch();
+    },
+
+    onReceiptAdded: function(receipt) {
+        this.stopLoader();
+        // render the specific element
+        receiptView = new ReceiptView({
+            model: receipt
+        });
+        receiptView.render();
+        this.$el.find('#list').append(receiptView.$el);
+    },
+
+    getMonths : function() {
+        this.toggleList('#month');
+
+        this.collection = new ReceiptTotalsCollection();
+        this.listenTo(this.collection, "add", this.onReceiptTotalAdded);
+        this.collection.fetch();
+    },
+
+    onReceiptAdded: function(receipt) {
+        this.stopLoader();
+        // render the specific element
+        receiptView = new ReceiptView({
+            model: receipt
+        });
+        receiptView.render();
+        this.$el.find('#list').append(receiptView.$el);
+    }, 
+    
+    onReceiptTotalAdded: function(data) {
+        this.stopLoader();
+        // render the specific element
+        rtView = new ReceiptTotalView({
+            model: data
+        });
+        rtView.render();
+        this.$el.find('#list').append(rtView.$el);
+        
+    } 
+
+
+});
+
+});
+
+;require.register("views/intmonth", function(exports, require, module) {
 var ReceiptView = require('./receipt');
 
 module.exports = IntermarcheView = Backbone.View.extend({
@@ -954,6 +1229,97 @@ module.exports = Receipt = Backbone.View.extend({
         this.$el.find('.sections').append(sectionView.$el);
     }
     
+});
+
+
+});
+
+;require.register("views/receiptmonth", function(exports, require, module) {
+//var SectionView = require('./section');
+//var SectionCollection = require('../collections/sections');
+
+var ReceiptAggergate = require('../models/receiptaggregate');
+
+module.exports = ReceiptMonth = Backbone.View.extend({
+
+    tagName: 'div',
+    template: require('../templates/receiptmonth'),
+    templateAggregate : require('../templates/receiptaggregate'),
+    events: {
+        "click .receipt": "toggleSections",    
+        //"click .toggle": "toggleSectionsNoDefault"    
+    },
+
+    initialize: function() {
+    },
+
+    render: function() {
+        this.$el.html(this.template({
+            kv: this.model.toJSON()
+        }));
+
+    },
+    
+
+    toggleSections: function(event) {
+        if (!this.open) {
+            this.open = true;
+            // submit button reload the page, we don't want that
+            //event.preventDefault();
+            
+            // get the object / Instantiate it's view.
+            //ra = new ReceiptAggregate({id : this.model.key });
+            //ra.fetch();
+            that = this;
+            ra = new ReceiptAggregate();
+            ra.fetch({ 
+                url: 'receipts/aggregates/' + this.model.attributes.key,
+                success: function() {
+                    console.log(ra.toJSON());
+                    that.$el.find('.sections').append(that.templateAggregate({
+                        kv: ra.toJSON()
+                    }));
+                }
+
+
+            });
+
+            this.$el.find('.toggle-btn').attr('src', "img/moins.png");
+
+        } else {
+            this.stopListening(this.collection);
+            this.$el.find('.sections').empty();
+            this.$el.find('.toggle-btn').attr('src', "img/plus.png");
+
+            this.open = false;
+        }
+    },
+
+});
+
+
+});
+
+;require.register("views/receiptmonthaggregate", function(exports, require, module) {
+
+var ReceiptAggergate = require('../models/receiptaggregate');
+
+module.exports = ReceiptMonthAggregate = Backbone.View.extend({
+
+    tagName: 'div',
+    template: require('../templates/receiptmonthaggregate'),
+
+    initialize: function() {
+        this.model = new ReceiptAggregate({id : this.month });
+
+    }, 
+
+    render: function() {
+        this.$el.html(this.template({
+            kv: this.model.toJSON()
+        }));
+    },
+
 });
 
 

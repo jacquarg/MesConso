@@ -1,0 +1,60 @@
+.receiptaggregate
+   .foodproportion
+        - var foodWidth = kv.foodTotal/kv.total * 100;
+        .food(style="width: #{foodWidth}%") 
+            .label Alimentaires
+            .total= kv.foodTotal.toFixed(2)
+             |&nbsp;€
+        - var notFoodWidth = kv.notFoodTotal/kv.total * 100;
+        .notfood(style="width: #{notFoodWidth}%")
+          .label Autres &nbsp;
+          .total= kv.notFoodTotal.toFixed(2)
+             |&nbsp;€
+
+        .clearfix
+    .row.aggregate
+        .col-sm-6.topsections 
+            h3.top3 Top 3
+                .subtitle de vos rayons les plus fréquentés
+
+            .inner
+              img.sectionlogo(src="img/Sections/#{kv.sectionsCount[0].section}.png")
+              img.sectionlogo(src="img/Sections/#{kv.sectionsCount[1].section}.png")
+              img.sectionlogo(src="img/Sections/#{kv.sectionsCount[2].section}.png")
+
+        .col-sm-6.topproduct
+            h3 Votre produit phare du mois
+            .inner
+              - var receiptDetail = kv.topProduct.receiptDetail;
+              img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
+              .detail
+                - var label = receiptDetail.label.toLowerCase();
+                - if (label == "nr")
+                -    label = receiptDetail.familyLabel.toLowerCase();
+                p
+                    .prodcount= kv.topProduct.count
+                    .lab= label
+                //-.lab= receiptDetail.name
+                p.vol= receiptDetail.quantityLabel
+                - //p= receiptDetail.amount 
+                - //   | X
+                p.price= kv.topProduct.total.toFixed(2)
+                  |&nbsp;€
+
+     .row.aggregate
+        .col-sm-12.toptotalsections
+            h3 Vos dépenses par rayon
+            .inner
+              - var max = kv.sectionsTotal[0].total
+              - for (var idx in kv.sectionsTotal)
+                - var item = kv.sectionsTotal[idx]
+                - var height = item.total / max * 150;
+                - var width = Math.max(height, 50);
+                - var left = (width - height) / 2;
+                .section(style='width: #{width}px')
+                    img.sectionlogo(src="img/Sections/#{item.section}.png",title="#{item.sectionLabel}",style='width: #{height}px; left: #{left}px')
+                    .price= item.total.toFixed(2)
+                      |&nbsp;€
+
+              .clearfix
+            
