@@ -1,16 +1,10 @@
 .col-md-4
     .row
       .receiptdetail
-        img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
+        //-img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
+        img.image(src='http://drive.intermarche.com/ressources/images/produit/fiche/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
         .detail
-            - var label = receiptDetail.label.toLowerCase();
-            - if (label == "nr")
-            -    label = receiptDetail.familyLabel.toLowerCase();
-            
-            - var parts = label.split(' ');
-            - var vol = parts.pop();
-            - parts.join(' ');
-            .lab= label
+            .lab= receiptDetail.name
             p.vol= receiptDetail.quantityLabel
             - //p= receiptDetail.amount 
             - //   | X

@@ -621,7 +621,7 @@ buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"
 buf.push('/></div></div><div class="col-sm-6 topproduct"><h3>Votre produit phare du mois</h3><div class="inner">');
  var receiptDetail = kv.topProduct.receiptDetail;
 buf.push('<img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/zoom/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
 buf.push('/><div class="detail">');
  var label = receiptDetail.label.toLowerCase();
  if (label == "nr")
@@ -671,16 +671,9 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
-buf.push('/><div class="detail">');
- var label = receiptDetail.label.toLowerCase();
- if (label == "nr")
-    label = receiptDetail.familyLabel.toLowerCase();
- var parts = label.split(' ');
- var vol = parts.pop();
- parts.join(' ');
-buf.push('<div class="lab">');
-var __val__ = label
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/fiche/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
+buf.push('/><div class="detail"><div class="lab">');
+var __val__ = receiptDetail.name
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><p class="vol">');
 var __val__ = receiptDetail.quantityLabel
@@ -728,16 +721,9 @@ buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
 buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/vignette/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
-buf.push('/><div class="detail">');
- var label = receiptDetail.label.toLowerCase();
- if (label == "nr")
-    label = receiptDetail.familyLabel.toLowerCase();
- var parts = label.split(' ');
- var vol = parts.pop();
- parts.join(' ');
-buf.push('<div class="lab">');
-var __val__ = label
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/fiche/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
+buf.push('/><div class="detail"><div class="lab">');
+var __val__ = receiptDetail.name
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><p class="vol">');
 var __val__ = receiptDetail.quantityLabel
@@ -1198,29 +1184,42 @@ module.exports = Receipt = Backbone.View.extend({
     
     },
     
+    btnState: function(state) {
+        var states = {
+            'opened': "img/moins.png",
+            'closed': "img/plus.png",
+            'loading': "img/ajax-loader_b.gif",
+        };
+
+        this.$el.find('.toggle-btn').attr('src', states[state]);
+    },
 
     toggleSections: function(event) {
         if (!this.open) {
             this.open = true;
             // submit button reload the page, we don't want that
             //event.preventDefault();
-        
+            
+            this.btnState('loading');
+
             this.listenTo(this.collection, "add", this.onSectionAdded);
             // fetch the bookmarks from the database
             this.collection.fetch();
 
-            this.$el.find('.toggle-btn').attr('src', "img/moins.png");
+            //this.$el.find('.toggle-btn').attr('src', "img/moins.png");
 
         } else {
             this.stopListening(this.collection);
             this.$el.find('.sections').empty();
-            this.$el.find('.toggle-btn').attr('src', "img/plus.png");
+            this.btnState('closed');
 
             this.open = false;
         }
     },
 
     onSectionAdded: function(section) {
+        this.btnState('opened');
+
         // render the specific element
         sectionView = new SectionView({
             model: section

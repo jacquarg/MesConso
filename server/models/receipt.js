@@ -51,7 +51,6 @@ Receipt.totalsByMonth = function(callback) {
         {
              'descending': true,
              'group': true
-
             },
         callback
     );

@@ -19,6 +19,7 @@ module.exports = ReceiptDetail = americano.getModel('ReceiptDetail', {
  'isOnlineBuy': Boolean,
 
 //
+ 'aggregatedSection': String,
  'quantityUnity': String,
  'quantityAmount': Number,
  'quantityWeight': String,
@@ -27,6 +28,65 @@ module.exports = ReceiptDetail = americano.getModel('ReceiptDetail', {
 
 
  });
+
+ReceiptDetail._enrichReceiptDetail = function(rdet) {
+                // Parse quantity
+                // Match parterns : 3x20cl ; 8x1l ; 70cl ; 6x50 cl ; 180gx3
+                
+                // 3x : (\d+)x
+                // 3x or not : (?:(\d+)x|())
+                // 
+                // units : (cl|g|l|ml|m)
+                //
+                // x3 : (?:x(\d+)|())
+                
+                // g1 : mult
+                // g2 : quantity
+                // g3 : unit
+                // g4 : mult
+
+    reg = /(?:(\d+)x|)(\d+)(cl|g|l|ml|m|kg)(?:x(\d+)|)/i ;
+
+    grs = reg.exec(rdet.label);
+    if (grs) {
+        rdet.quantityUnity = (grs[3] == 'm') ? 'ml' : grs[3] ;
+        rdet.quantityAmount = parseInt(grs[1]?grs[1]:grs[4]);
+        rdet.quantityWeight = parseInt(grs[2]);
+        rdet.quantityLabel = grs[0];
+
+        if (rdet.quantityAmount) {
+            rdet.quantityTotalWeight = rdet.quantityWeight * rdet.quantityAmount;
+        } else {
+            rdet.quantityTotalWeight = rdet.quantityWeight;   
+        }
+       
+        // remove from label 
+        //rdet.name = rdet.label.substring(grs['index'], grs[0].length);
+        rdet.name = rdet.label.substring(0, grs['index']);
+
+
+    } else if (rdet.label == "NR") {
+        rdet.name = rdet.familyLabel;
+    } else {
+        rdet.name = rdet.label;
+    }
+
+    rdet.aggregatedSection = ReceiptDetail.aggregateSections(rdet.section);
+    
+    console.log(rdet.label);
+    console.log(rdet.name);
+    console.log(rdet.quantityLabel);
+    console.log('/n');
+
+    return rdet;
+};
+
+
+ReceiptDetail.afterInitialize = function() {
+    ReceiptDetail._enrichReceiptDetail(this);
+
+};
+
 
 ReceiptDetail.sectionsIdLabelMap = {
 '12' :'BOUL PAT TRAD',
@@ -66,6 +126,7 @@ ReceiptDetail.sectionsIdLabelMap = {
 };
 
 ReceiptDetail.getSectionLabel = function(sectionId) {
+    var sectionId = String(sectionId);
     if (sectionId in ReceiptDetail.sectionsIdLabelMap) {
         return ReceiptDetail.sectionsIdLabelMap[sectionId];
     } else {
@@ -90,7 +151,7 @@ ReceiptDetail.aggregateSections = function(sectionId) {
         //"BOUL PAT TRAD": "BOULANGERIE",
         '12': '120',
         //"PAIN PAT LS INDUS": "BOULANGERIE",
-        '32': '200',
+        '32': '120',
 
         //"CHARCUTERIE TRAITEUR LS": "CHARCUTERIE",
         '26': '260',
@@ -129,6 +190,7 @@ ReceiptDetail.getOneByBarCode = function(barcode, callback) {
     );
 }; 
 
+
 ReceiptDetail.withReceiptId = function(receiptId, callback) {
     ReceiptDetail.request(
         "byReceiptId", 
@@ -142,6 +204,22 @@ ReceiptDetail.withReceiptId = function(receiptId, callback) {
     );
 };
 
+
+ReceiptDetail.test = function(callback) {
+
+    rId = '11108221';
+
+    ReceiptDetail.request(
+        "byReceiptIdBySection", 
+        {
+            startkey: [rId, null],
+            endkey: [rId, {}],
+            },
+        function(err, instances) {
+            callback(null, instances);
+        }
+    );
+};
 // Unused.
 //ReceiptDetail.byTimestamp = function(callback) {
 //    ReceiptDetail.request(

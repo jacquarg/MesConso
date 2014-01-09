@@ -26,7 +26,7 @@
             h3 Votre produit phare du mois
             .inner
               - var receiptDetail = kv.topProduct.receiptDetail;
-              img.image(src='http://drive.intermarche.com/ressources/images/produit/vignette/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
+              img.image(src='http://drive.intermarche.com/ressources/images/produit/zoom/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
               .detail
                 - var label = receiptDetail.label.toLowerCase();
                 - if (label == "nr")
