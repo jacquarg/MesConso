@@ -15,81 +15,12 @@ byMonth = function(doc) {
     // group by month
     emit(doc.timestamp.substring(0,7), doc);
 };
-/* To copy paste in desired views.
-enrichReceiptDetail = function(rdet) {
-
-    reg = /(?:(\d+)x|)(\d+)(cl|g|l|ml|m|kg)(?:x(\d+)|)/i ;
-
-    grs = reg.exec(rdet.label);
-    if (grs) {
-        rdet.quantityUnity = (grs[3] == 'm') ? 'ml' : grs[3] ;
-        rdet.quantityAmount = parseInt(grs[1]?grs[1]:grs[4]);
-        rdet.quantityWeight = parseInt(grs[2]);
-        rdet.quantityLabel = grs[0];
-
-        if (rdet.quantityAmount) {
-            rdet.quantityTotalWeight = rdet.quantityWeight * rdet.quantityAmount;
-        } else {
-            rdet.quantityTotalWeight = rdet.quantityWeight;   
-        }
-       
-        // remove from label 
-        rdet.name = rdet.label.substring(grs['index'], grs[0].length);
-
-
-     } else if (rdet.label == "NR") {
-        rdet.name = rdet.familyLabel;
-     }
-
-     return rdet;
-};
-
-
-// group by month and section
-aggregateSections = function(sectionId) {
-
-    var aggSectionMap = {
-
-        //"VOLAILLE LS": "BOUCHERIE",
-        '24': '200',
-        //"BOUCHERIE LS": "BOUCHERIE",
-        '20': '200',
-        //"BOUCHERIE FRAIS EMB.": "BOUCHERIE",
-        '22': '200', 
-        //"BOUCHERIE / VOLAILLE TRAD": "BOUCHERIE",
-        '2': '200',
-
-        //"BOUL PAT TRAD": "BOULANGERIE",
-        '12': '120',
-        //"PAIN PAT LS INDUS": "BOULANGERIE",
-        '32': '200',
-
-        //"CHARCUTERIE TRAITEUR LS": "CHARCUTERIE",
-        '26': '260',
-        //"CHARCUTERIE TRAD": "CHARCUTERIE",
-        '4': '260',
-
-        //"PRODUITS DE LA MER TRAD": "POISSONERIE",
-        '8': '280',
-        //"SAURISSERIE": "POISSONERIE"
-        '28': '280',
-
-    };
-    if (sectionId in aggSectionMap) {
-        return aggSectionMap[sectionId];
-    } else {
-        return sectionId;
-    }
-};
-*/
 
 module.exports = {
     receiptdetail: {
         // Unused.
         //all: americano.defaultRequests.all,
         
-        // Unused.
-        //byTimestamp : byTimestamp,
         byBarcode : function(doc) {
             emit(doc.barcode, doc);
         },
@@ -157,10 +88,16 @@ module.exports = {
         }, */
         totalsByMonthBySection : {
             map: function(doc) {
-                
+                var aggSectionMap = {
+                    '24': '200', '20': '200', '22': '200', '2': '200',
+                    '12': '120', '32': '120',  '26': '260',
+                    '4': '260',
+                    '8': '280', '28': '280',
+                };
 
+                section = (doc.section in aggSectionMap) ? aggSectionMap[doc.section] : doc.section ;
 
-                emit([doc.timestamp.substring(0,7), aggregateSections(doc.section)], 
+                emit([doc.timestamp.substring(0,7), section], 
                     { count: 1, total: doc.price }
                 );
             },
@@ -201,12 +138,8 @@ module.exports = {
                     sums.total += values[idx].total ;
                 }
                 return sums;
-
             }
-
         }
-
-
     },
     
     

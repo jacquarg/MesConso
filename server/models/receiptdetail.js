@@ -73,10 +73,10 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
 
     rdet.aggregatedSection = ReceiptDetail.aggregateSections(rdet.section);
     
-    console.log(rdet.label);
-    console.log(rdet.name);
-    console.log(rdet.quantityLabel);
-    console.log('/n');
+    //console.log(rdet.label);
+    //console.log(rdet.name);
+    //console.log(rdet.quantityLabel);
+    //console.log('/n');
 
     return rdet;
 };
