@@ -6070,6 +6070,23 @@ td.visible-print {
   /* W3C */
 
 }
+.blue_background {
+  background: #4ec0ea;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#4ec0ea, #4d9fd2);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#4ec0ea, #4d9fd2);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#4ec0ea, #4d9fd2);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#4ec0ea, #4d9fd2);
+  /* W3C */
+
+}
 .miframe {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -6409,12 +6426,40 @@ td.visible-print {
   margin-bottom: 20px;
 }
 .miframe .foodproportion .food {
-  background: #2281AD;
+  background: #006b93;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#006b93, #4d9fd2);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#006b93, #4d9fd2);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#006b93, #4d9fd2);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#006b93, #4d9fd2);
+  /* W3C */
+
   padding: 15px;
   float: left;
 }
 .miframe .foodproportion .notfood {
-  background: #4F4E4E;
+  background: #595958;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#595958, #3f3e3e);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#595958, #3f3e3e);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#595958, #3f3e3e);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#595958, #3f3e3e);
+  /* W3C */
+
   padding: 15px;
   float: left;
 }
@@ -6428,7 +6473,21 @@ td.visible-print {
   height: 46px;
   line-height: 46px;
   color: white;
-  background: #48AFDF;
+  background: #4ec0ea;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#4ec0ea, #4d9fd2);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#4ec0ea, #4d9fd2);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#4ec0ea, #4d9fd2);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#4ec0ea, #4d9fd2);
+  /* W3C */
+
   margin: 0;
 }
 .miframe .aggregate h3.top3 {
@@ -6438,7 +6497,14 @@ td.visible-print {
   font-size: 12px;
   line-height: 15px;
 }
-.miframe .aggregate .inner {
+.miframe .aggregate .xyframe {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  margin: 0px auto;
+}
+.miframe .aggregate .topsections .inner {
+  padding: 15px 0px;
   background: #ECECEC;
   /* Old browsers */
 
@@ -6454,8 +6520,79 @@ td.visible-print {
   background: linear-gradient(#ececec, #b2b2b2);
   /* W3C */
 
+  margin-bottom: 20px;
 }
-.miframe .aggregate .toptotalsections .inner {
+.miframe .aggregate .topsections .podium {
+  position: absolute;
+  width: 320px;
+  left: 0px;
+  bottom: 0px;
+}
+.miframe .aggregate .topsections .section1 {
+  position: absolute;
+  width: 100px;
+  left: 110px;
+  bottom: 115px;
+}
+.miframe .aggregate .topsections .section2 {
+  position: absolute;
+  width: 80px;
+  left: 13px;
+  bottom: 75px;
+}
+.miframe .aggregate .topsections .section3 {
+  position: absolute;
+  width: 70px;
+  right: 18px;
+  bottom: 60px;
+}
+.miframe .aggregate .topproduct .inner_white {
+  padding: 15px 0px;
+  background: white;
+  margin-bottom: 20px;
+}
+.miframe .aggregate .topproduct .productimg {
+  position: absolute;
+  width: 160px;
+  bottom: 0px;
+  left: 0px;
+}
+.miframe .aggregate .topproduct .text {
+  position: absolute;
+  left: 170px;
+  color: black;
+  font-size: 24px;
+}
+.miframe .aggregate .topproduct .label {
+  color: black;
+  font-size: 24px;
+}
+.miframe .aggregate .topproduct .count {
+  color: #F39200;
+  font-size: 30px;
+}
+.miframe .aggregate .topproduct .quantity {
+  position: absolute;
+  left: 170px;
+  color: black;
+  font-size: 24px;
+  bottom: 30px;
+}
+.miframe .aggregate .topproduct .price {
+  position: absolute;
+  left: 170px;
+  color: black;
+  font-size: 24px;
+  bottom: 0px;
+}
+.miframe .aggregate .toptotalsections .collapsed {
+  height: 180px;
+  overflow: hidden;
+}
+.miframe .aggregate .toptotalsections .opened {
+  overflow: visible;
+}
+.miframe .aggregate .toptotalsections .inner_r {
   background: #ECECEC;
   /* Old browsers */
 

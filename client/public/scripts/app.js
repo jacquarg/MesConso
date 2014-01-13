@@ -612,36 +612,29 @@ buf.push(attrs({ 'style':("width: " + (notFoodWidth) + "%"), "class": ('notfood'
 buf.push('><div class="label">Autres &nbsp;</div><div class="total">');
 var __val__ = kv.notFoodTotal.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€</div></div><div class="clearfix"></div></div><div class="row aggregate"><div class="col-sm-6 topsections"> <h3 class="top3">Top 3<div class="subtitle">de vos rayons les plus fréquentés</div></h3><div class="inner"><img');
-buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[0].section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push('&nbsp;€</div></div><div class="clearfix"></div></div><div class="row aggregate"><div class="col-sm-6 topsections"> <h3 class="top3">Top 3<div class="subtitle">de vos rayons les plus fréquentés</div></h3><div class="inner"><div class="xyframe"><img');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[0].section) + ".png"), "class": ('section1') }, {"src":true}));
 buf.push('/><img');
-buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[1].section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[1].section) + ".png"), "class": ('section2') }, {"src":true}));
 buf.push('/><img');
-buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
-buf.push('/></div></div><div class="col-sm-6 topproduct"><h3>Votre produit phare du mois</h3><div class="inner">');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"), "class": ('section3') }, {"src":true}));
+buf.push('/><img src="img/podium.png" class="podium"/></div></div></div><div class="col-sm-6 topproduct"><h3>Votre produit phare du mois</h3><div class="inner_white"><div class="xyframe">');
  var receiptDetail = kv.topProduct.receiptDetail;
-buf.push('<img');
-buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/zoom/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
-buf.push('/><div class="detail">');
- var label = receiptDetail.label.toLowerCase();
- if (label == "nr")
-    label = receiptDetail.familyLabel.toLowerCase();
-buf.push('<p><div class="prodcount">');
+buf.push('<div class="label"><span class="count">');
 var __val__ = kv.topProduct.count
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="lab">');
-var __val__ = label
+buf.push('</span>');
+var __val__ = receiptDetail.name
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div></p><p class="vol">');
+buf.push('</div><img');
+buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/zoom/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('productimg') }, {"src":true,"onerror":true}));
+buf.push('/><div class="quantity">');
 var __val__ = receiptDetail.quantityLabel
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
- //p= receiptDetail.amount 
- //   | X
-buf.push('<p class="price">');
+buf.push('</div><div class="price">');
 var __val__ = kv.topProduct.total.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€</p></div></div></div></div><div class="row aggregate"><div class="col-sm-12 toptotalsections"><h3>Vos dépenses par rayon</h3><div class="inner">');
+buf.push('&nbsp;€</div></div></div></div></div><div class="row aggregate"><div class="col-sm-12 toptotalsections"><h3>Vos dépenses par rayon</h3><div class="inner_r collapsed">');
  var max = kv.sectionsTotal[0].total
  for (var idx in kv.sectionsTotal)
 {

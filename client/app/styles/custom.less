@@ -1,5 +1,15 @@
 @import "bootstrap.less";
 
+
+.lineargradientbackground (@top, @bottom) {
+    background: @top; /* Old browsers */
+    background: -moz-linear-gradient(@top, @bottom); /* FF3.6+ */
+    background: -webkit-linear-gradient(@top, @bottom); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(@top, @bottom); /* Opera 11.10+ */
+    background: linear-gradient(@top, @bottom); /* W3C */
+
+}
+
 .grey_background {
     background: #ECECEC; /* Old browsers */
     background: -moz-linear-gradient(#ECECEC, #B2B2B2); /* FF3.6+ */
@@ -7,6 +17,11 @@
     background: -o-linear-gradient(#ECECEC,#B2B2B2); /* Opera 11.10+ */
     background: linear-gradient(#ECECEC,#B2B2B2); /* W3C */
 }
+
+.blue_background {
+    .lineargradientbackground(#4EC0EA, #4D9FD2);
+}
+
 
 .miframe {
     
@@ -335,12 +350,12 @@
     
     margin-bottom: 20px;
     .food {
-        background: #2281AD;
+        .lineargradientbackground(#006B93, #4D9FD2);
         padding: 15px;
         float: left;
     }
     .notfood {
-        background: #4F4E4E;
+        .lineargradientbackground(#595958, #3F3E3E);
         padding: 15px;
         float: left;
     }
@@ -359,7 +374,7 @@
         height: 46px;
         line-height: 46px;
         color: white;
-        background: #48AFDF; // TODO
+        .blue_background;
 
         margin: 0;
 
@@ -372,17 +387,109 @@
             font-size: @font-size-small;
             line-height: 15px;
         }
-    .inner{
-        background: #ECECEC; /* Old browsers */
-    background: -moz-linear-gradient(#ECECEC, #B2B2B2); /* FF3.6+ */
-    background: -webkit-linear-gradient(#ECECEC, #B2B2B2); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(#ECECEC,#B2B2B2); /* Opera 11.10+ */
-    background: linear-gradient(#ECECEC,#B2B2B2); /* W3C */
+
+.xyframe {
+        position: relative;
+        width: 320px;
+        height: 220px;
+        margin: 0px auto;
+}        
+
+.topsections {
+    .inner {
+        padding: 15px 0px;
+        .grey_background;
+        margin-bottom: 20px;
+    }
     
+    
+
+    .podium {
+        position: absolute;
+        width: 320px;
+        left: 0px;
+        bottom: 0px;
     }
 
+    .section1 {
+        position: absolute;
+        width: 100px;
+        left: 110px; // 320 / 2 - 80 / 2
+        bottom: 115px; //110 + 10
+    }
+
+    .section2 {
+        position: absolute;
+        width: 80px;
+        left: 13px; // 320 / 6 - 70 / 2
+        bottom: 75px; //80 + 10
+    }
+    .section3 {
+        position: absolute;
+        width: 70px;
+        right: 18px; //~ 320 / 6 - 60 / 2
+        bottom: 60px; //~ 55 + 10
+    }
+}
+.topproduct {    
+    .inner_white {
+        padding: 15px 0px;
+        background: white;    
+        margin-bottom: 20px;
+    }
+
+    .productimg {
+        position: absolute;
+        width: 160px;
+        bottom: 0px;
+        left: 0px;
+    }
+
+
+    .text {
+        position: absolute;
+        left: 170px;
+        color: black;
+        font-size: @font-size-h3;    
+    }
+
+    .label {
+        //.text;
+        color: black;
+        font-size: @font-size-h3;    
+    //    left: 200px;
+    //    width: 120px;
+    //    bottom: 120px;
+    //    word-wrap: break-word;
+    }
+    .count {
+    //    position: absolute;
+    //    left: 170px;
+        color: #F39200;
+        font-size: @font-size-h2;
+    //    bottom: 120px;
+    }
+    .quantity {
+        .text;
+        bottom: 30px;
+    }
+    .price {
+        .text;
+        bottom: 0px;
+    }
+}
+
     .toptotalsections {
-        .inner{
+        @line_height: 180px;
+        .collapsed {
+            height: @line_height;
+            overflow: hidden;
+        }
+        .opened {
+            overflow: visible;
+        }
+
+        .inner_r {
             background: #ECECEC; /* Old browsers */
 
       background: -webkit-repeating-linear-gradient(-90deg, #ECECEC,#B2B2B2 180px);
@@ -394,7 +501,7 @@
         .section {
             float: left;
             margin-left: 15px;
-            height: 180px;
+            height: @line_height;
             position: relative;
         }
         .sectionlogo {

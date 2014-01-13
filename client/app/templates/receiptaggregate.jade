@@ -18,33 +18,31 @@
                 .subtitle de vos rayons les plus fréquentés
 
             .inner
-              img.sectionlogo(src="img/Sections/#{kv.sectionsCount[0].section}.png")
-              img.sectionlogo(src="img/Sections/#{kv.sectionsCount[1].section}.png")
-              img.sectionlogo(src="img/Sections/#{kv.sectionsCount[2].section}.png")
+              .xyframe
+                  img.section1(src="img/Sections/#{kv.sectionsCount[0].section}.png")
+                  img.section2(src="img/Sections/#{kv.sectionsCount[1].section}.png")
+                  img.section3(src="img/Sections/#{kv.sectionsCount[2].section}.png")
+                  img.podium(src="img/podium.png")
 
         .col-sm-6.topproduct
             h3 Votre produit phare du mois
-            .inner
-              - var receiptDetail = kv.topProduct.receiptDetail;
-              img.image(src='http://drive.intermarche.com/ressources/images/produit/zoom/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
-              .detail
-                - var label = receiptDetail.label.toLowerCase();
-                - if (label == "nr")
-                -    label = receiptDetail.familyLabel.toLowerCase();
-                p
-                    .prodcount= kv.topProduct.count
-                    .lab= label
-                //-.lab= receiptDetail.name
-                p.vol= receiptDetail.quantityLabel
-                - //p= receiptDetail.amount 
-                - //   | X
-                p.price= kv.topProduct.total.toFixed(2)
-                  |&nbsp;€
+            .inner_white
+                .xyframe
+                    - var receiptDetail = kv.topProduct.receiptDetail;
+                    .label
+                        span.count= kv.topProduct.count
+                        = receiptDetail.name
+                    img.productimg(src='http://drive.intermarche.com/ressources/images/produit/zoom/0#{receiptDetail.barcode}.jpg', onerror="if (this.src != 'img/sac.png') this.src = 'img/sac.png';")
+                    
+                    .quantity= receiptDetail.quantityLabel
+
+                    .price= kv.topProduct.total.toFixed(2)
+                      |&nbsp;€
 
      .row.aggregate
         .col-sm-12.toptotalsections
             h3 Vos dépenses par rayon
-            .inner
+            .inner_r.collapsed
               - var max = kv.sectionsTotal[0].total
               - for (var idx in kv.sectionsTotal)
                 - var item = kv.sectionsTotal[idx]
