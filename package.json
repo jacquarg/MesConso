@@ -10,8 +10,8 @@
   "dependencies": {
     "jade": "0.35.0",
     "americano": "0.2.11",
-    "americano-cozy": "0.1.10"
-
+    "americano-cozy": "0.1.10",
+    "async": "0.2.9"
   },
   "engines": [
     "node = 0.8.x"
