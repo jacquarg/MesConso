@@ -1,5 +1,5 @@
 .sectionhead
-    img.sectionlogo(src="img/Sections/#{section.section}.png")
+    img.sectionlogo(src="img/Sections/#{section.section}.png", onerror="if (this.src != 'img/Sections/vide.png') this.src = 'img/Sections/vide.png';", title="#{section.sectionLabel}")
 
 .sectioninner
     .row.section

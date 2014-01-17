@@ -7,7 +7,7 @@
 
     div
         - if (pcl.longitude)
-                a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}", target="_blank", title="Géolocalisation")
+                a(href="http://www.openstreetmap.org/?mlat=#{pcl.latitude}&mlon=#{pcl.longitude}#map=17/#{pcl.latitude}/#{pcl.longitude}", target="_blank", title="Lieu de la communication.")
                     img(src="img/Geoloc.png")
 
         - if (pcl.type == "VOICE")
@@ -17,12 +17,12 @@
         img(src="img/#{pcl.type}.png", title=typeStr)
 
         - if (pcl.direction == "INCOMING")
-        -   var directionStr = "Entrant";
+        -   var directionStr = "entrante";
         - else if (pcl.direction == "OUTGOING")
-        -   var directionStr = "Sortant";
+        -   var directionStr = "sortante";
         - else
-        -   var directionStr = '';
-        img(src="img/#{pcl.direction}.png", title=directionStr)
+        -   var directionStr = 'bidirectionnelle';
+        img(src="img/#{pcl.direction}.png", title="Communication #{directionStr}")
     
         - if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.substring(0, 2) == '33')
             //- pcl.correspondantNumber.startsWith('33'))    
@@ -36,7 +36,7 @@
                 = pcl.correspondantNumber
 
     .quantity(title="Durée de l'appel")
-      - if (pcl.type == 'VOICE')
+      - if (pcl.type == 'VOICE' && ! isNaN(pcl.chipCount))
         - var min = Math.floor(pcl.chipCount / 60)
         - var sec = pcl.chipCount % 60
         

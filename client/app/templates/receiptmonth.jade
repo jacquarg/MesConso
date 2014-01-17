@@ -4,11 +4,11 @@
       - var d = new Date(kv.key)
       = d.toString('MMMM yyyy')
 
-    .col-xs-3.box.price
+    .col-xs-3.box.price(title="Dépenses chez Intermarché ce mois")
         = kv.value.total.toFixed(2)
         | €
             
-    .col-xs-1.box.toggle
+    .col-xs-1.box.toggle(title="Cliquez pour plus de détails")
         img.toggle-btn(src="img/plus.png")
     
 .sections

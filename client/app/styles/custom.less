@@ -18,6 +18,11 @@
     background: linear-gradient(#ECECEC,#B2B2B2); /* W3C */
 }
 
+.greydark_brackgorund {
+    .lineargradientbackground(#484f5a, #353a44);
+
+}
+
 .blue_background {
     .lineargradientbackground(#4EC0EA, #4D9FD2);
 }
@@ -160,18 +165,12 @@
         color: white;
         text-align: center;
 
-        background: #353A44; /* Old browsers */
-        background: -moz-linear-gradient(#484f5a, #353a44); /* FF3.6+ */
-        background: -webkit-linear-gradient(#484f5a#353a44); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(#484f5a,#353a44); /* Opera 11.10+ */
-        background: linear-gradient(#484f5a,#353a44); /* W3C */ 
-
-
+        .greydark_brackgorund;
 
     }
     .period_button-selected {
         .period_button;
-        background: #48AFDF;
+        .blue_background;
     
     }
     .period_button:hover{
@@ -420,8 +419,8 @@
 
     .section2 {
         position: absolute;
-        width: 80px;
-        left: 13px; // 320 / 6 - 70 / 2
+        width: 85px;
+        left: 11px; // 320 / 6 - 70 / 2
         bottom: 75px; //80 + 10
     }
     .section3 {
@@ -448,7 +447,7 @@
 
     .text {
         position: absolute;
-        left: 170px;
+        //left: 170px;
         color: black;
         font-size: @font-size-h3;    
     }
@@ -456,7 +455,9 @@
     .label {
         //.text;
         color: black;
-        font-size: @font-size-h3;    
+        font-size: @font-size-h3;
+        margin: 0px;
+        padding: 0px;
     //    left: 200px;
     //    width: 120px;
     //    bottom: 120px;
@@ -469,12 +470,26 @@
         font-size: @font-size-h2;
     //    bottom: 120px;
     }
-    .quantity {
+    .quantityDetail {
         .text;
+        left: 170px;
+        bottom: 120px;
+    }
+    .quantityTotal {
+        .text;
+        font-size: @font-size-h2;
+        right: 10px;
+        bottom: 90px;
+    }
+    .priceDetail {
+        .text;
+        left: 170px;
         bottom: 30px;
     }
-    .price {
+    .priceTotal {
         .text;
+        font-size: @font-size-h2;
+        right: 10px;
         bottom: 0px;
     }
 }

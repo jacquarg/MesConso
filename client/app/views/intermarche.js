@@ -26,8 +26,12 @@ module.exports = IntermarcheView = Backbone.View.extend({
 //        this.collection.fetch();
     },
     
-    stopLoader: function() {
-        this.$el.find('#loader').hide()
+    showLoader: function(show) {
+        if (show) {
+            this.$el.find('#loader').show();
+        } else {
+            this.$el.find('#loader').hide();
+        }
     },
     
     toggleList: function(period) {
@@ -46,7 +50,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
 
         this.stopListening(this.collection);
         this.$el.find('#list').empty();
-        
+        this.showLoader(true);
     },
 
 
@@ -59,7 +63,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
     onReceiptAdded: function(receipt) {
-        this.stopLoader();
+        this.showLoader(false);
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -77,7 +81,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
     onReceiptAdded: function(receipt) {
-        this.stopLoader();
+        this.showLoader(false);
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -87,7 +91,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     }, 
     
     onReceiptTotalAdded: function(data) {
-        this.stopLoader();
+        this.showLoader(false);
         // render the specific element
         rtView = new ReceiptTotalView({
             model: data

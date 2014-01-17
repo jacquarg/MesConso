@@ -6070,6 +6070,23 @@ td.visible-print {
   /* W3C */
 
 }
+.greydark_brackgorund {
+  background: #484f5a;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(#484f5a, #353a44);
+  /* FF3.6+ */
+
+  background: -webkit-linear-gradient(#484f5a, #353a44);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(#484f5a, #353a44);
+  /* Opera 11.10+ */
+
+  background: linear-gradient(#484f5a, #353a44);
+  /* W3C */
+
+}
 .blue_background {
   background: #4ec0ea;
   /* Old browsers */
@@ -6196,13 +6213,13 @@ td.visible-print {
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
   text-align: center;
-  background: #353A44;
+  background: #484f5a;
   /* Old browsers */
 
   background: -moz-linear-gradient(#484f5a, #353a44);
   /* FF3.6+ */
 
-  background: -webkit-linear-gradient(#484f5a #353a44);
+  background: -webkit-linear-gradient(#484f5a, #353a44);
   /* Chrome10+,Safari5.1+ */
 
   background: -o-linear-gradient(#484f5a, #353a44);
@@ -6210,6 +6227,7 @@ td.visible-print {
 
   background: linear-gradient(#484f5a, #353a44);
   /* W3C */
+
 }
 .miframe .period_button-selected {
   height: 25px;
@@ -6220,21 +6238,26 @@ td.visible-print {
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
   text-align: center;
-  background: #353A44;
+  background: #484f5a;
+  background: -moz-linear-gradient(#484f5a, #353a44);
+  background: -webkit-linear-gradient(#484f5a, #353a44);
+  background: -o-linear-gradient(#484f5a, #353a44);
+  background: linear-gradient(#484f5a, #353a44);
+  background: #4ec0ea;
   /* Old browsers */
 
-  background: -moz-linear-gradient(#484f5a, #353a44);
+  background: -moz-linear-gradient(#4ec0ea, #4d9fd2);
   /* FF3.6+ */
 
-  background: -webkit-linear-gradient(#484f5a #353a44);
+  background: -webkit-linear-gradient(#4ec0ea, #4d9fd2);
   /* Chrome10+,Safari5.1+ */
 
-  background: -o-linear-gradient(#484f5a, #353a44);
+  background: -o-linear-gradient(#4ec0ea, #4d9fd2);
   /* Opera 11.10+ */
 
-  background: linear-gradient(#484f5a, #353a44);
+  background: linear-gradient(#4ec0ea, #4d9fd2);
   /* W3C */
-  background: #48AFDF;
+
 }
 .miframe .period_button:hover {
   height: 25px;
@@ -6245,21 +6268,26 @@ td.visible-print {
   font-family: "Maven Pro Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
   text-align: center;
-  background: #353A44;
+  background: #484f5a;
+  background: -moz-linear-gradient(#484f5a, #353a44);
+  background: -webkit-linear-gradient(#484f5a, #353a44);
+  background: -o-linear-gradient(#484f5a, #353a44);
+  background: linear-gradient(#484f5a, #353a44);
+  background: #4ec0ea;
   /* Old browsers */
 
-  background: -moz-linear-gradient(#484f5a, #353a44);
+  background: -moz-linear-gradient(#4ec0ea, #4d9fd2);
   /* FF3.6+ */
 
-  background: -webkit-linear-gradient(#484f5a #353a44);
+  background: -webkit-linear-gradient(#4ec0ea, #4d9fd2);
   /* Chrome10+,Safari5.1+ */
 
-  background: -o-linear-gradient(#484f5a, #353a44);
+  background: -o-linear-gradient(#4ec0ea, #4d9fd2);
   /* Opera 11.10+ */
 
-  background: linear-gradient(#484f5a, #353a44);
+  background: linear-gradient(#4ec0ea, #4d9fd2);
   /* W3C */
-  background: #48AFDF;
+
 }
 .miframe .item_a .box {
   height: 46px;
@@ -6536,8 +6564,8 @@ td.visible-print {
 }
 .miframe .aggregate .topsections .section2 {
   position: absolute;
-  width: 80px;
-  left: 13px;
+  width: 85px;
+  left: 11px;
   bottom: 75px;
 }
 .miframe .aggregate .topsections .section3 {
@@ -6559,30 +6587,47 @@ td.visible-print {
 }
 .miframe .aggregate .topproduct .text {
   position: absolute;
-  left: 170px;
   color: black;
   font-size: 24px;
 }
 .miframe .aggregate .topproduct .label {
   color: black;
   font-size: 24px;
+  margin: 0px;
+  padding: 0px;
 }
 .miframe .aggregate .topproduct .count {
   color: #F39200;
   font-size: 30px;
 }
-.miframe .aggregate .topproduct .quantity {
+.miframe .aggregate .topproduct .quantityDetail {
   position: absolute;
-  left: 170px;
   color: black;
   font-size: 24px;
+  left: 170px;
+  bottom: 120px;
+}
+.miframe .aggregate .topproduct .quantityTotal {
+  position: absolute;
+  color: black;
+  font-size: 24px;
+  font-size: 30px;
+  right: 10px;
+  bottom: 90px;
+}
+.miframe .aggregate .topproduct .priceDetail {
+  position: absolute;
+  color: black;
+  font-size: 24px;
+  left: 170px;
   bottom: 30px;
 }
-.miframe .aggregate .topproduct .price {
+.miframe .aggregate .topproduct .priceTotal {
   position: absolute;
-  left: 170px;
   color: black;
   font-size: 24px;
+  font-size: 30px;
+  right: 10px;
   bottom: 0px;
 }
 .miframe .aggregate .toptotalsections .collapsed {

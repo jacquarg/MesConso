@@ -344,7 +344,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('<span class="unity">');
 var __val__ = unity
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</span>&nbsp;<img src="img/Data.png"/></div><div class="col-xs-1 box"></div><div class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="row list_b pcls"></div>');
+buf.push('</span>&nbsp;<img src="img/Data.png"/></div><div class="col-xs-1 box"></div><div title="Cliquez pour plus de détails" class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="row list_b pcls"></div>');
 }
 return buf.join("");
 };
@@ -513,7 +513,7 @@ buf.push('</div><div>');
  if (pcl.longitude)
 {
 buf.push('<a');
-buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + ""), 'target':("_blank"), 'title':("Géolocalisation") }, {"href":true,"target":true,"title":true}));
+buf.push(attrs({ 'href':("http://www.openstreetmap.org/?mlat=" + (pcl.latitude) + "&mlon=" + (pcl.longitude) + "#map=17/" + (pcl.latitude) + "/" + (pcl.longitude) + ""), 'target':("_blank"), 'title':("Lieu de la communication.") }, {"href":true,"target":true,"title":true}));
 buf.push('><img src="img/Geoloc.png"/></a>');
 }
  if (pcl.type == "VOICE")
@@ -524,13 +524,13 @@ buf.push('<img');
 buf.push(attrs({ 'src':("img/" + (pcl.type) + ".png"), 'title':(typeStr) }, {"src":true,"title":true}));
 buf.push('/>');
  if (pcl.direction == "INCOMING")
-   var directionStr = "Entrant";
+   var directionStr = "entrante";
  else if (pcl.direction == "OUTGOING")
-   var directionStr = "Sortant";
+   var directionStr = "sortante";
  else
-   var directionStr = '';
+   var directionStr = 'bidirectionnelle';
 buf.push('<img');
-buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png"), 'title':(directionStr) }, {"src":true,"title":true}));
+buf.push(attrs({ 'src':("img/" + (pcl.direction) + ".png"), 'title':("Communication " + (directionStr) + "") }, {"src":true,"title":true}));
 buf.push('/>');
  if (pcl.correspondantNumber && pcl.correspondantNumber.length == 11 && pcl.correspondantNumber.substring(0, 2) == '33')
 {
@@ -548,7 +548,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div>');
 }
 buf.push('</div><div title="Durée de l\'appel" class="quantity">');
- if (pcl.type == 'VOICE')
+ if (pcl.type == 'VOICE' && ! isNaN(pcl.chipCount))
 {
  var min = Math.floor(pcl.chipCount / 60)
  var sec = pcl.chipCount % 60
@@ -571,22 +571,22 @@ attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow |
 var buf = [];
 with (locals || {}) {
 var interp;
-buf.push('<div class="row item_a receipt"><div class="col-md-6"><div class="row"><div class="col-xs-2 box map"><a');
+buf.push('<div class="row item_a receipt"><div class="col-md-6"><div class="row"><div title="Détails sur votre magasin." class="col-xs-2 box map"><a');
 buf.push(attrs({ 'href':("http://fc1.1bis.com/intermarche/map.asp?id=IMARC" + (receipt.intermarcheShopId) + ""), 'target':("_blank") }, {"href":true,"target":true}));
-buf.push('><img src="img/pin.png"/></a></div><div class="col-xs-5 box">');
+buf.push('><img src="img/pin.png"/></a></div><div title="Date ou vous avez fait des achats." class="col-xs-5 box">');
  var dt = new Date(receipt.timestamp)
 var __val__ = dt.toString('d/MM')
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="col-xs-5 box">');
+buf.push('</div><div title="Heure de votre passage en caisse." class="col-xs-5 box">');
 var __val__ = dt.toString('H:mm')
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div></div></div><div class="col-md-6"><div class="row"><div class="col-xs-5 box">');
+buf.push('</div></div></div><div class="col-md-6"><div class="row"><div title="Nombre d\'articles." class="col-xs-5 box">');
 var __val__ = receipt.articlesCount
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp; articles</div><div class="col-xs-5 box price">');
+buf.push('&nbsp; articles</div><div title="Total du ticket de caisse." class="col-xs-5 box price">');
 var __val__ = receipt.total.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="sections"></div>');
+buf.push('€</div><div title="Cliquez pour plus de détails" class="col-xs-2 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -601,37 +601,57 @@ var interp;
 buf.push('<div class="receiptaggregate"><div class="foodproportion">');
  var foodWidth = kv.foodTotal/kv.total * 100;
 buf.push('<div');
-buf.push(attrs({ 'style':("width: " + (foodWidth) + "%"), "class": ('food') }, {"style":true}));
+buf.push(attrs({ 'style':("width: " + (foodWidth) + "%"), 'title':("Total des dépenses de ce mois dans les rayons d'alimentations"), "class": ('food') }, {"style":true,"title":true}));
 buf.push('> <div class="label">Alimentaires</div><div class="total">');
 var __val__ = kv.foodTotal.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€</div></div>');
  var notFoodWidth = kv.notFoodTotal/kv.total * 100;
 buf.push('<div');
-buf.push(attrs({ 'style':("width: " + (notFoodWidth) + "%"), "class": ('notfood') }, {"style":true}));
+buf.push(attrs({ 'style':("width: " + (notFoodWidth) + "%"), 'title':("Total des dépenses de ce mois hors rayon d'alimentation"), "class": ('notfood') }, {"style":true,"title":true}));
 buf.push('><div class="label">Autres &nbsp;</div><div class="total">');
 var __val__ = kv.notFoodTotal.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('&nbsp;€</div></div><div class="clearfix"></div></div><div class="row aggregate"><div class="col-sm-6 topsections"> <h3 class="top3">Top 3<div class="subtitle">de vos rayons les plus fréquentés</div></h3><div class="inner"><div class="xyframe"><img');
-buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[0].section) + ".png"), "class": ('section1') }, {"src":true}));
+buf.push('&nbsp;€</div></div><div class="clearfix"></div></div><div class="row aggregate"><div class="col-md-6 topsections"> <h3 title="Rayons ou le plus d\'articles ont été achetés ce mois." class="top3">Top 3<div class="subtitle">de vos rayons les plus fréquentés</div></h3><div class="inner"><div class="xyframe"><img');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[0].section) + ".png"), 'title':("" + (kv.sectionsCount[0].sectionLabel) + ""), "class": ('section1') }, {"src":true,"title":true}));
 buf.push('/><img');
-buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[1].section) + ".png"), "class": ('section2') }, {"src":true}));
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[1].section) + ".png"), 'title':("" + (kv.sectionsCount[1].sectionLabel) + ""), "class": ('section2') }, {"src":true,"title":true}));
 buf.push('/><img');
-buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"), "class": ('section3') }, {"src":true}));
-buf.push('/><img src="img/podium.png" class="podium"/></div></div></div><div class="col-sm-6 topproduct"><h3>Votre produit phare du mois</h3><div class="inner_white"><div class="xyframe">');
+buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"), 'title':("" + (kv.sectionsCount[2].sectionLabel) + ""), "class": ('section3') }, {"src":true,"title":true}));
+buf.push('/><img src="img/podium.png" class="podium"/></div></div></div><div class="col-md-6 topproduct"><h3 title="Le produit le plus acheté ce mois.">Votre produit phare du mois</h3><div class="inner_white"><div class="xyframe">');
  var receiptDetail = kv.topProduct.receiptDetail;
 buf.push('<div class="label"><span class="count">');
 var __val__ = kv.topProduct.count
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</span>');
+buf.push('</span>x&nbsp;');
 var __val__ = receiptDetail.name
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><img');
 buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/zoom/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('productimg') }, {"src":true,"onerror":true}));
-buf.push('/><div class="quantity">');
+buf.push('/>');
+ if (receiptDetail.quantityLabel)
+{
+buf.push('<div class="quantityDetail"><span class="count">');
+var __val__ = kv.topProduct.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</span>x');
 var __val__ = receiptDetail.quantityLabel
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="price">');
+buf.push('</div><div class="quantityTotal">=&nbsp;');
+var __val__ = receiptDetail.quantityWeight * kv.topProduct.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;');
+var __val__ = receiptDetail.quantityUnit
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</div>');
+}
+buf.push('<div class="priceDetail"><span class="count">');
+var __val__ = kv.topProduct.count
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</span>x');
+var __val__ = receiptDetail.price
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('&nbsp;€</div><div class="priceTotal">=&nbsp;');
 var __val__ = kv.topProduct.total.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€</div></div></div></div></div><div class="row aggregate"><div class="col-sm-12 toptotalsections"><h3>Vos dépenses par rayon</h3><div class="inner_r collapsed">');
@@ -693,10 +713,10 @@ buf.push('<div class="row item_a receipt"><div class="col-xs-8 box">');
  var d = new Date(kv.key)
 var __val__ = d.toString('MMMM yyyy')
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</div><div class="col-xs-3 box price">');
+buf.push('</div><div title="Dépenses chez Intermarché ce mois" class="col-xs-3 box price">');
 var __val__ = kv.value.total.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('€</div><div class="col-xs-1 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div><div class="sections"></div>');
+buf.push('€</div><div title="Cliquez pour plus de détails" class="col-xs-1 box toggle"><img src="img/plus.png" class="toggle-btn"/></div></div><div class="sections"></div>');
 }
 return buf.join("");
 };
@@ -709,7 +729,7 @@ var buf = [];
 with (locals || {}) {
 var interp;
 buf.push('<div class="sectionhead"><img');
-buf.push(attrs({ 'src':("img/Sections/" + (section.section) + ".png"), "class": ('sectionlogo') }, {"src":true}));
+buf.push(attrs({ 'src':("img/Sections/" + (section.section) + ".png"), 'onerror':("if (this.src != 'img/Sections/vide.png') this.src = 'img/Sections/vide.png';"), 'title':("" + (section.sectionLabel) + ""), "class": ('sectionlogo') }, {"src":true,"onerror":true,"title":true}));
 buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
@@ -874,8 +894,12 @@ module.exports = IntermarcheView = Backbone.View.extend({
 //        this.collection.fetch();
     },
     
-    stopLoader: function() {
-        this.$el.find('#loader').hide()
+    showLoader: function(show) {
+        if (show) {
+            this.$el.find('#loader').show();
+        } else {
+            this.$el.find('#loader').hide();
+        }
     },
     
     toggleList: function(period) {
@@ -894,7 +918,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
 
         this.stopListening(this.collection);
         this.$el.find('#list').empty();
-        
+        this.showLoader(true);
     },
 
 
@@ -907,7 +931,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
     onReceiptAdded: function(receipt) {
-        this.stopLoader();
+        this.showLoader(false);
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -925,7 +949,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
     onReceiptAdded: function(receipt) {
-        this.stopLoader();
+        this.showLoader(false);
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -935,7 +959,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     }, 
     
     onReceiptTotalAdded: function(data) {
-        this.stopLoader();
+        this.showLoader(false);
         // render the specific element
         rtView = new ReceiptTotalView({
             model: data

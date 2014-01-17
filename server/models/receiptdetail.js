@@ -20,7 +20,7 @@ module.exports = ReceiptDetail = americano.getModel('ReceiptDetail', {
 
 //
  'aggregatedSection': String,
- 'quantityUnity': String,
+ 'quantityUnit': String,
  'quantityAmount': Number,
  'quantityWeight': String,
  'quantityLabel': String,
@@ -46,18 +46,32 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
                 // g4 : mult
 
     reg = /(?:(\d+)x|)(\d+)(cl|g|l|ml|m|kg)(?:x(\d+)|)/i ;
+    
+    unitMap = {
+        "CL": "cL",
+        "ML": "mL",
+        "M": "ML",
+        "L": "L", 
+        "G": "g",
+        "KG": "kg",
+    }
 
     grs = reg.exec(rdet.label);
     if (grs) {
-        rdet.quantityUnity = (grs[3] == 'm') ? 'ml' : grs[3] ;
+        
+        rdet.quantityUnit = (grs[3] in unitMap) ? unitMap[grs[3]] : grs[3] ;
         rdet.quantityAmount = parseInt(grs[1]?grs[1]:grs[4]);
         rdet.quantityWeight = parseInt(grs[2]);
         rdet.quantityLabel = grs[0];
 
         if (rdet.quantityAmount) {
             rdet.quantityTotalWeight = rdet.quantityWeight * rdet.quantityAmount;
+
+            rdet.quantityLabel = rdet.quantityAmount + "x" + rdet.quantityWeight + rdet.quantityUnit;
         } else {
             rdet.quantityTotalWeight = rdet.quantityWeight;   
+
+            rdet.quantityLabel = rdet.quantityWeight + rdet.quantityUnit;
         }
        
         // remove from label 
@@ -70,6 +84,11 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
     } else {
         rdet.name = rdet.label;
     }
+    
+    // Clean name look.
+    // to lower.
+    // points -> spaces.
+    rdet.name = rdet.name.toLowerCase().replace('.', ' ');
 
     rdet.aggregatedSection = ReceiptDetail.aggregateSections(rdet.section);
     
