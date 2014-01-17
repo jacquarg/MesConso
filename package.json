@@ -1,6 +1,6 @@
 {
   "name": "mesinfos-mesconsos",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Une application permettant une première visualisation simple de données MesInfos (sur la personne, les tickets de caisses).",
   "repository": {
     "type": "git",

@@ -190,17 +190,6 @@ ReceiptDetail.aggregateSections = function(sectionId) {
     }
 };
 
-// Unused
-//ReceiptDetail.all = function(callback) {
-//    ReceiptDetail.request(
-//        "all", 
-//        {},
-//        function(err, instances) {
-//            callback(null, instances);
-//        }
-//    );
-//};
-
 ReceiptDetail.getOneByBarCode = function(barcode, callback) {
     ReceiptDetail.request(
         "byBarcode", 
@@ -213,45 +202,12 @@ ReceiptDetail.getOneByBarCode = function(barcode, callback) {
 ReceiptDetail.withReceiptId = function(receiptId, callback) {
     ReceiptDetail.request(
         "byReceiptId", 
-        {
-            key: receiptId
-
-            },
+        { key: receiptId },
         function(err, instances) {
             callback(null, instances);
         }
     );
 };
-
-
-ReceiptDetail.test = function(callback) {
-
-    rId = '11108221';
-
-    ReceiptDetail.request(
-        "byReceiptIdBySection", 
-        {
-            startkey: [rId, null],
-            endkey: [rId, {}],
-            },
-        function(err, instances) {
-            callback(null, instances);
-        }
-    );
-};
-// Unused.
-//ReceiptDetail.byTimestamp = function(callback) {
-//    ReceiptDetail.request(
-//        "byTimestamp", 
-//        {
-//            descending: true
-//
-//            },
-//        function(err, instances) {
-//            callback(null, instances);
-//        }
-//    );
-//};
 
 
 ReceiptDetail.sectionsTotalsOfMonth = function(month, callback) {
@@ -265,21 +221,8 @@ ReceiptDetail.sectionsTotalsOfMonth = function(month, callback) {
         callback
     );
 };
-/*
-ReceiptDetail.totalsByMonthByProduct = function(callback) {
-   ReceiptDetail.rawRequest(
-        "totalsByMonthByProduct", 
-        {
-             'descending': true,
-             'group': true
 
-            },
-        callback
-    );
-}; */
 
-//ReceiptDetail.totalsByMonthByProduct = function(callback) {
-//   var month = '2013-10';
 ReceiptDetail.mostBoughtProductOfMonth = function(month, callback) {
    ReceiptDetail.rawRequest(
         "totalsByMonthByProduct", 
@@ -288,14 +231,14 @@ ReceiptDetail.mostBoughtProductOfMonth = function(month, callback) {
          group: true,
          startkey: [month, null],
          endkey: [month, {}]
-            
-            },
+        },
         function(err, kvs) {
             if (err) {
                 callback(err, null);
             } else {
                 if (kvs.length == 0) {
                     callback(null, null);
+
                 } else {
                     var max = kvs[0];
                     for (var idx=0; idx<kvs.length; idx++) {
@@ -303,12 +246,8 @@ ReceiptDetail.mostBoughtProductOfMonth = function(month, callback) {
                             max = kvs[idx];
                         }
                     }
-
                     callback(null, max);
                 }
-
             }
-                
-        }
-    );
+        });
 }

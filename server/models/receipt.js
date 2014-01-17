@@ -21,24 +21,11 @@ module.exports = Receipt = americano.getModel('Receipt', {
     'snippet': String
 });
 
-// Unused.
-//Receipt.all = function(callback) {
-//    Receipt.request(
-//        "all", 
-//        {},
-//        function(err, instances) {
-//            callback(null, instances);
-//        }
-//    );
-//};
 
 Receipt.newest = function(callback) {
     Receipt.request(
         "byTimestamp", 
-        {
-            descending: true
-
-            },
+        { descending: true },
         function(err, instances) {
             callback(null, instances);
         }
@@ -49,9 +36,9 @@ Receipt.totalsByMonth = function(callback) {
    Receipt.rawRequest(
         "monthTotal", 
         {
-             'descending': true,
-             'group': true
-            },
+          descending: true,
+          group: true
+        },
         callback
     );
 };
