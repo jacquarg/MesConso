@@ -6204,6 +6204,11 @@ td.visible-print {
   margin-left: 42px;
   margin-right: 42px;
 }
+.miframe .consoinner .nodata {
+  display: none;
+  color: white;
+  font-size: 14px;
+}
 .miframe .period_button {
   height: 25px;
   line-height: 25px;

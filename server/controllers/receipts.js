@@ -131,7 +131,7 @@ module.exports.totalsOfMonth = function(req, res) {
             total = kv.value.total;
             data.total += total;
 
-            if (['12', '10', '38', '28', '30', '22', '32', '20', '34', '26', '24', '2', '4', '6', '8', '40', '42'].indexOf(kv.key[1]) != -1) {
+            if (['12', '10', '38', '28', '30', '22', '32', '20', '34', '26', '24', '2', '46', '4', '6', '8', '40', '42'].indexOf(kv.key[1]) != -1) {
                 data.foodTotal += total;
             } else {
                 data.notFoodTotal += total;

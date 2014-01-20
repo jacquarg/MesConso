@@ -64,7 +64,7 @@
               - var max = kv.sectionsTotal[0].total
               - for (var idx in kv.sectionsTotal)
                 - var item = kv.sectionsTotal[idx]
-                - var height = item.total / max * 150;
+                - var height = Math.sqrt(item.total / max) * 150;
                 - var width = Math.max(height, 50);
                 - var left = (width - height) / 2;
                 .section(style='width: #{width}px')

@@ -257,21 +257,6 @@ module.exports = Router = Backbone.Router.extend({
 
 });
 
-;require.register("templates/brandpanel", function(exports, require, module) {
-module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
-attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
-var buf = [];
-with (locals || {}) {
-var interp;
-buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
-var __val__ = title 
-buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h3></div><div id="list" class="consoinner"></div></div>');
-}
-return buf.join("");
-};
-});
-
 ;require.register("templates/home", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
@@ -293,7 +278,22 @@ var interp;
 buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
 var __val__ = title 
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h3></div><div class="consoinner"><div class="row"><div id="day" class="col-xs-6 period_button-selected">Jour</div><div id="month" class="col-xs-6 period_button">Mois        </div></div><div id="list"></div></div></div>');
+buf.push('</h3></div><div class="consoinner"><div class="row"><div id="day" class="col-xs-6 period_button-selected">Jour</div><div id="month" class="col-xs-6 period_button">Mois        </div></div><div id="list"></div><div class="nodata">Aucune données du ticket de caisse en provenance d\'Intermarché. Vous ne possédez peut-être la carte de fidélité Intermarché.</div></div></div>');
+}
+return buf.join("");
+};
+});
+
+;require.register("templates/orange", function(exports, require, module) {
+module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
+attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
+var buf = [];
+with (locals || {}) {
+var interp;
+buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
+var __val__ = title 
+buf.push(escape(null == __val__ ? "" : __val__));
+buf.push('</h3></div><div id="list" class="consoinner"><div class="nodata">Aucune données du journal d\'appel en provenance d\'Orange. Vous n\'êtes peut-être pas client Orange.</div></div></div>');
 }
 return buf.join("");
 };
@@ -659,7 +659,7 @@ buf.push('&nbsp;€</div></div></div></div></div><div class="row aggregate"><div
  for (var idx in kv.sectionsTotal)
 {
  var item = kv.sectionsTotal[idx]
- var height = item.total / max * 150;
+ var height = Math.sqrt(item.total / max) * 150;
  var width = Math.max(height, 50);
  var left = (width - height) / 2;
 buf.push('<div');
@@ -921,13 +921,29 @@ module.exports = IntermarcheView = Backbone.View.extend({
         this.showLoader(true);
     },
 
+    collectionFetch: function() {
+        var that = this;
+        this.collection.fetch({ 
+            success : function(collection, response, options) {
+                that.showLoader(false);
+        
+                if (collection.length == 0) {
+                    that.$el.find('.nodata').show();
+                }
+            },
+            error: function(collection, response, options) {
+                that.stopLoader();
+            }
+        });
+    },
 
     getDays : function() {
         this.toggleList('#day');
 
         this.collection = new ReceiptCollection();
         this.listenTo(this.collection, "add", this.onReceiptAdded);
-        this.collection.fetch();
+        //this.collection.fetch();
+        this.collectionFetch();
     },
 
     onReceiptAdded: function(receipt) {
@@ -940,16 +956,19 @@ module.exports = IntermarcheView = Backbone.View.extend({
         this.$el.find('#list').append(receiptView.$el);
     },
 
+
+
     getMonths : function() {
         this.toggleList('#month');
 
         this.collection = new ReceiptTotalsCollection();
         this.listenTo(this.collection, "add", this.onReceiptTotalAdded);
-        this.collection.fetch();
+        //this.collection.fetch();
+        this.collectionFetch();
     },
 
     onReceiptAdded: function(receipt) {
-        this.showLoader(false);
+        //this.showLoader(false);
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -959,7 +978,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     }, 
     
     onReceiptTotalAdded: function(data) {
-        this.showLoader(false);
+        //this.showLoader(false);
         // render the specific element
         rtView = new ReceiptTotalView({
             model: data
@@ -1021,7 +1040,7 @@ var PCAbstractView = require('./pcabstract');
 module.exports = OrangeView = Backbone.View.extend({
 
     el: '#content',
-    template: require('../templates/brandpanel'),
+    template: require('../templates/orange'),
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
@@ -1033,16 +1052,29 @@ module.exports = OrangeView = Backbone.View.extend({
         // we render the template
         this.$el.html(this.template({'title': "Mes Communications"}));
 
+        var that = this;
         // fetch the bookmarks from the database
-        this.collection.fetch();
+        this.collection.fetch({ 
+            success : function(collection, response, options) {
+                that.stopLoader();
+        
+                if (collection.length == 0) {
+                    that.$el.find('.nodata').show();
+                }
+            },
+            error: function(collection, response, options) {
+                that.stopLoader();
+            }
+        });
     },
-
+    
     stopLoader: function() {
-        this.$el.find('#loader').hide()
+        this.$el.find('#loader').hide();
     },
 
     onPCAbstractAdded: function(item) {
-        this.stopLoader();
+        //this.stopLoader();
+
         // render the specific element
         itemView = new PCAbstractView({
             model: item

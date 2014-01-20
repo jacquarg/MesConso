@@ -53,13 +53,29 @@ module.exports = IntermarcheView = Backbone.View.extend({
         this.showLoader(true);
     },
 
+    collectionFetch: function() {
+        var that = this;
+        this.collection.fetch({ 
+            success : function(collection, response, options) {
+                that.showLoader(false);
+        
+                if (collection.length == 0) {
+                    that.$el.find('.nodata').show();
+                }
+            },
+            error: function(collection, response, options) {
+                that.stopLoader();
+            }
+        });
+    },
 
     getDays : function() {
         this.toggleList('#day');
 
         this.collection = new ReceiptCollection();
         this.listenTo(this.collection, "add", this.onReceiptAdded);
-        this.collection.fetch();
+        //this.collection.fetch();
+        this.collectionFetch();
     },
 
     onReceiptAdded: function(receipt) {
@@ -72,16 +88,19 @@ module.exports = IntermarcheView = Backbone.View.extend({
         this.$el.find('#list').append(receiptView.$el);
     },
 
+
+
     getMonths : function() {
         this.toggleList('#month');
 
         this.collection = new ReceiptTotalsCollection();
         this.listenTo(this.collection, "add", this.onReceiptTotalAdded);
-        this.collection.fetch();
+        //this.collection.fetch();
+        this.collectionFetch();
     },
 
     onReceiptAdded: function(receipt) {
-        this.showLoader(false);
+        //this.showLoader(false);
         // render the specific element
         receiptView = new ReceiptView({
             model: receipt
@@ -91,7 +110,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     }, 
     
     onReceiptTotalAdded: function(data) {
-        this.showLoader(false);
+        //this.showLoader(false);
         // render the specific element
         rtView = new ReceiptTotalView({
             model: data
