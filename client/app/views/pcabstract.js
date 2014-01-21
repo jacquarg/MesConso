@@ -10,9 +10,10 @@ module.exports = PCAbstractView = Backbone.View.extend({
         "click .item_a": "toggleList",    
         //"click .toggle": "toggleSectionsNoDefault"    
     },
-
+    
     initialize: function() {
 //        this.collection = new Collection([], { date: this.model.attributes.key });
+       
         
     },
 
@@ -20,6 +21,12 @@ module.exports = PCAbstractView = Backbone.View.extend({
         this.$el.html(this.template({
             pcabstract: this.model.toJSON()
         }));
+
+        if ((this.model.attributes.value.calls + this.model.attributes.value.sms) == 0) {
+            this.btnState('hidden');
+          //  delete this.events["click .item_a"];
+            this.noOpen = true;
+        } 
     },
 
     btnState: function(state) {
@@ -27,11 +34,14 @@ module.exports = PCAbstractView = Backbone.View.extend({
             'opened': "img/moins.png",
             'closed': "img/plus.png",
             'loading': "img/ajax-loader_b.gif",
+            'hidden': "img/none.png",
         };
         this.$el.find('.toggle-btn').attr('src', states[state]);
     },
 
     toggleList: function(event) {
+        if (this.noOpen) return;
+
         if (!this.open) {
             this.open = true;
             // submit button reload the page, we don't want that

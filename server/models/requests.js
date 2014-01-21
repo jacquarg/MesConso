@@ -119,52 +119,6 @@ module.exports = {
             }
         },
 
-        dayAbstract_1: {
-            map: function(doc) {
-                emit(doc.timestamp.substring(0,10), doc);
-            },
-
-            reduce: function(key, values, rereduce) {
-                var sums = {
-                       calls: 0,
-                       callsDuration: 0,
-                       sms : 0,
-                       data : 0
-                    }
-                if (!rereduce) {
-                    for (var idx=0; idx<values.length; idx++) {
-                        v = values[idx];
-                        
-                        if (v.type == 'VOICE') {
-                            sums.calls += 1;
-                            sums.callsDuration += v.chipCount;
-
-                        } else if (v.type == 'SMS-C') {
-                            sums.sms += 1;
-                        } else if (v.type == 'DATA') {
-                            sums.data += v.chipCount;
-                        }
-
-                        // else :SMS-C ? , MMS ? SERVICE ?
-                    }
-
-                } else { // rereduce
-                    for (var j=0; j<values.length; j++) {
-                        v = values[j];
-                        sums.calls += v.calls;
-                        sums.callsDuration += v.callsDuration;
-                        sums.sms += v.sms;
-                        sums.data += v.data;
-
-                    }
-                }
-                
-                return sums;
-            }
-
-        },
-
-
         dayAbstract: {
             map: function(doc) {
                 var sums = {

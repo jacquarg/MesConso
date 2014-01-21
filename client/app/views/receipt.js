@@ -12,16 +12,12 @@ module.exports = Receipt = Backbone.View.extend({
 
     initialize: function() {
         this.collection = new SectionCollection([], { receiptId: this.model.attributes.receiptId });
-        
     },
 
     render: function() {
         this.$el.html(this.template({
             receipt: this.model.toJSON()
         }));
-
-
-    
     },
     
     btnState: function(state) {

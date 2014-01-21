@@ -29,6 +29,27 @@ module.exports = ReceiptDetail = americano.getModel('ReceiptDetail', {
 
  });
 
+ReceiptDetail.touch = function() {
+    var cbGen = function(reqName) {
+        var startTime = Date.now();
+
+        return function() {
+            console.log("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
+        };
+    }
+
+    var params = { 
+        limit: 1,
+        reduce: false
+    };
+
+    ReceiptDetail.rawRequest("byBarcode", params, cbGen("receiptdetail/byBarcode"));
+    ReceiptDetail.rawRequest("byReceiptId", params, cbGen("receiptdetail/byReceiptId"));  
+    ReceiptDetail.rawRequest("totalsByMonthBySection", params, cbGen("receiptdetail/totalsByMonthBySection"));
+    ReceiptDetail.rawRequest("totalsByMonthByProduct", params, cbGen("receiptdetail/totalsByMonthByProduct"));
+
+};
+
 ReceiptDetail._enrichReceiptDetail = function(rdet) {
                 // Parse quantity
                 // Match parterns : 3x20cl ; 8x1l ; 70cl ; 6x50 cl ; 180gx3
