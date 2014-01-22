@@ -1,6 +1,6 @@
 americano = require('americano');
 
-module.exports = Receipt = americano.getModel('Receipt', {
+module.exports = Receipt = americano.getModel('receipt', {
     'receiptId': String,
     'transactionCode': String,
     'transaction': String,
@@ -20,6 +20,12 @@ module.exports = Receipt = americano.getModel('Receipt', {
     'isOnline': Boolean,
     'snippet': String
 });
+
+Receipt.afterInitialize = function() {
+    this.receiptId = this.receiptId.slice(0, -1);
+    return this;
+
+};
 
 Receipt.touch = function() {
     var cbGen = function(reqName) {

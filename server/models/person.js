@@ -1,6 +1,6 @@
 americano = require('americano');
 
-module.exports = Person = americano.getModel('Person', {
+module.exports = Person = americano.getModel('person', {
     'origin': String,
     'lastname': String,
     'firstname': String,
