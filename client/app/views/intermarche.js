@@ -12,6 +12,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     initialize: function() {
         this.getDays();
     },
+    
 
     events: {
         "click #day": "getDays",
@@ -70,6 +71,10 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
     getDays : function() {
+        if (this.state == '#day') {
+            return;
+        }
+        this.state = '#day';
         this.toggleList('#day');
 
         this.collection = new ReceiptCollection();
@@ -91,6 +96,11 @@ module.exports = IntermarcheView = Backbone.View.extend({
 
 
     getMonths : function() {
+        if (this.state == '#month') {
+            return;
+        }
+        this.state = '#month';
+
         this.toggleList('#month');
 
         this.collection = new ReceiptTotalsCollection();

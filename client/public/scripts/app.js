@@ -278,7 +278,7 @@ var interp;
 buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
 var __val__ = title 
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h3></div><div class="consoinner"><div class="row"><div id="day" class="col-xs-6 period_button-selected">Jour</div><div id="month" class="col-xs-6 period_button">Mois        </div></div><div id="list"></div><div class="nodata">Aucune données du ticket de caisse en provenance d\'Intermarché. Vous ne possédez peut-être la carte de fidélité Intermarché.</div></div></div>');
+buf.push('</h3></div><div class="consoinner"><div class="row"><div id="day" class="col-xs-6 period_button-selected">Jour</div><div id="month" class="col-xs-6 period_button">Mois        </div></div><div id="list"></div><div class="nodata">Aucune donnée du ticket de caisse en provenance d\'Intermarché. Vous ne possédez pas la carte de fidélité Intermarché.</div></div></div>');
 }
 return buf.join("");
 };
@@ -293,7 +293,7 @@ var interp;
 buf.push('<div class="consocontainer"><div class="consoheader"><h3><img id="loader" src="img/ajax-loader.gif"/>&nbsp;');
 var __val__ = title 
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</h3></div><div id="list" class="consoinner"><div class="nodata">Aucune données du journal d\'appel en provenance d\'Orange. Vous n\'êtes peut-être pas client Orange.</div></div></div>');
+buf.push('</h3></div><div id="list" class="consoinner"><div class="nodata">Aucune donnée du journal d\'appel en provenance d\'Orange. Vous n\'êtes pas client Orange.</div></div></div>');
 }
 return buf.join("");
 };
@@ -880,6 +880,7 @@ module.exports = IntermarcheView = Backbone.View.extend({
     initialize: function() {
         this.getDays();
     },
+    
 
     events: {
         "click #day": "getDays",
@@ -938,6 +939,10 @@ module.exports = IntermarcheView = Backbone.View.extend({
     },
 
     getDays : function() {
+        if (this.state == '#day') {
+            return;
+        }
+        this.state = '#day';
         this.toggleList('#day');
 
         this.collection = new ReceiptCollection();
@@ -959,6 +964,11 @@ module.exports = IntermarcheView = Backbone.View.extend({
 
 
     getMonths : function() {
+        if (this.state == '#month') {
+            return;
+        }
+        this.state = '#month';
+
         this.toggleList('#month');
 
         this.collection = new ReceiptTotalsCollection();
