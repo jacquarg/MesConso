@@ -6595,11 +6595,12 @@ td.visible-print {
   color: black;
   font-size: 24px;
 }
-.miframe .aggregate .topproduct .label {
+.miframe .aggregate .topproduct .name {
   color: black;
   font-size: 24px;
   margin: 0px;
   padding: 0px;
+  line-height: 0.8;
 }
 .miframe .aggregate .topproduct .count {
   color: #F39200;

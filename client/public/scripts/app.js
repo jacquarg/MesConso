@@ -620,7 +620,7 @@ buf.push('/><img');
 buf.push(attrs({ 'src':("img/Sections/" + (kv.sectionsCount[2].section) + ".png"), 'title':("" + (kv.sectionsCount[2].sectionLabel) + ""), "class": ('section3') }, {"src":true,"title":true}));
 buf.push('/><img src="img/podium.png" class="podium"/></div></div></div><div class="col-md-6 topproduct"><h3 title="Le produit le plus acheté ce mois.">Votre produit phare du mois</h3><div class="inner_white"><div class="xyframe">');
  var receiptDetail = kv.topProduct.receiptDetail;
-buf.push('<div class="label"><span class="count">');
+buf.push('<div class="name"><span class="count">');
 var __val__ = kv.topProduct.count
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</span>x&nbsp;');
@@ -691,10 +691,7 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><p class="vol">');
 var __val__ = receiptDetail.quantityLabel
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
- //p= receiptDetail.amount 
- //   | X
-buf.push('<div class="price">');
+buf.push('</p><div class="price">');
 var __val__ = receiptDetail.price.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€ </div></div></div></div></div>');
@@ -733,6 +730,11 @@ buf.push(attrs({ 'src':("img/Sections/" + (section.section) + ".png"), 'onerror'
 buf.push('/></div><div class="sectioninner"><div class="row section">');
  for (var i2 in section.receiptDetails) {
    var receiptDetail = section.receiptDetails[i2];
+{
+ if (receiptDetail.amount >= 1)
+{
+ for (var i=0; i<receiptDetail.amount; i++)
+{
 buf.push('<div class="col-md-4"><div class="row"><div class="receiptdetail"><img');
 buf.push(attrs({ 'src':('http://drive.intermarche.com/ressources/images/produit/fiche/0' + (receiptDetail.barcode) + '.jpg'), 'onerror':("if (this.src != 'img/sac.png') this.src = 'img/sac.png';"), "class": ('image') }, {"src":true,"onerror":true}));
 buf.push('/><div class="detail"><div class="lab">');
@@ -741,13 +743,13 @@ buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('</div><p class="vol">');
 var __val__ = receiptDetail.quantityLabel
 buf.push(escape(null == __val__ ? "" : __val__));
-buf.push('</p>');
- //p= receiptDetail.amount 
- //   | X
-buf.push('<div class="price">');
+buf.push('</p><div class="price">');
 var __val__ = receiptDetail.price.toFixed(2)
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('&nbsp;€ </div></div></div></div></div>');
+}
+}
+}
  }
 buf.push('</div></div>');
 }
@@ -924,6 +926,8 @@ module.exports = IntermarcheView = Backbone.View.extend({
 
     collectionFetch: function() {
         var that = this;
+        that.$el.find('.nodata').hide();
+
         this.collection.fetch({ 
             success : function(collection, response, options) {
                 that.showLoader(false);

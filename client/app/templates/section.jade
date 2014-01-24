@@ -5,5 +5,7 @@
     .row.section
         - for (var i2 in section.receiptDetails) {
         -   var receiptDetail = section.receiptDetails[i2];
-        include receiptdetail
+            - if (receiptDetail.amount >= 1)
+                - for (var i=0; i<receiptDetail.amount; i++)
+                    include receiptdetail
         - }

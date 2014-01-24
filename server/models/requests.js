@@ -66,7 +66,7 @@ module.exports = {
             map: function(doc) {
                 emit([doc.timestamp.substring(0,7), doc.barcode], 
                      {
-                        count: 1,
+                        count: doc.amount,
                         total: doc.price
                     });   
             },

@@ -50,6 +50,25 @@ ReceiptDetail.touch = function() {
 
 };
 
+
+ReceiptDetail._ean13CheckSum = function(rdet) {
+    if (rdet.barcode && rdet.barcode.length == 12) {
+        // last checksum digit is needed
+        // cf : http://fr.wikipedia.org/wiki/Code-barres_EAN#Cl.C3.A9_de_contr.C3.B4le
+        
+        var even = 0 ;
+        var odd = 0 ;
+
+        for (var i=0; i<6; i++) {
+            odd += parseInt(rdet.barcode[2 * i]);
+            even += parseInt(rdet.barcode[2 * i + 1]);
+        }
+        var checksum = 10 - ( 3 * even + odd ) % 10 ;
+
+        rdet.barcode = rdet.barcode + checksum.toString() ;
+    }
+};
+
 ReceiptDetail._enrichReceiptDetail = function(rdet) {
                 // Parse quantity
                 // Match parterns : 3x20cl ; 8x1l ; 70cl ; 6x50 cl ; 180gx3
@@ -126,6 +145,7 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
 
 ReceiptDetail.afterInitialize = function() {
     ReceiptDetail._enrichReceiptDetail(this);
+    ReceiptDetail._ean13CheckSum(this);
 
 };
 

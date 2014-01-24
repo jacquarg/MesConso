@@ -56,6 +56,8 @@ module.exports = IntermarcheView = Backbone.View.extend({
 
     collectionFetch: function() {
         var that = this;
+        that.$el.find('.nodata').hide();
+
         this.collection.fetch({ 
             success : function(collection, response, options) {
                 that.showLoader(false);
