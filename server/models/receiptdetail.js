@@ -76,7 +76,7 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
         "G": "g",
         "KG": "kg",
     }
-
+    
     grs = reg.exec(rdet.label);
     if (grs) {
         
@@ -100,7 +100,7 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
         rdet.name = rdet.label.substring(0, grs['index']);
 
 
-    } else if (rdet.label == "NR") {
+    } else if (rdet.label == "NR" || rdet.label == "NA" || !rdet.label ) {
         rdet.name = rdet.familyLabel;
     } else {
         rdet.name = rdet.label;
@@ -109,7 +109,9 @@ ReceiptDetail._enrichReceiptDetail = function(rdet) {
     // Clean name look.
     // to lower.
     // points -> spaces.
-    rdet.name = rdet.name.toLowerCase().replace('.', ' ');
+    if (rdet.name) {
+        rdet.name = rdet.name.toLowerCase().replace('.', ' ');
+    }
 
     rdet.aggregatedSection = ReceiptDetail.aggregateSections(rdet.section);
     
