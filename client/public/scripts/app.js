@@ -552,6 +552,7 @@ buf.push('</div><div title="Durée de l\'appel" class="quantity">');
 {
  var min = Math.floor(pcl.chipCount / 60)
  var sec = pcl.chipCount % 60
+ sec = (sec < 10 ? '0' : '') + sec
 var __val__ = min
 buf.push(escape(null == __val__ ? "" : __val__));
 buf.push('’');
@@ -771,7 +772,10 @@ module.exports = AppView = Backbone.View.extend({
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
-        console.log("Initialize")
+        //console.log("Initialize")
+        
+        //update view in db.
+        $.get('touch');
     },
     events: {
         "click #courses": "getCourses",
@@ -1369,7 +1373,7 @@ module.exports = ReceiptMonth = Backbone.View.extend({
             ra.fetch({ 
                 url: 'receipts/aggregates/' + this.model.attributes.key,
                 success: function() {
-                    console.log(ra.toJSON());
+                    //console.log(ra.toJSON());
                     that.$el.find('.sections').append(that.templateAggregate({ kv: ra.toJSON() }));
                    that.btnState('opened');
                 }

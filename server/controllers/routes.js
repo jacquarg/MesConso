@@ -24,16 +24,12 @@ test = function(req, res) {
 
 
 module.exports = {
-    // unused :
-//  'receiptdetails': {
-//      get: ReceiptDetails.list
-// },
-//  'receiptdetailsbyts': {
-//      get: ReceiptDetails.byTimestamp
-//
+//  'test': {
+//    get: test
 //  },
-  'test': {
-    get: test
+
+  'touch': {
+      get: Persons.touch
   },
 
   'receipts': {

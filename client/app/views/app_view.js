@@ -11,7 +11,10 @@ module.exports = AppView = Backbone.View.extend({
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
-        console.log("Initialize")
+        //console.log("Initialize")
+        
+        //update view in db.
+        $.get('touch');
     },
     events: {
         "click #courses": "getCourses",

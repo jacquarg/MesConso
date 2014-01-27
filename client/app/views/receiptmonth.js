@@ -49,7 +49,7 @@ module.exports = ReceiptMonth = Backbone.View.extend({
             ra.fetch({ 
                 url: 'receipts/aggregates/' + this.model.attributes.key,
                 success: function() {
-                    console.log(ra.toJSON());
+                    //console.log(ra.toJSON());
                     that.$el.find('.sections').append(that.templateAggregate({ kv: ra.toJSON() }));
                    that.btnState('opened');
                 }
