@@ -257,7 +257,7 @@ module.exports = Router = Backbone.Router.extend({
 
 });
 
-;require.register("templates/brandpanel", function(exports, require, module) {
+;require.register("templates/home", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -269,7 +269,7 @@ return buf.join("");
 };
 });
 
-;require.register("templates/home", function(exports, require, module) {
+;require.register("templates/intermarche", function(exports, require, module) {
 module.exports = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
 var buf = [];
@@ -782,17 +782,6 @@ module.exports = AppView = Backbone.View.extend({
         "click #cra": "getCRA"
     },
 
-    toggleSelection: function(brand) {
-         //var other_map = {
-         //    '#courses': '#cra',
-         //    '#cra': '#courses'
-         //};
- 
-         this.$el.find(brand).attr('class', 'brand-selected');
-         //this.$el.find(other_map[brand]).attr('class', 'brand');
- 
-     },
-    
     
     toggleSelection: function(brand) {
         var other_map = {
@@ -892,7 +881,7 @@ var ReceiptTotalsCollection = require('collections/receipttotals');
 module.exports = IntermarcheView = Backbone.View.extend({
 
     el: '#content',
-    template: require('../templates/brandpanel'),
+    template: require('../templates/intermarche'),
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {

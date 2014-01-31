@@ -6,7 +6,7 @@ var ReceiptTotalsCollection = require('collections/receipttotals');
 module.exports = IntermarcheView = Backbone.View.extend({
 
     el: '#content',
-    template: require('../templates/brandpanel'),
+    template: require('../templates/intermarche'),
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {

@@ -21,17 +21,6 @@ module.exports = AppView = Backbone.View.extend({
         "click #cra": "getCRA"
     },
 
-    toggleSelection: function(brand) {
-         //var other_map = {
-         //    '#courses': '#cra',
-         //    '#cra': '#courses'
-         //};
- 
-         this.$el.find(brand).attr('class', 'brand-selected');
-         //this.$el.find(other_map[brand]).attr('class', 'brand');
- 
-     },
-    
     
     toggleSelection: function(brand) {
         var other_map = {
