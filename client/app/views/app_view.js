@@ -1,5 +1,7 @@
 var IntermarcheView = require('./intermarche');
 var ReceiptCollection = require('collections/receipts');
+var OrangeView = require('./orange');
+var PCAbstractCollection = require('collections/pcabstracts');
 var PersonView = require('./person');
 
 module.exports = AppView = Backbone.View.extend({
@@ -9,10 +11,14 @@ module.exports = AppView = Backbone.View.extend({
 
     // initialize is automatically called once after the view is constructed
     initialize: function() {
-        console.log("Initialize")
+        //console.log("Initialize")
+        
+        //update view in db.
+        $.get('touch');
     },
     events: {
-        "click #courses": "getCourses"
+        "click #courses": "getCourses",
+        "click #cra": "getCRA"
     },
 
     toggleSelection: function(brand) {
@@ -27,6 +33,16 @@ module.exports = AppView = Backbone.View.extend({
      },
     
     
+    toggleSelection: function(brand) {
+        var other_map = {
+            '#courses': '#cra',
+            '#cra': '#courses'
+        };
+
+        this.$el.find(brand).attr('class', 'brand-selected');
+        this.$el.find(other_map[brand]).attr('class', 'brand');
+
+    },
     getCourses: function() {
         var receipts = new ReceiptCollection();
         intermarcheView = new IntermarcheView({
@@ -36,7 +52,18 @@ module.exports = AppView = Backbone.View.extend({
         intermarcheView.render()
         this.$el.find('#content').append(intermarcheView.$el);
         this.toggleSelection('#courses');
-        
+    },
+
+    getCRA: function() {
+        var pcAbstracts = new PCAbstractCollection();
+        var orangeView = new OrangeView({
+            collection: pcAbstracts
+        });
+
+        orangeView.render()
+        this.$el.find('#content').append(orangeView.$el);
+        this.toggleSelection('#cra');
+
     },
 
     render: function() {

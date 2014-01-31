@@ -1,0 +1,53 @@
+.row.item_a.pcabstract
+    .col-md-6
+      .row
+        .col-xs-5.box.date
+            - var d = new Date(pcabstract.key)
+            //- = d.toString('dd/MM')
+            = d.toString('ddd d MMM')
+
+        .col-xs-3.box(title="Nombres d'appels ce jour")
+          = pcabstract.value.calls
+          | &nbsp;
+          img(src='img/Tel.png')
+
+        .col-xs-4.box.callsduration(title="Durée totale d'appels ce jour")
+              - var min = Math.floor(pcabstract.value.callsDuration / 60)
+              - var sec = pcabstract.value.callsDuration % 60
+              = min
+              |’
+              = sec
+              | ”
+
+    .col-md-6
+      .row
+        .col-xs-3.box(title="Nombres de SMS échangés ce jour")
+          = pcabstract.value.sms
+          | &nbsp;
+          img(src='img/SMS.png')
+        .col-xs-6.box(title="Data échangées ce jour")
+          - var total = pcabstract.value.data ;
+          - var unity = 'o';
+          - var totalStr = total;
+          - if (total > 1000000)
+              - total = total / 1000000 ;
+              - totalStr = total.toFixed(2);
+              - unity = 'Mo';
+          - else if (total > 1000)
+              - total = pcabstract.value.data/1000;
+              - totalStr = total.toFixed(2);
+              - unity = 'ko';
+
+
+          = totalStr
+          span.unity= unity
+          | &nbsp;
+          img(src='img/Data.png')
+
+        .col-xs-1.box
+            
+        .col-xs-2.box.toggle(title="Cliquez pour plus de détails")
+            img.toggle-btn(src="img/plus.png")
+    
+.row.list_b.pcls
+            

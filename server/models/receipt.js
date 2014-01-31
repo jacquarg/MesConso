@@ -21,27 +21,49 @@ module.exports = Receipt = americano.getModel('Receipt', {
     'snippet': String
 });
 
-// Unused.
-//Receipt.all = function(callback) {
-//    Receipt.request(
-//        "all", 
-//        {},
-//        function(err, instances) {
-//            callback(null, instances);
-//        }
-//    );
-//};
+Receipt.afterInitialize = function() {
+    this.receiptId = this.receiptId.slice(0, -1);
+    return this;
+
+};
+
+Receipt.touch = function() {
+    var cbGen = function(reqName) {
+        var startTime = Date.now();
+
+        return function() {
+            console.log("Touch " + reqName + " in " + (Date.now() - startTime) + "ms");
+        };
+    };
+
+    var params = { 
+        limit: 1,
+        reduce: false
+    };
+
+    Receipt.rawRequest("byTimestamp", params, cbGen("receipt/byTimestamp"));
+    Receipt.rawRequest("monthTotal", params, cbGen("receipt/monthTotal"));
+
+};
 
 Receipt.newest = function(callback) {
     Receipt.request(
         "byTimestamp", 
-        {
-            descending: true
-
-            },
+        { descending: true },
         function(err, instances) {
             callback(null, instances);
         }
+    );
+};
+
+Receipt.totalsByMonth = function(callback) {
+   Receipt.rawRequest(
+        "monthTotal", 
+        {
+          descending: true,
+          group: true
+        },
+        callback
     );
 };
 

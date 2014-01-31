@@ -1,6 +1,6 @@
 {
   "name": "mesinfos-mesconsos",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "Une application permettant une première visualisation simple de données MesInfos (sur la personne, les tickets de caisses).",
   "repository": {
     "type": "git",
@@ -9,8 +9,9 @@
   "main": "server.js",
   "dependencies": {
     "jade": "0.35.0",
-    "americano": "0.2.11",
-    "americano-cozy": "0.1.9"
+    "americano": "0.3.0",
+    "americano-cozy": "0.2.1",
+    "async": "0.2.9"
   },
   "engines": [
     "node = 0.8.x"
@@ -21,13 +22,16 @@
   "cozy-displayName": "Mes Consos",
   "cozy-permissions": {
     "Person": {
-        "description": "Visualiser les informations relatives à votre personne."
+      "description": "Visualiser les informations relatives à votre personne."
     },
     "Receipt": {
-        "description": "Visualiser la liste de vos tickets de caisse."
+      "description": "Visualiser la liste de vos tickets de caisse."
     },
     "ReceiptDetail": {
-        "description": "Visualiser les lignes de vos tickets de caisse."
+      "description": "Visualiser les lignes de vos tickets de caisse."
+    },
+    "PhoneCommunicationLog": {
+      "description": "Visualiser le détail de vos appels, sms et utilisation des données mobile."
     }
   }
 }

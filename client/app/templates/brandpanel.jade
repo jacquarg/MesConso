@@ -1,5 +1,15 @@
 .consocontainer
     .consoheader
-        h3= title
+        h3
+            img#loader(src="img/ajax-loader.gif")
+            |&nbsp;
+            = title 
 
-    .consoinner#list
+    .consoinner
+      .row
+        .col-xs-6.period_button-selected#day Jour
+        .col-xs-6.period_button#month Mois        
+      #list
+
+        
+      .nodata Aucune donnée du ticket de caisse en provenance d'Intermarché. Vous ne possédez pas la carte de fidélité Intermarché.
