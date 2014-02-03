@@ -245,7 +245,7 @@ ReceiptDetail.getOneByBarCode = function(barcode, callback) {
 ReceiptDetail.withReceiptId = function(receiptId, callback) {
     ReceiptDetail.request(
         "byReceiptId", 
-        { key: receiptId },
+        { keys: [receiptId,  receiptId.slice(0, -1)] },
         function(err, instances) {
             callback(null, instances);
         }

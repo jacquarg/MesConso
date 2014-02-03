@@ -21,11 +21,10 @@ module.exports = Receipt = americano.getModel('receipt', {
     'snippet': String
 });
 
-Receipt.afterInitialize = function() {
-    this.receiptId = this.receiptId.slice(0, -1);
-    return this;
-
-};
+//Receipt.afterInitialize = function() {
+//    this.receiptId = this.receiptId.slice(0, -1);
+//    return this;
+//};
 
 Receipt.touch = function() {
     var cbGen = function(reqName) {
