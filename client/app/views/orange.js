@@ -2,7 +2,7 @@ var PCAbstractView = require('./pcabstract');
 
 module.exports = OrangeView = Backbone.View.extend({
 
-    el: '#content',
+    //el: '#content',
     template: require('../templates/orange'),
 
     // initialize is automatically called once after the view is constructed

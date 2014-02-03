@@ -30,28 +30,31 @@ module.exports = AppView = Backbone.View.extend({
 
         this.$el.find(brand).attr('class', 'brand-selected');
         this.$el.find(other_map[brand]).attr('class', 'brand');
-
+        this.$el.find('#content').empty();
+        if (this.view) {
+            this.view.remove();
+        }
     },
     getCourses: function() {
+        this.toggleSelection('#courses');
         var receipts = new ReceiptCollection();
-        intermarcheView = new IntermarcheView({
+        this.view = new IntermarcheView({
             collection: receipts
         });
 
-        intermarcheView.render()
-        this.$el.find('#content').append(intermarcheView.$el);
-        this.toggleSelection('#courses');
+        this.view.render()
+        this.$el.find('#content').append(this.view.$el);
     },
 
     getCRA: function() {
+        this.toggleSelection('#cra');
         var pcAbstracts = new PCAbstractCollection();
-        var orangeView = new OrangeView({
+        this.view = new OrangeView({
             collection: pcAbstracts
         });
 
-        orangeView.render()
-        this.$el.find('#content').append(orangeView.$el);
-        this.toggleSelection('#cra');
+        this.view.render()
+        this.$el.find('#content').append(this.view.$el);
 
     },
 
